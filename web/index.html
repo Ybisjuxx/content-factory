@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autonomous Video Factory (100% Local)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Impact&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #0b0f19; color: #f3f4f6; }
+    .neon-border { border-color: #38bdf8; box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
+  </style>
+</head>
+<body class="min-h-screen p-6 md:p-12">
+  <div class="max-w-6xl mx-auto space-y-8">
+    
+    <!-- Header -->
+    <header class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-gray-800 gap-4">
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 text-xs font-black tracking-widest text-sky-400 bg-sky-950/60 border border-sky-800 rounded-full">100% LOCAL &amp; SELF-HOSTED</span>
+          <span class="px-3 py-1 text-xs font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800 rounded-full flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> ZERO CLOUD APIS
+          </span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mt-2 text-white">Autonomous Video Factory</h1>
+        <p class="text-sm text-gray-400 mt-1">Ollama LLM Take Pruning • faster-whisper CTranslate2 • FFmpeg Jumpcut &amp; Kinetic ASS Subtitles</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button onclick="refreshDoctor()" class="px-4 py-2 text-sm font-semibold text-gray-300 bg-gray-800 hover:bg-gray-700 rounded-xl transition">
+          Diagnostics Doctor
+        </button>
+        <button onclick="reindexBroll()" class="px-4 py-2 text-sm font-semibold text-sky-400 bg-sky-950 hover:bg-sky-900 border border-sky-800 rounded-xl transition">
+          Index B-Roll Library
+        </button>
+      </div>
+    </header>
+
+    <!-- System Diagnostics Grid -->
+    <div id="doctor-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-gray-900/80 border border-gray-800 rounded-2xl p-4">
+        <p class="text-xs font-semibold uppercase text-gray-400">Ollama API (11434)</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span id="ollama-status" class="text-lg font-bold text-gray-300">Checking...</span>
+          <span id="ollama-model" class="text-xs text-gray-400 truncate max-w-[120px]">qwen2.5:7b</span>
+        </div>
+      </div>
+      <div class="bg-gray-900/80 border border-gray-800 rounded-2xl p-4">
+        <p class="text-xs font-semibold uppercase text-gray-400">Speech-To-Text</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-lg font-bold text-emerald-400">faster-whisper</span>
+          <span class="text-xs text-gray-400">CTranslate2 (int8)</span>
+        </div>
+      </div>
+      <div class="bg-gray-900/80 border border-gray-800 rounded-2xl p-4">
+        <p class="text-xs font-semibold uppercase text-gray-400">Rendering Engine</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span id="ffmpeg-status" class="text-lg font-bold text-gray-300">Checking...</span>
+          <span class="text-xs text-gray-400">20ms Crossfade</span>
+        </div>
+      </div>
+      <div class="bg-gray-900/80 border border-gray-800 rounded-2xl p-4">
+        <p class="text-xs font-semibold uppercase text-gray-400">n8n Webhooks</p>
+        <div class="mt-2 flex items-center justify-between">
+          <span class="text-lg font-bold text-indigo-400">Active</span>
+          <span class="text-xs text-gray-400">/api/v1/jobs</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Panels -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- New Video Form -->
+      <div class="bg-gray-900/90 border border-gray-800 rounded-3xl p-6 lg:p-8 space-y-6">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span>🎬</span> Launch Autonomous Production
+        </h2>
+
+        <form id="jobForm" onsubmit="submitJob(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-medium text-gray-400 mb-1">Local Input Video Path (*.mp4, *.mov)</label>
+            <input type="text" id="inputPath" required placeholder="C:/Videos/raw_recording.mp4" 
+              class="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl text-sm focus:outline-none focus:border-sky-500 text-white">
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-gray-400 mb-1">Output Video Path (Optional)</label>
+            <input type="text" id="outputPath" placeholder="Leave empty for auto in storage/outputs/" 
+              class="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl text-sm focus:outline-none focus:border-sky-500 text-white">
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-gray-400 mb-1">Local n8n Webhook URL (Optional)</label>
+            <input type="text" id="n8nWebhook" placeholder="http://localhost:5678/webhook/video-ready" 
+              class="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl text-sm focus:outline-none focus:border-sky-500 text-white">
+          </div>
+
+          <div class="space-y-2 pt-2">
+            <label class="flex items-center gap-3 text-sm text-gray-300">
+              <input type="checkbox" id="enableSubtitles" checked class="w-4 h-4 rounded text-sky-500 bg-gray-800 border-gray-700">
+              <span>Kinetic ASS Subtitles (Word Highlighting)</span>
+            </label>
+            <label class="flex items-center gap-3 text-sm text-gray-300">
+              <input type="checkbox" id="enableBroll" checked class="w-4 h-4 rounded text-sky-500 bg-gray-800 border-gray-700">
+              <span>Auto-Cut to 9:16 Stock B-Roll</span>
+            </label>
+            <label class="flex items-center gap-3 text-sm text-gray-300">
+              <input type="checkbox" id="enableSvg" checked class="w-4 h-4 rounded text-sky-500 bg-gray-800 border-gray-700">
+              <span>Procedural 9:16 SVG Vector Cards</span>
+            </label>
+            <label class="flex items-center gap-3 text-sm text-gray-300">
+              <input type="checkbox" id="enableDucking" checked class="w-4 h-4 rounded text-sky-500 bg-gray-800 border-gray-700">
+              <span>Ambient Audio Ducking (-22 dB)</span>
+            </label>
+          </div>
+
+          <button type="submit" class="w-full mt-4 py-3 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 font-bold text-white rounded-xl shadow-lg transition duration-200">
+            Render Autonomous Video
+          </button>
+        </form>
+      </div>
+
+      <!-- Jobs & Monitoring Feed -->
+      <div class="lg:col-span-2 bg-gray-900/90 border border-gray-800 rounded-3xl p-6 lg:p-8 space-y-6">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <span>⚡</span> Active Production Jobs
+          </h2>
+          <button onclick="loadJobs()" class="text-xs text-sky-400 hover:underline">Refresh</button>
+        </div>
+
+        <div id="jobsList" class="space-y-4">
+          <div class="text-center py-12 text-gray-500 text-sm">Loading jobs...</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    async function refreshDoctor() {
+      try {
+        const res = await fetch('/api/v1/system/status');
+        const data = await res.json();
+        
+        const oEl = document.getElementById('ollama-status');
+        if (data.ollama.available) {
+          oEl.innerText = 'Connected';
+          oEl.className = 'text-lg font-bold text-emerald-400';
+          document.getElementById('ollama-model').innerText = data.ollama.target_model;
+        } else {
+          oEl.innerText = 'Heuristic Mode';
+          oEl.className = 'text-lg font-bold text-amber-400';
+          document.getElementById('ollama-model').innerText = 'Fallback Active';
+        }
+
+        const fEl = document.getElementById('ffmpeg-status');
+        if (data.ffmpeg.available) {
+          fEl.innerText = 'Ready';
+          fEl.className = 'text-lg font-bold text-emerald-400';
+        } else {
+          fEl.innerText = 'Missing';
+          fEl.className = 'text-lg font-bold text-red-400';
+        }
+      } catch (e) {
+        console.error("Doctor error", e);
+      }
+    }
+
+    async function loadJobs() {
+      try {
+        const res = await fetch('/api/v1/jobs');
+        const jobs = await res.json();
+        const container = document.getElementById('jobsList');
+        
+        if (!jobs || jobs.length === 0) {
+          container.innerHTML = '<div class="text-center py-12 text-gray-500 text-sm">No production jobs registered yet. Submit your first raw video above!</div>';
+          return;
+        }
+
+        container.innerHTML = jobs.map(job => {
+          let statusColor = "text-sky-400 bg-sky-950 border-sky-800";
+          if (job.status === "completed") statusColor = "text-emerald-400 bg-emerald-950 border-emerald-800";
+          if (job.status === "failed") statusColor = "text-red-400 bg-red-950 border-red-800";
+
+          return `
+            <div class="p-5 bg-gray-800/60 border border-gray-750 rounded-2xl space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono text-gray-400 truncate max-w-xs">${job.id}</span>
+                <span class="px-2.5 py-0.5 text-xs font-bold uppercase rounded-full border ${statusColor}">${job.status}</span>
+              </div>
+              
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-300 font-medium truncate max-w-md">${job.current_step}</span>
+                <span class="font-bold text-white">${Math.round(job.progress)}%</span>
+              </div>
+
+              <!-- Progress bar -->
+              <div class="w-full bg-gray-700/60 rounded-full h-2 overflow-hidden">
+                <div class="bg-gradient-to-r from-sky-400 to-indigo-500 h-2 rounded-full transition-all duration-300" style="width: ${job.progress}%"></div>
+              </div>
+
+              ${job.output_path ? `
+                <div class="pt-2 flex items-center justify-between text-xs">
+                  <span class="text-gray-400 truncate max-w-sm">Output: ${job.output_path}</span>
+                  <a href="/api/v1/jobs/${job.id}/download" download class="px-3 py-1 bg-sky-600 hover:bg-sky-500 text-white rounded-lg font-semibold transition">
+                    Download Final Video
+                  </a>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join('');
+      } catch (e) {
+        console.error("Failed loading jobs", e);
+      }
+    }
+
+    async function submitJob(e) {
+      e.preventDefault();
+      const payload = {
+        input_video_path: document.getElementById('inputPath').value,
+        output_video_path: document.getElementById('outputPath').value || null,
+        n8n_webhook_url: document.getElementById('n8nWebhook').value || null,
+        enable_subtitles: document.getElementById('enableSubtitles').checked,
+        enable_broll: document.getElementById('enableBroll').checked,
+        enable_svg_cards: document.getElementById('enableSvg').checked,
+        enable_music_ducking: document.getElementById('enableDucking').checked,
+      };
+
+      try {
+        const res = await fetch('/api/v1/jobs', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          loadJobs();
+        } else {
+          const err = await res.json();
+          alert("Error: " + (err.detail || JSON.stringify(err)));
+        }
+      } catch (err) {
+        alert("Failed to submit job: " + err);
+      }
+    }
+
+    async function reindexBroll() {
+      try {
+        const res = await fetch('/api/v1/assets/broll/index', { method: 'POST' });
+        const data = await res.json();
+        alert(`Successfully indexed ${data.length} local stock assets!`);
+      } catch (e) {
+        alert("Indexing failed: " + e);
+      }
+    }
+
+    // Auto-refresh on startup and periodic polling
+    refreshDoctor();
+    loadJobs();
+    setInterval(loadJobs, 3000);
+  </script>
+</body>
+</html>
