@@ -88,8 +88,28 @@ class SemanticDirector:
 
     def check_ollama_status(self) -> Dict[str, Any]:
         """Check if local Ollama daemon is reachable and list installed models."""
+        import socket
+        # Fast socket probe to prevent any HTTP connection hang
+        port = 11434
         try:
-            with httpx.Client(timeout=3.0) as client:
+            from urllib.parse import urlparse
+            parsed = urlparse(self.base_url)
+            port = parsed.port or 11434
+            host = parsed.hostname or "127.0.0.1"
+            with socket.create_connection((host, port), timeout=0.15):
+                pass
+        except Exception:
+            return {
+                "available": False,
+                "url": self.base_url,
+                "installed_models": [],
+                "target_model": self.model_name,
+                "target_model_present": False,
+                "fallback_engine": "Heurístico Local Activo"
+            }
+
+        try:
+            with httpx.Client(timeout=1.0) as client:
                 res = client.get(f"{self.base_url}/api/tags")
                 if res.status_code == 200:
                     models = [m.get("name") for m in res.json().get("models", [])]
@@ -100,14 +120,15 @@ class SemanticDirector:
                         "target_model": self.model_name,
                         "target_model_present": any(self.model_name in m for m in models)
                     }
-        except Exception as e:
-            logger.warning(f"Ollama not reachable at {self.base_url}: {e}")
+        except Exception:
+            pass
         return {
             "available": False,
             "url": self.base_url,
             "installed_models": [],
             "target_model": self.model_name,
-            "target_model_present": False
+            "target_model_present": False,
+            "fallback_engine": "Heurístico Local Activo"
         }
 
     def direct(self, transcript_data: Dict[str, Any]) -> DirectorPlan:

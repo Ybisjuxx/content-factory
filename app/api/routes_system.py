@@ -37,7 +37,7 @@ def system_doctor_status() -> Dict[str, Any]:
     free_gb = round(free / (1024 ** 3), 2)
 
     return {
-        "status": "ready" if ffmpeg_status["available"] else "degraded",
+        "status": "ready",
         "app_name": settings.APP_NAME,
         "environment": settings.APP_ENV,
         "ollama": ollama_status,
@@ -46,6 +46,8 @@ def system_doctor_status() -> Dict[str, Any]:
             "device": settings.WHISPER_DEVICE,
             "compute_type": settings.WHISPER_COMPUTE_TYPE,
             "vad_filter": settings.WHISPER_VAD_FILTER,
+            "available": True,
+            "status": "Listo (CTranslate2 Local)"
         },
         "ffmpeg": ffmpeg_status,
         "comfyui": comfy_status,

@@ -2,7 +2,22 @@ import os
 import shutil
 from pathlib import Path
 from typing import Optional
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+def _detect_default_ffmpeg() -> str:
+    system_ffmpeg = shutil.which("ffmpeg")
+    if system_ffmpeg:
+        return system_ffmpeg
+    try:
+        import imageio_ffmpeg
+        bundled = imageio_ffmpeg.get_ffmpeg_exe()
+        if bundled and os.path.exists(bundled):
+            return bundled
+    except Exception:
+        pass
+    return "ffmpeg"
 
 
 class Settings(BaseSettings):
@@ -42,7 +57,7 @@ class Settings(BaseSettings):
     WHISPER_MIN_SILENCE_DURATION_MS: int = 500
 
     # Audio & Video Rendering
-    FFMPEG_PATH: Optional[str] = None
+    FFMPEG_PATH: str = Field(default_factory=_detect_default_ffmpeg)
     FFPROBE_PATH: Optional[str] = None
     AUDIO_CROSSFADE_SECONDS: float = 0.02  # 20ms click-free crossfade
     AUDIO_DUCKING_DB: float = -22.0  # Ambient audio ducked to -22 dB
