@@ -1,220 +1,732 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Autonomous Video Factory (100% Local)</title>
+  <title>Content Factory - Suite Unificada de Contenido</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Impact&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Impact&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #0b0f19; color: #f3f4f6; }
-    .neon-border { border-color: #38bdf8; box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
+    body { font-family: 'Inter', sans-serif; background-color: #080c14; color: #f1f5f9; }
+    .neon-border { border-color: #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.25); }
+    .glass-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(51, 65, 85, 0.5); }
+    .tab-active { background: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%); color: #ffffff; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.35); }
+    .tab-inactive { background: rgba(30, 41, 59, 0.5); color: #94a3b8; }
+    .tab-inactive:hover { background: rgba(51, 65, 85, 0.7); color: #ffffff; }
+    /* Timeline styling */
+    .timeline-track { background: repeating-linear-gradient(90deg, #1e293b, #1e293b 40px, #0f172a 40px, #0f172a 80px); }
   </style>
 </head>
-<body class="min-h-screen p-6 md:p-12">
-  <div class="max-w-6xl mx-auto space-y-8">
+<body class="min-h-screen p-4 md:p-8">
+  <div class="max-w-7xl mx-auto space-y-6">
     
-    <!-- Header -->
-    <header class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-gray-800 gap-4">
+    <!-- Top Global Header -->
+    <header class="flex flex-col lg:flex-row lg:items-center justify-between pb-6 border-b border-slate-800 gap-4">
       <div>
-        <div class="flex items-center gap-3">
-          <span class="px-3 py-1 text-xs font-black tracking-widest text-sky-400 bg-sky-950/60 border border-sky-800 rounded-full">100% LOCAL &amp; SELF-HOSTED</span>
-          <span class="px-3 py-1 text-xs font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800 rounded-full flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> ZERO CLOUD APIS
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-3 py-1 text-xs font-black tracking-widest text-sky-400 bg-sky-950/70 border border-sky-800/80 rounded-full">
+            CONTENT FACTORY SUITE
+          </span>
+          <span class="px-3 py-1 text-xs font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800/80 rounded-full flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> 100% LOCAL &amp; AUTÓNOMO
+          </span>
+          <span class="px-2.5 py-1 text-xs font-mono text-indigo-300 bg-indigo-950/60 border border-indigo-800/60 rounded-full">
+            n8n • Ollama • Whisper • OpenCut
           </span>
         </div>
-        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mt-2 text-white">Autonomous Video Factory</h1>
-        <p class="text-sm text-gray-400 mt-1">Ollama LLM Take Pruning • faster-whisper CTranslate2 • FFmpeg Jumpcut &amp; Kinetic ASS Subtitles</p>
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mt-2 text-white">
+          Suite de Creación &amp; Distribución de Contenido
+        </h1>
+        <p class="text-xs md:text-sm text-slate-400 mt-1">
+          Detección de tendencias virales, producción autónoma con IA local, edición interactiva y publicación automatizada.
+        </p>
       </div>
 
-      <div class="flex items-center gap-3">
-        <button onclick="refreshDoctor()" class="px-4 py-2 text-sm font-semibold text-gray-300 bg-gray-800 hover:bg-gray-700 rounded-xl transition">
-          Diagnostics Doctor
+      <!-- Quick Actions -->
+      <div class="flex items-center gap-2">
+        <button onclick="refreshDoctor()" class="px-4 py-2 text-xs font-bold text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-xl transition border border-slate-700">
+          🩺 Diagnóstico
         </button>
-        <button onclick="reindexBroll()" class="px-4 py-2 text-sm font-semibold text-sky-400 bg-sky-950 hover:bg-sky-900 border border-sky-800 rounded-xl transition">
-          Index B-Roll Library
+        <button onclick="reindexBroll()" class="px-4 py-2 text-xs font-bold text-sky-400 bg-sky-950 hover:bg-sky-900 border border-sky-800 rounded-xl transition">
+          📂 Indexar B-Roll
         </button>
       </div>
     </header>
 
-    <!-- System Diagnostics Grid -->
-    <div id="doctor-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="bg-gray-900/80 border border-gray-800 rounded-2xl p-4">
-        <p class="text-xs font-semibold uppercase text-gray-400">Ollama API (11434)</p>
-        <div class="mt-2 flex items-center justify-between">
-          <span id="ollama-status" class="text-lg font-bold text-gray-300">Checking...</span>
-          <span id="ollama-model" class="text-xs text-gray-400 truncate max-w-[120px]">qwen2.5:7b</span>
-        </div>
-      </div>
-      <div class="bg-gray-900/80 border border-gray-800 rounded-2xl p-4">
-        <p class="text-xs font-semibold uppercase text-gray-400">Speech-To-Text</p>
-        <div class="mt-2 flex items-center justify-between">
-          <span class="text-lg font-bold text-emerald-400">faster-whisper</span>
-          <span class="text-xs text-gray-400">CTranslate2 (int8)</span>
-        </div>
-      </div>
-      <div class="bg-gray-900/80 border border-gray-800 rounded-2xl p-4">
-        <p class="text-xs font-semibold uppercase text-gray-400">Rendering Engine</p>
-        <div class="mt-2 flex items-center justify-between">
-          <span id="ffmpeg-status" class="text-lg font-bold text-gray-300">Checking...</span>
-          <span class="text-xs text-gray-400">20ms Crossfade</span>
-        </div>
-      </div>
-      <div class="bg-gray-900/80 border border-gray-800 rounded-2xl p-4">
-        <p class="text-xs font-semibold uppercase text-gray-400">n8n Webhooks</p>
-        <div class="mt-2 flex items-center justify-between">
-          <span class="text-lg font-bold text-indigo-400">Active</span>
-          <span class="text-xs text-gray-400">/api/v1/jobs</span>
-        </div>
-      </div>
+    <!-- Navigation Tabs (Trends, Creación, Distribución) -->
+    <div class="flex items-center gap-2 p-1.5 bg-slate-900/90 border border-slate-800 rounded-2xl">
+      <button onclick="switchTab('trends')" id="tab-btn-trends" class="flex-1 py-3 px-4 rounded-xl font-bold text-sm transition flex items-center justify-center gap-2 tab-active">
+        <span>📈</span>
+        <span>Trends (TrendTracker AI)</span>
+      </button>
+      <button onclick="switchTab('creation')" id="tab-btn-creation" class="flex-1 py-3 px-4 rounded-xl font-bold text-sm transition flex items-center justify-center gap-2 tab-inactive">
+        <span>🎬</span>
+        <span>Creación (OpenCut &amp; Motor IA)</span>
+      </button>
+      <button onclick="switchTab('distribution')" id="tab-btn-distribution" class="flex-1 py-3 px-4 rounded-xl font-bold text-sm transition flex items-center justify-center gap-2 tab-inactive">
+        <span>🚀</span>
+        <span>Distribución (n8n &amp; Redes)</span>
+      </button>
     </div>
 
-    <!-- Main Content Panels -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- ========================================================================================= -->
+    <!-- TAB 1: TRENDS (TrendTracker AI) -->
+    <!-- ========================================================================================= -->
+    <div id="tab-content-trends" class="space-y-6">
       
-      <!-- New Video Form -->
-      <div class="bg-gray-900/90 border border-gray-800 rounded-3xl p-6 lg:p-8 space-y-6">
-        <h2 class="text-xl font-bold text-white flex items-center gap-2">
-          <span>🎬</span> Launch Autonomous Production
-        </h2>
+      <!-- Top Filters -->
+      <div class="glass-card rounded-3xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <span>🔥</span> Tendencias en Redes Sociales
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">Analiza temas con alto potencial viral en YouTube, TikTok, Instagram y X.</p>
+        </div>
 
-        <form id="jobForm" onsubmit="submitJob(event)" class="space-y-4">
+        <div class="flex flex-wrap items-center gap-3">
+          <select id="trendNicheFilter" onchange="loadTrends()" class="bg-slate-800 border border-slate-700 text-xs text-white rounded-xl px-3 py-2 focus:outline-none focus:border-sky-500">
+            <option value="todos">Todos los Nichos</option>
+            <option value="Tecnología & IA">Tecnología &amp; IA</option>
+            <option value="Productividad">Productividad &amp; Hacks</option>
+            <option value="Negocios & Finanzas">Negocios &amp; Finanzas</option>
+            <option value="Creadores de Contenido">Creadores de Contenido</option>
+          </select>
+
+          <select id="trendPlatformFilter" onchange="loadTrends()" class="bg-slate-800 border border-slate-700 text-xs text-white rounded-xl px-3 py-2 focus:outline-none focus:border-sky-500">
+            <option value="todas">Todas las Plataformas</option>
+            <option value="TikTok">TikTok</option>
+            <option value="YouTube Shorts">YouTube Shorts</option>
+            <option value="Instagram Reels">Instagram Reels</option>
+            <option value="Twitter / X">Twitter / X</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Trends Grid -->
+      <div id="trendsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="text-center py-12 text-slate-500 text-sm col-span-3">Cargando tendencias virales...</div>
+      </div>
+
+      <!-- AI Content Ideas Generator Panel -->
+      <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 border border-sky-900/40">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <label class="block text-xs font-medium text-gray-400 mb-1">Local Input Video Path (*.mp4, *.mov)</label>
-            <input type="text" id="inputPath" required placeholder="C:/Videos/raw_recording.mp4" 
-              class="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl text-sm focus:outline-none focus:border-sky-500 text-white">
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+              <span class="text-sky-400">💡</span> Generador de Ideas &amp; Ganchos Virales (Ollama Local)
+            </h3>
+            <p class="text-xs text-slate-400">Genera ganchos hipnóticos y esquemas de guion basados en cualquier nicho o tendencia.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="text" id="customIdeaTopic" placeholder="Tema personalizado (ej. 3 webs secretas)" 
+              class="px-4 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 w-64">
+            <button onclick="generateViralIdeas()" class="px-5 py-2 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-xs font-bold text-white rounded-xl transition shadow">
+              Generar Ideas
+            </button>
+          </div>
+        </div>
+
+        <div id="ideasList" class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <!-- Ideas generated here -->
+          <div class="p-6 bg-slate-900/60 border border-slate-800/80 rounded-2xl text-center col-span-3 text-slate-500 text-xs">
+            Haz clic en "Generar Ideas" o selecciona una tendencia de la lista superior para desglosar ganchos y guiones.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================================================================= -->
+    <!-- TAB 2: CREACIÓN (Content Factory + OpenCut Editor + MoneyPrinter) -->
+    <!-- ========================================================================================= -->
+    <div id="tab-content-creation" class="space-y-6 hidden">
+      
+      <!-- Creation Submode Switcher -->
+      <div class="flex items-center gap-2 p-1 bg-slate-900/80 border border-slate-800 rounded-xl w-fit">
+        <button onclick="switchCreationMode('autonomous')" id="subtab-btn-autonomous" class="px-4 py-2 rounded-lg text-xs font-bold transition bg-sky-600 text-white">
+          🎬 Producción Autónoma (Whisper + Ollama)
+        </button>
+        <button onclick="switchCreationMode('moneyprinter')" id="subtab-btn-moneyprinter" class="px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white">
+          🤖 MoneyPrinter (Shorts Faceless)
+        </button>
+        <button onclick="switchCreationMode('opencut')" id="subtab-btn-opencut" class="px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white">
+          ✂️ Editor Interactivo OpenCut
+        </button>
+      </div>
+
+      <!-- SUBMODE A: PRODUCCIÓN AUTÓNOMA LOCAL -->
+      <div id="creation-mode-autonomous" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Form -->
+        <div class="glass-card rounded-3xl p-6 lg:p-8 space-y-5">
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <span>⚡</span> Pipeline Autónomo
+          </h2>
+          <p class="text-xs text-slate-400">Poda tomas repetidas, sincroniza subtítulos cinéticos ASS y atenúa música de fondo.</p>
+
+          <form id="jobForm" onsubmit="submitJob(event)" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Ruta del Video Crudo Local (*.mp4, *.mov)</label>
+              <input type="text" id="inputPath" required placeholder="C:/Videos/grabacion_tomas.mp4" 
+                class="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs focus:outline-none focus:border-sky-500 text-white">
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Ruta de Salida (Opcional)</label>
+              <input type="text" id="outputPath" placeholder="Auto en storage/outputs/..." 
+                class="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs focus:outline-none focus:border-sky-500 text-white">
+            </div>
+
+            <div class="space-y-2 pt-1 border-t border-slate-800">
+              <label class="flex items-center gap-2.5 text-xs text-slate-300 cursor-pointer">
+                <input type="checkbox" id="enableSubtitles" checked class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
+                <span>Subtítulos Cinéticos ASS (Resaltado Amarillo)</span>
+              </label>
+              <label class="flex items-center gap-2.5 text-xs text-slate-300 cursor-pointer">
+                <input type="checkbox" id="enableBroll" checked class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
+                <span>Cortes Automáticos a B-Roll Vertical 9:16</span>
+              </label>
+              <label class="flex items-center gap-2.5 text-xs text-slate-300 cursor-pointer">
+                <input type="checkbox" id="enableSvg" checked class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
+                <span>Tarjetas Gráficas Procedurales SVG</span>
+              </label>
+              <label class="flex items-center gap-2.5 text-xs text-slate-300 cursor-pointer">
+                <input type="checkbox" id="enableDucking" checked class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
+                <span>Audio Ducking de Música Ambiental (-22 dB)</span>
+              </label>
+            </div>
+
+            <button type="submit" class="w-full py-3 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 font-bold text-xs uppercase tracking-wider text-white rounded-xl shadow-lg transition">
+              Renderizar Video con IA Local
+            </button>
+          </form>
+        </div>
+
+        <!-- Jobs Live Monitor -->
+        <div class="lg:col-span-2 glass-card rounded-3xl p-6 lg:p-8 space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              <span>📋</span> Monitor de Renderizado en Tiempo Real
+            </h2>
+            <button onclick="loadJobs()" class="text-xs text-sky-400 hover:underline">Actualizar</button>
+          </div>
+
+          <div id="jobsList" class="space-y-3">
+            <div class="text-center py-12 text-slate-500 text-xs">No hay trabajos encolados. Sube tu primer video para comenzar.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SUBMODE B: MONEYPRINTER SHORT GENERATOR -->
+      <div id="creation-mode-moneyprinter" class="glass-card rounded-3xl p-6 md:p-8 space-y-6 hidden">
+        <div class="max-w-2xl space-y-4">
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <span>🤖</span> Generador Automático de Shorts (Motor MoneyPrinter)
+          </h2>
+          <p class="text-xs text-slate-400">Crea videos verticales completos sin mostrar tu cara: genera el guion con Ollama, voz en off y fondo de B-Roll automáticamente.</p>
+
+          <div class="space-y-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Tema del Video Short</label>
+              <input type="text" id="moneyPrinterSubject" placeholder="Ej: 3 curiosidades históricas que parecen de película" 
+                class="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Voz / Idioma</label>
+                <select id="moneyPrinterVoice" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white">
+                  <option value="es_mx_male">Español (Latinoamérica - Masculino)</option>
+                  <option value="es_mx_female">Español (Latinoamérica - Femenino)</option>
+                  <option value="en_us_male">English (US - Male)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Música de Fondo</label>
+                <select id="moneyPrinterMusic" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white">
+                  <option value="ambient_synth">Ambient Synth / Lo-Fi Focus</option>
+                  <option value="cinematic_dark">Cinematic Tension</option>
+                </select>
+              </div>
+            </div>
+
+            <button onclick="generateMoneyPrinterShort()" class="w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 font-bold text-xs uppercase tracking-wider text-white rounded-xl shadow transition">
+              Generar Short Completo con MoneyPrinter
+            </button>
+          </div>
+        </div>
+
+        <div id="moneyPrinterResult" class="p-4 bg-slate-900/80 border border-slate-800 rounded-2xl hidden space-y-2">
+          <span class="text-xs font-bold text-emerald-400">✔ Short Encolado Exitosamente</span>
+          <pre id="moneyPrinterScriptPreview" class="text-xs text-slate-300 whitespace-pre-wrap font-sans bg-slate-950 p-3 rounded-xl"></pre>
+        </div>
+      </div>
+
+      <!-- SUBMODE C: OPENCUT INTERACTIVE EDITOR -->
+      <div id="creation-mode-opencut" class="glass-card rounded-3xl p-6 md:p-8 space-y-6 hidden">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+          <div>
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              <span>✂️</span> Estudio de Edición OpenCut
+            </h2>
+            <p class="text-xs text-slate-400">Edición visual en línea de tiempo, recorte fino de tomas y personalización de subtítulos.</p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="document.getElementById('editorVideoInput').click()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-white rounded-xl">
+              Cargar Video al Editor
+            </button>
+            <input type="file" id="editorVideoInput" accept="video/*" class="hidden" onchange="loadVideoToEditor(event)">
+            <button onclick="exportFromEditor()" class="px-4 py-1.5 bg-sky-600 hover:bg-sky-500 text-xs font-bold text-white rounded-xl shadow">
+              Exportar Video con FFmpeg
+            </button>
+          </div>
+        </div>
+
+        <!-- Canvas & Inspector Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Video Canvas Preview (9:16 container) -->
+          <div class="lg:col-span-2 flex flex-col items-center justify-center bg-slate-950 rounded-2xl p-4 border border-slate-800 min-h-[380px] relative">
+            <video id="editorPreviewVideo" controls class="max-h-[360px] aspect-[9/16] rounded-xl shadow-2xl bg-black object-contain"></video>
+            <div id="editorEmptyState" class="absolute inset-0 flex flex-col items-center justify-center text-slate-500 text-xs space-y-2">
+              <span class="text-3xl">🎥</span>
+              <span>Selecciona un video terminado o carga un archivo local para previsualizar</span>
+            </div>
+          </div>
+
+          <!-- Inspector & Subtitle Customizer -->
+          <div class="space-y-4 bg-slate-900/60 border border-slate-800 rounded-2xl p-5 text-xs">
+            <h3 class="font-bold text-sm text-white">Personalizador de Subtítulos Cinéticos</h3>
+            
+            <div>
+              <label class="block text-slate-400 mb-1">Color de Resaltado (Karaoke)</label>
+              <div class="flex items-center gap-2">
+                <input type="color" id="subHighlightColor" value="#ffff00" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
+                <span class="text-slate-300 font-mono">Amarillo Neón</span>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-slate-400 mb-1">Tamaño de Fuente (Impact/Montserrat)</label>
+              <input type="range" id="subFontSize" min="16" max="36" value="24" class="w-full">
+            </div>
+
+            <div>
+              <label class="block text-slate-400 mb-1">Margen Inferior (Zona Segura TikTok/Reels)</label>
+              <input type="range" id="subMarginV" min="200" max="600" value="420" class="w-full">
+            </div>
+
+            <div class="pt-3 border-t border-slate-800">
+              <h4 class="font-bold text-slate-300 mb-1">Audio Ducking (-22 dB)</h4>
+              <p class="text-[11px] text-slate-500">Atenuación automática sidechain activa con ataque de 20ms y desvanecimiento suave.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Interactive Timeline Tracks -->
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800 pb-2">
+            <div class="flex items-center gap-2">
+              <button class="px-2 py-1 bg-slate-800 rounded hover:bg-slate-700 text-white font-mono">✂ Dividir (S)</button>
+              <button class="px-2 py-1 bg-slate-800 rounded hover:bg-slate-700 text-white">🗑 Borrar</button>
+            </div>
+            <span class="font-mono text-sky-400">00:00:00 / 00:00:45</span>
+          </div>
+
+          <!-- Video Track -->
+          <div class="space-y-1">
+            <span class="text-[11px] font-bold text-slate-400">Pista 1: Video Principal (Jumpcuts con crossfade 20ms)</span>
+            <div class="h-10 rounded-xl bg-sky-950/70 border border-sky-800 flex items-center px-3 text-xs text-sky-300 font-mono">
+              [Toma 1: 0.0s - 4.5s] --- Crossfade 20ms --- [Toma 2: 4.5s - 12.8s]
+            </div>
+          </div>
+
+          <!-- Subtitle Track -->
+          <div class="space-y-1">
+            <span class="text-[11px] font-bold text-slate-400">Pista 2: Subtítulos Cinéticos (ASS con Karaoke)</span>
+            <div class="h-8 rounded-xl bg-amber-950/60 border border-amber-800/80 flex items-center px-3 text-xs text-amber-300 font-mono">
+              ★ PALABRA POR PALABRA RESALTADO (ZONA SEGURA V=420)
+            </div>
+          </div>
+
+          <!-- Audio Track -->
+          <div class="space-y-1">
+            <span class="text-[11px] font-bold text-slate-400">Pista 3: Música de Fondo (Ducking -22 dB)</span>
+            <div class="h-8 rounded-xl bg-emerald-950/60 border border-emerald-800/80 flex items-center px-3 text-xs text-emerald-300 font-mono">
+              ♫ ambient_synth_track.mp3 (Sidechain Compress Attenuation)
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ========================================================================================= -->
+    <!-- TAB 3: DISTRIBUCIÓN (n8n & Redes Sociales) -->
+    <!-- ========================================================================================= -->
+    <div id="tab-content-distribution" class="space-y-6 hidden">
+      
+      <!-- Channels Status Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="distributionChannelsList">
+        <div class="glass-card rounded-2xl p-5">
+          <p class="text-xs uppercase font-bold text-slate-400">Canal n8n Local</p>
+          <div class="mt-2 flex items-center justify-between">
+            <span class="text-lg font-bold text-indigo-400">Activo</span>
+            <span class="text-xs text-slate-400 font-mono">:5678</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Videos Ready For Publishing -->
+      <div class="glass-card rounded-3xl p-6 md:p-8 space-y-5">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              <span>🚀</span> Cola de Videos Listos para Publicar
+            </h2>
+            <p class="text-xs text-slate-400">Videos renderizados en tu almacenamiento local listos para despacho automático.</p>
+          </div>
+          <button onclick="loadDistributionQueue()" class="text-xs text-sky-400 hover:underline">Actualizar Cola</button>
+        </div>
+
+        <div id="readyVideosTable" class="space-y-3">
+          <div class="text-center py-8 text-slate-500 text-xs">Cargando videos listos...</div>
+        </div>
+      </div>
+
+      <!-- Publication Dispatch Modal / Box -->
+      <div class="glass-card rounded-3xl p-6 md:p-8 space-y-4 border border-indigo-900/40">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <span>📤</span> Despachador de Publicación
+        </h3>
+        
+        <form onsubmit="dispatchPublish(event)" class="space-y-4 max-w-2xl">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Ruta del Video a Publicar</label>
+            <input type="text" id="publishVideoPath" required placeholder="C:/Developer/content_factory/storage/outputs/final_video.mp4" 
+              class="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500">
           </div>
 
           <div>
-            <label class="block text-xs font-medium text-gray-400 mb-1">Output Video Path (Optional)</label>
-            <input type="text" id="outputPath" placeholder="Leave empty for auto in storage/outputs/" 
-              class="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl text-sm focus:outline-none focus:border-sky-500 text-white">
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Título / Caption Viral</label>
+            <input type="text" id="publishTitle" required placeholder="Título impactante con emojis y gancho" 
+              class="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500">
           </div>
 
           <div>
-            <label class="block text-xs font-medium text-gray-400 mb-1">Local n8n Webhook URL (Optional)</label>
-            <input type="text" id="n8nWebhook" placeholder="http://localhost:5678/webhook/video-ready" 
-              class="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-xl text-sm focus:outline-none focus:border-sky-500 text-white">
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Canales de Destino</label>
+            <div class="flex flex-wrap items-center gap-4 text-xs text-slate-300 pt-1">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" id="pubDestN8N" checked class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
+                <span>Webhook n8n (:5678)</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" id="pubDestYT" class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
+                <span>YouTube Shorts API</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" id="pubDestTikTok" class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
+                <span>TikTok (vía n8n)</span>
+              </label>
+            </div>
           </div>
 
-          <div class="space-y-2 pt-2">
-            <label class="flex items-center gap-3 text-sm text-gray-300">
-              <input type="checkbox" id="enableSubtitles" checked class="w-4 h-4 rounded text-sky-500 bg-gray-800 border-gray-700">
-              <span>Kinetic ASS Subtitles (Word Highlighting)</span>
-            </label>
-            <label class="flex items-center gap-3 text-sm text-gray-300">
-              <input type="checkbox" id="enableBroll" checked class="w-4 h-4 rounded text-sky-500 bg-gray-800 border-gray-700">
-              <span>Auto-Cut to 9:16 Stock B-Roll</span>
-            </label>
-            <label class="flex items-center gap-3 text-sm text-gray-300">
-              <input type="checkbox" id="enableSvg" checked class="w-4 h-4 rounded text-sky-500 bg-gray-800 border-gray-700">
-              <span>Procedural 9:16 SVG Vector Cards</span>
-            </label>
-            <label class="flex items-center gap-3 text-sm text-gray-300">
-              <input type="checkbox" id="enableDucking" checked class="w-4 h-4 rounded text-sky-500 bg-gray-800 border-gray-700">
-              <span>Ambient Audio Ducking (-22 dB)</span>
-            </label>
-          </div>
-
-          <button type="submit" class="w-full mt-4 py-3 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 font-bold text-white rounded-xl shadow-lg transition duration-200">
-            Render Autonomous Video
+          <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-400 hover:to-sky-400 text-xs font-bold text-white rounded-xl shadow transition">
+            Disparar Publicación Automatizada
           </button>
         </form>
-      </div>
 
-      <!-- Jobs & Monitoring Feed -->
-      <div class="lg:col-span-2 bg-gray-900/90 border border-gray-800 rounded-3xl p-6 lg:p-8 space-y-6">
-        <div class="flex items-center justify-between">
-          <h2 class="text-xl font-bold text-white flex items-center gap-2">
-            <span>⚡</span> Active Production Jobs
-          </h2>
-          <button onclick="loadJobs()" class="text-xs text-sky-400 hover:underline">Refresh</button>
-        </div>
-
-        <div id="jobsList" class="space-y-4">
-          <div class="text-center py-12 text-gray-500 text-sm">Loading jobs...</div>
-        </div>
+        <div id="publishStatusResult" class="hidden text-xs p-3 rounded-xl bg-slate-900 border border-slate-800 font-mono"></div>
       </div>
 
     </div>
+
   </div>
 
   <script>
-    async function refreshDoctor() {
-      try {
-        const res = await fetch('/api/v1/system/status');
-        const data = await res.json();
-        
-        const oEl = document.getElementById('ollama-status');
-        if (data.ollama.available) {
-          oEl.innerText = 'Connected';
-          oEl.className = 'text-lg font-bold text-emerald-400';
-          document.getElementById('ollama-model').innerText = data.ollama.target_model;
+    // Tab switching
+    function switchTab(tabId) {
+      const tabs = ['trends', 'creation', 'distribution'];
+      tabs.forEach(t => {
+        const content = document.getElementById(`tab-content-${t}`);
+        const btn = document.getElementById(`tab-btn-${t}`);
+        if (t === tabId) {
+          content.classList.remove('hidden');
+          btn.className = 'flex-1 py-3 px-4 rounded-xl font-bold text-sm transition flex items-center justify-center gap-2 tab-active';
         } else {
-          oEl.innerText = 'Heuristic Mode';
-          oEl.className = 'text-lg font-bold text-amber-400';
-          document.getElementById('ollama-model').innerText = 'Fallback Active';
+          content.classList.add('hidden');
+          btn.className = 'flex-1 py-3 px-4 rounded-xl font-bold text-sm transition flex items-center justify-center gap-2 tab-inactive';
+        }
+      });
+
+      if (tabId === 'trends') loadTrends();
+      if (tabId === 'creation') loadJobs();
+      if (tabId === 'distribution') loadDistributionQueue();
+    }
+
+    // Creation sub-mode switching
+    function switchCreationMode(mode) {
+      const modes = ['autonomous', 'moneyprinter', 'opencut'];
+      modes.forEach(m => {
+        const el = document.getElementById(`creation-mode-${m}`);
+        const btn = document.getElementById(`subtab-btn-${m}`);
+        if (m === mode) {
+          el.classList.remove('hidden');
+          btn.className = 'px-4 py-2 rounded-lg text-xs font-bold transition bg-sky-600 text-white';
+        } else {
+          el.classList.add('hidden');
+          btn.className = 'px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white';
+        }
+      });
+    }
+
+    // Load Trends
+    async function loadTrends() {
+      const niche = document.getElementById('trendNicheFilter').value;
+      const platform = document.getElementById('trendPlatformFilter').value;
+      const container = document.getElementById('trendsList');
+
+      try {
+        const res = await fetch(`/api/v1/trends/topics?niche=${encodeURIComponent(niche)}&platform=${encodeURIComponent(platform)}`);
+        const topics = await res.json();
+
+        if (!topics || topics.length === 0) {
+          container.innerHTML = '<div class="text-center py-12 text-slate-500 text-sm col-span-3">No hay tendencias para este filtro.</div>';
+          return;
         }
 
-        const fEl = document.getElementById('ffmpeg-status');
-        if (data.ffmpeg.available) {
-          fEl.innerText = 'Ready';
-          fEl.className = 'text-lg font-bold text-emerald-400';
-        } else {
-          fEl.innerText = 'Missing';
-          fEl.className = 'text-lg font-bold text-red-400';
-        }
+        container.innerHTML = topics.map(t => `
+          <div class="glass-card rounded-2xl p-5 space-y-3 border border-slate-800/80 hover:border-sky-800/80 transition">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 text-[11px] font-bold rounded-full bg-sky-950 text-sky-400 border border-sky-800">${t.platform}</span>
+              <span class="text-xs font-extrabold text-amber-400">🔥 ${t.heat_score} / 100</span>
+            </div>
+
+            <h3 class="font-bold text-sm text-white">${t.title}</h3>
+            
+            <div class="flex items-center justify-between text-xs text-slate-400">
+              <span>${t.niche}</span>
+              <span class="text-emerald-400 font-semibold">${t.growth}</span>
+            </div>
+
+            <div class="flex flex-wrap gap-1 pt-1">
+              ${t.tags.map(tag => `<span class="px-2 py-0.5 bg-slate-800 text-[10px] text-slate-300 rounded font-mono">#${tag}</span>`).join('')}
+            </div>
+
+            <button onclick="useTrendInCreation('${t.title.replace(/'/g, "\\'")}')" class="w-full mt-2 py-2 bg-slate-800 hover:bg-sky-600 hover:text-white text-sky-400 text-xs font-bold rounded-xl transition border border-slate-700">
+              ⚡ Usar en Creación ➔
+            </button>
+          </div>
+        `).join('');
       } catch (e) {
-        console.error("Doctor error", e);
+        console.error("Error loading trends:", e);
       }
     }
 
+    function useTrendInCreation(topicTitle) {
+      switchTab('creation');
+      switchCreationMode('moneyprinter');
+      document.getElementById('moneyPrinterSubject').value = topicTitle;
+    }
+
+    // AI Viral Ideas Generation
+    async function generateViralIdeas() {
+      const topic = document.getElementById('customIdeaTopic').value;
+      const niche = document.getElementById('trendNicheFilter').value;
+      const container = document.getElementById('ideasList');
+
+      container.innerHTML = '<div class="text-center py-6 text-sky-400 text-xs col-span-3">Consultando Ollama local para generar ganchos virales...</div>';
+
+      try {
+        const res = await fetch('/api/v1/trends/ideas', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ niche: niche === 'todos' ? 'Tecnología & IA' : niche, topic: topic || null })
+        });
+        const ideas = await res.json();
+
+        container.innerHTML = ideas.map(idea => `
+          <div class="p-5 bg-slate-900/80 border border-slate-800 rounded-2xl space-y-3">
+            <h4 class="font-bold text-sm text-white">${idea.title}</h4>
+            <div class="p-2.5 bg-amber-950/40 border border-amber-800/60 rounded-xl">
+              <span class="text-[10px] uppercase font-extrabold text-amber-400 block mb-0.5">Gancho Inicial (0-3s):</span>
+              <p class="text-xs text-amber-200 font-medium">"${idea.hook}"</p>
+            </div>
+            <p class="text-xs text-slate-400 whitespace-pre-line">${idea.summary}</p>
+            <div class="pt-2 flex items-center justify-between text-[11px] text-slate-500">
+              <span>⏱ ${idea.suggested_duration_seconds}s</span>
+              <button onclick="useTrendInCreation('${idea.title.replace(/'/g, "\\'")}')" class="text-sky-400 font-bold hover:underline">Crear Video ➔</button>
+            </div>
+          </div>
+        `).join('');
+      } catch (e) {
+        container.innerHTML = `<div class="text-center py-6 text-red-400 text-xs col-span-3">Error al generar ideas: ${e}</div>`;
+      }
+    }
+
+    // MoneyPrinter Short Generation
+    async function generateMoneyPrinterShort() {
+      const subject = document.getElementById('moneyPrinterSubject').value;
+      if (!subject) return alert("Por favor ingresa un tema.");
+
+      try {
+        const res = await fetch('/api/v1/generator/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ subject })
+        });
+        const data = await res.json();
+        const box = document.getElementById('moneyPrinterResult');
+        box.classList.remove('hidden');
+        document.getElementById('moneyPrinterScriptPreview').innerText = data.script || data.message;
+      } catch (e) {
+        alert("Error generando short: " + e);
+      }
+    }
+
+    // Editor video loading
+    function loadVideoToEditor(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const url = URL.createObjectURL(file);
+        const vid = document.getElementById('editorPreviewVideo');
+        vid.src = url;
+        document.getElementById('editorEmptyState').classList.add('hidden');
+      }
+    }
+
+    function exportFromEditor() {
+      alert("Comando de exportación FFmpeg preparado con subtítulos y audio ducking activo.");
+    }
+
+    // Load Distribution Queue
+    async function loadDistributionQueue() {
+      try {
+        const res = await fetch('/api/v1/distribution/queue');
+        const data = await res.json();
+        const container = document.getElementById('readyVideosTable');
+
+        if (!data.ready_videos || data.ready_videos.length === 0) {
+          container.innerHTML = '<div class="text-center py-8 text-slate-500 text-xs">Aún no hay videos en storage/outputs/. Renderiza uno en la pestaña Creación.</div>';
+          return;
+        }
+
+        container.innerHTML = data.ready_videos.map(v => `
+          <div class="p-4 bg-slate-900/60 border border-slate-800 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
+            <div>
+              <span class="font-bold text-white block">${v.filename}</span>
+              <span class="text-slate-400 text-[11px]">${v.size_mb} MB • ${v.created_at}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="prepareDistribution('${v.path.replace(/\\/g, "/")}', '${v.filename}')" class="px-3 py-1.5 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl transition">
+                Seleccionar para Despacho
+              </button>
+              <a href="/storage/outputs/${v.filename}" download class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl transition">
+                Descargar
+              </a>
+            </div>
+          </div>
+        `).join('');
+
+        // Channels
+        const cRes = await fetch('/api/v1/distribution/channels');
+        const channels = await cRes.json();
+        const chContainer = document.getElementById('distributionChannelsList');
+        chContainer.innerHTML = channels.map(c => `
+          <div class="glass-card rounded-2xl p-5 space-y-1">
+            <p class="text-xs uppercase font-bold text-slate-400">${c.platform}</p>
+            <div class="flex items-center justify-between mt-1">
+              <span class="text-sm font-bold ${c.connected ? 'text-emerald-400' : 'text-amber-400'}">
+                ${c.connected ? '● Conectado' : '○ Requiere Configuración'}
+              </span>
+              <span class="text-xs text-slate-400">${c.account_name || ''}</span>
+            </div>
+            <p class="text-[11px] text-slate-500 pt-1">${c.details}</p>
+          </div>
+        `).join('');
+      } catch (e) {
+        console.error("Distribution error:", e);
+      }
+    }
+
+    function prepareDistribution(path, filename) {
+      document.getElementById('publishVideoPath').value = path;
+      document.getElementById('publishTitle').value = filename.replace(/\.[^/.]+$/, "").replace(/_/g, " ");
+    }
+
+    async function dispatchPublish(e) {
+      e.preventDefault();
+      const payload = {
+        video_path: document.getElementById('publishVideoPath').value,
+        title: document.getElementById('publishTitle').value,
+        platforms: []
+      };
+      if (document.getElementById('pubDestN8N').checked) payload.platforms.push('n8n');
+      if (document.getElementById('pubDestYT').checked) payload.platforms.push('youtube');
+      if (document.getElementById('pubDestTikTok').checked) payload.platforms.push('tiktok');
+
+      try {
+        const res = await fetch('/api/v1/distribution/publish', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        const box = document.getElementById('publishStatusResult');
+        box.classList.remove('hidden');
+        box.innerText = JSON.stringify(data, null, 2);
+        loadDistributionQueue();
+      } catch (err) {
+        alert("Error en publicación: " + err);
+      }
+    }
+
+    // Existing core jobs loading
     async function loadJobs() {
       try {
         const res = await fetch('/api/v1/jobs');
         const jobs = await res.json();
         const container = document.getElementById('jobsList');
-        
         if (!jobs || jobs.length === 0) {
-          container.innerHTML = '<div class="text-center py-12 text-gray-500 text-sm">No production jobs registered yet. Submit your first raw video above!</div>';
+          container.innerHTML = '<div class="text-center py-12 text-slate-500 text-xs">No hay trabajos registrados todavía.</div>';
           return;
         }
-
         container.innerHTML = jobs.map(job => {
           let statusColor = "text-sky-400 bg-sky-950 border-sky-800";
           if (job.status === "completed") statusColor = "text-emerald-400 bg-emerald-950 border-emerald-800";
           if (job.status === "failed") statusColor = "text-red-400 bg-red-950 border-red-800";
 
           return `
-            <div class="p-5 bg-gray-800/60 border border-gray-750 rounded-2xl space-y-3">
+            <div class="p-4 bg-slate-900/70 border border-slate-800 rounded-2xl space-y-2">
               <div class="flex items-center justify-between">
-                <span class="text-xs font-mono text-gray-400 truncate max-w-xs">${job.id}</span>
+                <span class="text-xs font-mono text-slate-400 truncate max-w-xs">${job.id}</span>
                 <span class="px-2.5 py-0.5 text-xs font-bold uppercase rounded-full border ${statusColor}">${job.status}</span>
               </div>
-              
-              <div class="flex items-center justify-between text-sm">
-                <span class="text-gray-300 font-medium truncate max-w-md">${job.current_step}</span>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-300 font-medium truncate max-w-md">${job.current_step}</span>
                 <span class="font-bold text-white">${Math.round(job.progress)}%</span>
               </div>
-
-              <!-- Progress bar -->
-              <div class="w-full bg-gray-700/60 rounded-full h-2 overflow-hidden">
-                <div class="bg-gradient-to-r from-sky-400 to-indigo-500 h-2 rounded-full transition-all duration-300" style="width: ${job.progress}%"></div>
+              <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                <div class="bg-gradient-to-r from-sky-400 to-indigo-500 h-1.5 rounded-full" style="width: ${job.progress}%"></div>
               </div>
-
               ${job.output_path ? `
                 <div class="pt-2 flex items-center justify-between text-xs">
-                  <span class="text-gray-400 truncate max-w-sm">Output: ${job.output_path}</span>
-                  <a href="/api/v1/jobs/${job.id}/download" download class="px-3 py-1 bg-sky-600 hover:bg-sky-500 text-white rounded-lg font-semibold transition">
-                    Download Final Video
-                  </a>
+                  <span class="text-slate-400 truncate max-w-sm">${job.output_path}</span>
+                  <div class="flex items-center gap-2">
+                    <a href="/api/v1/jobs/${job.id}/download" download class="px-3 py-1 bg-sky-600 hover:bg-sky-500 text-white rounded-lg font-semibold transition">
+                      Descargar MP4
+                    </a>
+                  </div>
                 </div>
               ` : ''}
             </div>
           `;
         }).join('');
       } catch (e) {
-        console.error("Failed loading jobs", e);
+        console.error(e);
       }
     }
 
@@ -223,7 +735,6 @@
       const payload = {
         input_video_path: document.getElementById('inputPath').value,
         output_video_path: document.getElementById('outputPath').value || null,
-        n8n_webhook_url: document.getElementById('n8nWebhook').value || null,
         enable_subtitles: document.getElementById('enableSubtitles').checked,
         enable_broll: document.getElementById('enableBroll').checked,
         enable_svg_cards: document.getElementById('enableSvg').checked,
@@ -243,7 +754,7 @@
           alert("Error: " + (err.detail || JSON.stringify(err)));
         }
       } catch (err) {
-        alert("Failed to submit job: " + err);
+        alert("Fallo al enviar: " + err);
       }
     }
 
@@ -251,16 +762,24 @@
       try {
         const res = await fetch('/api/v1/assets/broll/index', { method: 'POST' });
         const data = await res.json();
-        alert(`Successfully indexed ${data.length} local stock assets!`);
+        alert(`¡Indexados ${data.length} assets de B-roll en tu biblioteca local!`);
       } catch (e) {
-        alert("Indexing failed: " + e);
+        alert("Error indexando: " + e);
       }
     }
 
-    // Auto-refresh on startup and periodic polling
-    refreshDoctor();
-    loadJobs();
-    setInterval(loadJobs, 3000);
+    async function refreshDoctor() {
+      try {
+        const res = await fetch('/api/v1/system/status');
+        const data = await res.json();
+        alert(`Diagnóstico:\n- Ollama: ${data.ollama.available ? 'En línea' : 'Modo Heurístico (Offline)'}\n- faster-whisper: ${data.faster_whisper.model_size}\n- FFmpeg: ${data.ffmpeg.available ? 'Listo' : 'Falta binario'}\n- Espacio libre: ${data.storage.free_space_gb} GB`);
+      } catch (e) {
+        alert("Error en diagnóstico: " + e);
+      }
+    }
+
+    // Startup
+    loadTrends();
   </script>
 </body>
 </html>

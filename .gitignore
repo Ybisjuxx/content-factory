@@ -34,6 +34,7 @@ storage/cache/
 storage/outputs/
 storage/*.db
 storage/*.db-journal
+storage/*.log
 
 # Whisper model weight downloads (avoid committing heavy weights to git)
 storage/cache/whisper_models/
