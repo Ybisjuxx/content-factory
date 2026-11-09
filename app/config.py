@@ -40,6 +40,7 @@ class Settings(BaseSettings):
     AUDIO_DIR: Path = Path(__file__).resolve().parent.parent / "storage" / "audio_library"
     CACHE_DIR: Path = Path(__file__).resolve().parent.parent / "storage" / "cache"
     OUTPUTS_DIR: Path = Path(__file__).resolve().parent.parent / "storage" / "outputs"
+    UPLOADS_DIR: Path = Path(__file__).resolve().parent.parent / "storage" / "uploads"
     DATABASE_PATH: Path = Path(__file__).resolve().parent.parent / "storage" / "content_factory.db"
     DATABASE_URL: Optional[str] = None
 
@@ -85,7 +86,7 @@ class Settings(BaseSettings):
 
     def ensure_directories(self) -> None:
         """Create storage directories if they do not exist."""
-        for path in [self.STORAGE_DIR, self.BROLL_DIR, self.AUDIO_DIR, self.CACHE_DIR, self.OUTPUTS_DIR]:
+        for path in [self.STORAGE_DIR, self.BROLL_DIR, self.AUDIO_DIR, self.CACHE_DIR, self.OUTPUTS_DIR, self.UPLOADS_DIR]:
             path.mkdir(parents=True, exist_ok=True)
 
     def resolve_ffmpeg_path(self) -> str:

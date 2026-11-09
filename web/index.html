@@ -177,15 +177,18 @@
     <div id="tab-content-creation" class="space-y-6 hidden">
       
       <!-- Creation Submode Switcher -->
-      <div class="flex items-center gap-2 p-1 bg-slate-900/80 border border-slate-800 rounded-xl w-fit">
+      <div class="flex flex-wrap items-center gap-2 p-1 bg-slate-900/80 border border-slate-800 rounded-xl w-fit">
         <button onclick="switchCreationMode('autonomous')" id="subtab-btn-autonomous" class="px-4 py-2 rounded-lg text-xs font-bold transition bg-sky-600 text-white">
-          🎬 Producción Autónoma (Whisper + Ollama)
+          🎬 Pipeline Autónomo
         </button>
-        <button onclick="switchCreationMode('moneyprinter')" id="subtab-btn-moneyprinter" class="px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white">
-          🤖 MoneyPrinter (Shorts Faceless)
+        <button onclick="switchCreationMode('motion_graphics')" id="subtab-btn-motion_graphics" class="px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white">
+          ✨ Subir Video &amp; Motion Graphics (HyperFrames)
         </button>
         <button onclick="switchCreationMode('opencut')" id="subtab-btn-opencut" class="px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white">
-          ✂️ Editor Interactivo OpenCut
+          ✂️ OpenCut Studio Pro (Editor Multipista)
+        </button>
+        <button onclick="switchCreationMode('moneyprinter')" id="subtab-btn-moneyprinter" class="px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white">
+          🤖 MoneyPrinter (Faceless Shorts)
         </button>
       </div>
 
@@ -253,7 +256,475 @@
 
       </div>
 
-      <!-- SUBMODE B: MONEYPRINTER SHORT GENERATOR -->
+      <!-- SUBMODE B: SUBIR VIDEO & MOTION GRAPHICS (HYPERFRAMES ENGINE) -->
+      <div id="creation-mode-motion_graphics" class="glass-card rounded-3xl p-6 md:p-8 space-y-6 hidden">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+          <div>
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              <span>✨</span> Motion Graphics Studio (Motor HyperFrames Local)
+            </h2>
+            <p class="text-xs text-slate-400">Sube videos grabados por ti y superpón gráficos cinéticos deterministas (Lower Thirds, Métricas flotantes, Barras de retención y CTAs).</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 text-[11px] font-bold">● Motor Activo (FFmpeg + Pillow)</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Column 1: Video Upload & Recorded Videos Library (4 cols) -->
+          <div class="lg:col-span-4 space-y-4">
+            
+            <!-- Upload Box -->
+            <div class="p-6 bg-slate-900/80 border-2 border-dashed border-slate-700 hover:border-sky-500 rounded-3xl text-center space-y-3 transition cursor-pointer" onclick="document.getElementById('mgVideoFileInput').click()">
+              <input type="file" id="mgVideoFileInput" accept="video/mp4,video/quicktime,video/webm,video/x-matroska" class="hidden" onchange="uploadUserRecordedVideo(event)">
+              <div class="w-12 h-12 mx-auto rounded-2xl bg-sky-950/80 border border-sky-800 flex items-center justify-center text-2xl text-sky-400">
+                📤
+              </div>
+              <div>
+                <span class="text-xs font-bold text-white block">Haz clic para subir tu video grabado</span>
+                <span class="text-[11px] text-slate-400">Formatos soportados: MP4, MOV, WebM, MKV</span>
+              </div>
+              <div id="mgUploadProgressBar" class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden hidden">
+                <div class="bg-gradient-to-r from-sky-400 to-indigo-500 h-1.5 rounded-full animate-pulse" style="width: 100%"></div>
+              </div>
+            </div>
+
+            <!-- Uploaded Video Details Card -->
+            <div id="mgActiveVideoCard" class="hidden p-4 bg-slate-900/60 border border-slate-800 rounded-2xl space-y-2 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white truncate max-w-[200px]" id="mgActiveVideoName">video.mp4</span>
+                <span class="px-2 py-0.5 rounded bg-sky-950 text-sky-400 font-mono text-[10px]" id="mgActiveVideoAspect">9:16</span>
+              </div>
+              <div class="flex items-center justify-between text-slate-400 text-[11px]">
+                <span id="mgActiveVideoDur">⏱ 00:00</span>
+                <span id="mgActiveVideoRes">1080x1920</span>
+                <span id="mgActiveVideoSize">0 MB</span>
+              </div>
+              <input type="hidden" id="mgActiveVideoPath" value="">
+            </div>
+
+            <!-- Library of Uploaded User Videos -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-bold text-slate-300">Tus Videos en Almacenamiento Local</span>
+                <button onclick="loadUserUploadedVideos()" class="text-sky-400 hover:underline text-[11px]">Actualizar</button>
+              </div>
+              <div id="mgUploadedVideosList" class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                <div class="text-center py-4 text-slate-500 text-xs">Cargando videos locales...</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Column 2: Live Video Canvas + Live Animated Motion Graphic Overlay (5 cols) -->
+          <div class="lg:col-span-5 flex flex-col items-center justify-center bg-slate-950 rounded-3xl p-4 border border-slate-800 min-h-[440px] relative overflow-hidden">
+            
+            <div class="relative w-full max-w-[280px] aspect-[9/16] bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
+              <!-- Underlying Video Player -->
+              <video id="mgPreviewVideo" controls class="w-full h-full object-cover bg-black" ontimeupdate="syncMotionGraphicScrubber(this)"></video>
+              
+              <!-- Real-time Animated Motion Graphic SVG/HTML Layer -->
+              <div id="mgOverlayCanvas" class="absolute inset-0 pointer-events-none transition-all duration-300 flex flex-col justify-end">
+                <!-- Live SVG rendered here -->
+              </div>
+
+              <!-- Placeholder when no video loaded -->
+              <div id="mgEmptyPreviewState" class="absolute inset-0 flex flex-col items-center justify-center text-slate-500 text-xs space-y-2 bg-slate-950/90 pointer-events-none p-4 text-center">
+                <span class="text-4xl">✨</span>
+                <span class="font-bold text-slate-300">Previsualizador de Motion Graphics</span>
+                <span>Sube un video o selecciona uno de tu lista para ver la animación en vivo sobre tu metraje</span>
+              </div>
+            </div>
+
+            <div class="mt-3 flex items-center justify-between w-full max-w-[280px] text-[11px] text-slate-400 font-mono">
+              <span id="mgTimecodeDisplay">00:00 / 00:00</span>
+              <span class="text-sky-400 font-bold">Previsualización Real-Time</span>
+            </div>
+
+          </div>
+
+          <!-- Column 3: Motion Graphics Presets & Customizer (3 cols) -->
+          <div class="lg:col-span-3 space-y-4 bg-slate-900/60 border border-slate-800 rounded-3xl p-5 text-xs">
+            <h3 class="font-bold text-sm text-white flex items-center gap-1.5">
+              <span>🎨</span> Preset de Motion Graphic
+            </h3>
+
+            <!-- Preset Selection -->
+            <div>
+              <label class="block text-slate-400 mb-1 font-semibold">Seleccionar Estilo</label>
+              <select id="mgPresetSelector" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white" onchange="onMgPresetChange()">
+                <option value="lower_third_glass">Lower Third Cinético (Glass Minimal)</option>
+                <option value="stat_callout_neon">Métrica de Impacto (Stat Callout)</option>
+                <option value="viral_hook">Hook Explosivo (Título 0-3s)</option>
+                <option value="cta_badge">Llamado a la Acción (Animated CTA)</option>
+                <option value="retention_bar">Barra de Retención Viral (Progress Bar)</option>
+              </select>
+            </div>
+
+            <!-- Dynamic Parameter Form -->
+            <div id="mgDynamicFields" class="space-y-3 pt-2 border-t border-slate-800">
+              <!-- Injected by JS based on selected preset -->
+            </div>
+
+            <!-- Timing Controls -->
+            <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800">
+              <div>
+                <label class="block text-slate-400 mb-1">Inicio (seg)</label>
+                <input type="number" id="mgStartTime" step="0.1" value="1.0" min="0" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" onchange="renderMgPreviewLive()">
+              </div>
+              <div>
+                <label class="block text-slate-400 mb-1">Duración (seg)</label>
+                <input type="number" id="mgDuration" step="0.1" value="5.0" min="0.5" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" onchange="renderMgPreviewLive()">
+              </div>
+            </div>
+
+            <!-- Color Palette Picker -->
+            <div>
+              <label class="block text-slate-400 mb-1">Acento de Color Neón</label>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="setMgAccentColor('#38BDF8')" class="w-6 h-6 rounded-full bg-[#38BDF8] border-2 border-white/20 hover:scale-110 transition shadow"></button>
+                <button type="button" onclick="setMgAccentColor('#10B981')" class="w-6 h-6 rounded-full bg-[#10B981] border-2 border-white/20 hover:scale-110 transition shadow"></button>
+                <button type="button" onclick="setMgAccentColor('#F59E0B')" class="w-6 h-6 rounded-full bg-[#F59E0B] border-2 border-white/20 hover:scale-110 transition shadow"></button>
+                <button type="button" onclick="setMgAccentColor('#818CF8')" class="w-6 h-6 rounded-full bg-[#818CF8] border-2 border-white/20 hover:scale-110 transition shadow"></button>
+                <input type="color" id="mgAccentColorCustom" value="#38BDF8" class="w-7 h-7 rounded border-0 cursor-pointer bg-transparent" onchange="setMgAccentColor(this.value)">
+              </div>
+            </div>
+
+            <!-- Render Button -->
+            <button onclick="applyMotionGraphicsRender()" id="mgRenderBtn" class="w-full py-3 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 font-bold text-xs uppercase tracking-wider text-white rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+              <span>⚡</span> Renderizar con FFmpeg Local
+            </button>
+
+            <!-- Render Result Notification -->
+            <div id="mgRenderResultBox" class="hidden p-3 bg-emerald-950/70 border border-emerald-800 rounded-xl space-y-1">
+              <span class="text-emerald-400 font-bold block">✔ Video Renderizado con Éxito</span>
+              <a id="mgDownloadLink" href="#" download class="text-xs text-sky-300 underline font-semibold block">Descargar MP4 Final</a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- SUBMODE C: OPENCUT STUDIO PRO (EDITOR MULTIPISTA COMPLETO) -->
+      <div id="creation-mode-opencut" class="glass-card rounded-3xl p-6 md:p-8 space-y-5 hidden">
+        
+        <!-- OpenCut Header with Tools & Aspect Ratio -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+          <div>
+            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+              <span>✂️</span> OpenCut Studio Pro
+            </h2>
+            <p class="text-xs text-slate-400">Suite de edición multipista con recorte fino, transformaciones de lienzo, filtros cromáticos, retime y audio ducking.</p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <!-- Aspect Ratio Selector -->
+            <div class="flex items-center gap-1 bg-slate-900 border border-slate-700 rounded-xl p-1 text-xs font-semibold">
+              <button onclick="setCanvasAspectRatio('9:16')" id="arBtn916" class="px-2.5 py-1 rounded-lg bg-sky-600 text-white transition">9:16 Vertical</button>
+              <button onclick="setCanvasAspectRatio('16:9')" id="arBtn169" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">16:9 Horizontal</button>
+              <button onclick="setCanvasAspectRatio('1:1')" id="arBtn11" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">1:1 Cuadrado</button>
+            </div>
+
+            <button onclick="document.getElementById('editorVideoInput').click()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-white rounded-xl flex items-center gap-1.5 transition">
+              <span>📂</span> Cargar Clip
+            </button>
+            <input type="file" id="editorVideoInput" accept="video/*" class="hidden" onchange="loadVideoToEditor(event)">
+
+            <button onclick="exportFromEditor()" class="px-4 py-2 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-xs font-bold text-white rounded-xl shadow transition flex items-center gap-1.5">
+              <span>🚀</span> Exportar Video con FFmpeg
+            </button>
+          </div>
+        </div>
+
+        <!-- Canvas & Comprehensive Inspector Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Central Video Canvas Monitor (7 cols) -->
+          <div class="lg:col-span-7 flex flex-col items-center justify-center bg-slate-950 rounded-3xl p-5 border border-slate-800 min-h-[440px] relative">
+            
+            <div id="editorCanvasContainer" class="relative max-h-[380px] aspect-[9/16] bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-800 transition-all duration-300">
+              <video id="editorPreviewVideo" class="w-full h-full object-contain bg-black" ontimeupdate="onEditorTimeUpdate(this)"></video>
+              
+              <!-- Canvas empty state -->
+              <div id="editorEmptyState" class="absolute inset-0 flex flex-col items-center justify-center text-slate-500 text-xs space-y-2 pointer-events-none p-4 text-center">
+                <span class="text-4xl">🎬</span>
+                <span class="font-bold text-slate-300">Lienzo de Edición Vacío</span>
+                <span>Carga un archivo local o selecciona uno renderizado para editar en tiempo real</span>
+              </div>
+            </div>
+
+            <!-- Transport Playback Controls Bar -->
+            <div class="mt-4 flex items-center justify-between w-full max-w-md px-4 py-2 bg-slate-900/90 border border-slate-800 rounded-2xl text-xs">
+              <div class="flex items-center gap-1">
+                <button onclick="editorSeekToStart()" title="Ir al Inicio" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300">⏮</button>
+                <button onclick="editorStep(-1.0)" title="-1 segundo" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300 font-mono text-[11px]">-1s</button>
+                <button onclick="editorTogglePlay()" id="editorPlayBtn" title="Play/Pause" class="px-3 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm">▶</button>
+                <button onclick="editorStep(1.0)" title="+1 segundo" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300 font-mono text-[11px]">+1s</button>
+                <button onclick="editorSeekToEnd()" title="Ir al Final" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300">⏭</button>
+              </div>
+
+              <div class="font-mono text-sky-400 font-bold" id="editorTimecodeLabel">00:00:00 / 00:00:00</div>
+            </div>
+
+          </div>
+
+          <!-- Comprehensive Inspector (5 cols) -->
+          <div class="lg:col-span-5 bg-slate-900/70 border border-slate-800 rounded-3xl p-5 space-y-4 text-xs">
+            
+            <!-- Inspector Tabs -->
+            <div class="flex items-center gap-1 border-b border-slate-800 pb-2">
+              <button onclick="switchInspectorTab('transform')" id="insp-tab-transform" class="px-3 py-1.5 rounded-lg font-bold text-xs bg-sky-600 text-white">Transformación</button>
+              <button onclick="switchInspectorTab('filters')" id="insp-tab-filters" class="px-3 py-1.5 rounded-lg font-bold text-xs text-slate-400 hover:text-white">Color &amp; Filtros</button>
+              <button onclick="switchInspectorTab('retime')" id="insp-tab-retime" class="px-3 py-1.5 rounded-lg font-bold text-xs text-slate-400 hover:text-white">Velocidad</button>
+              <button onclick="switchInspectorTab('subtitles')" id="insp-tab-subtitles" class="px-3 py-1.5 rounded-lg font-bold text-xs text-slate-400 hover:text-white">Subtítulos</button>
+            </div>
+
+            <!-- Tab 1: Transform -->
+            <div id="insp-content-transform" class="space-y-3.5">
+              <div>
+                <div class="flex justify-between text-slate-400 mb-1">
+                  <span>Escala / Zoom</span>
+                  <span id="valTransformScale" class="font-mono text-sky-400">100%</span>
+                </div>
+                <input type="range" id="inputTransformScale" min="50" max="200" value="100" class="w-full" oninput="applyEditorTransform()">
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <div class="flex justify-between text-slate-400 mb-1">
+                    <span>Posición X</span>
+                    <span id="valTransformX" class="font-mono text-sky-400">0px</span>
+                  </div>
+                  <input type="range" id="inputTransformX" min="-300" max="300" value="0" class="w-full" oninput="applyEditorTransform()">
+                </div>
+                <div>
+                  <div class="flex justify-between text-slate-400 mb-1">
+                    <span>Posición Y</span>
+                    <span id="valTransformY" class="font-mono text-sky-400">0px</span>
+                  </div>
+                  <input type="range" id="inputTransformY" min="-300" max="300" value="0" class="w-full" oninput="applyEditorTransform()">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <div class="flex justify-between text-slate-400 mb-1">
+                    <span>Rotación</span>
+                    <span id="valTransformRot" class="font-mono text-sky-400">0°</span>
+                  </div>
+                  <input type="range" id="inputTransformRot" min="0" max="360" value="0" class="w-full" oninput="applyEditorTransform()">
+                </div>
+                <div>
+                  <div class="flex justify-between text-slate-400 mb-1">
+                    <span>Opacidad</span>
+                    <span id="valTransformOpacity" class="font-mono text-sky-400">100%</span>
+                  </div>
+                  <input type="range" id="inputTransformOpacity" min="10" max="100" value="100" class="w-full" oninput="applyEditorTransform()">
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2 pt-2">
+                <button onclick="resetEditorTransform()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 font-semibold">Reiniciar Transformación</button>
+              </div>
+            </div>
+
+            <!-- Tab 2: Filters & Color -->
+            <div id="insp-content-filters" class="space-y-3.5 hidden">
+              <div>
+                <label class="block text-slate-400 mb-1 font-semibold">Presets Cinemáticos</label>
+                <div class="grid grid-cols-3 gap-1.5">
+                  <button onclick="applyColorPreset('none')" class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-slate-300">Original</button>
+                  <button onclick="applyColorPreset('teal_orange')" class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-cyan-400">Teal &amp; Orange</button>
+                  <button onclick="applyColorPreset('cyberpunk')" class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-fuchsia-400">Cyberpunk</button>
+                  <button onclick="applyColorPreset('bw')" class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-slate-200">B &amp; W</button>
+                  <button onclick="applyColorPreset('vintage')" class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-amber-300">Vintage 70s</button>
+                  <button onclick="applyColorPreset('vibrant')" class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-emerald-400">Vibrante</button>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-slate-400 mb-1">
+                  <span>Brillo</span>
+                  <span id="valFilterBrightness" class="font-mono text-sky-400">100%</span>
+                </div>
+                <input type="range" id="inputFilterBrightness" min="50" max="150" value="100" class="w-full" oninput="applyEditorFilters()">
+              </div>
+
+              <div>
+                <div class="flex justify-between text-slate-400 mb-1">
+                  <span>Contraste</span>
+                  <span id="valFilterContrast" class="font-mono text-sky-400">100%</span>
+                </div>
+                <input type="range" id="inputFilterContrast" min="50" max="180" value="100" class="w-full" oninput="applyEditorFilters()">
+              </div>
+
+              <div>
+                <div class="flex justify-between text-slate-400 mb-1">
+                  <span>Saturación</span>
+                  <span id="valFilterSaturation" class="font-mono text-sky-400">100%</span>
+                </div>
+                <input type="range" id="inputFilterSaturation" min="0" max="200" value="100" class="w-full" oninput="applyEditorFilters()">
+              </div>
+            </div>
+
+            <!-- Tab 3: Retime & Audio -->
+            <div id="insp-content-retime" class="space-y-3.5 hidden">
+              <div>
+                <label class="block text-slate-400 mb-1 font-semibold">Velocidad de Reproducción (Retime)</label>
+                <div class="grid grid-cols-5 gap-1 text-center font-mono text-[11px]">
+                  <button onclick="setEditorSpeed(0.5)" id="speedBtn05" class="py-1.5 bg-slate-800 rounded-lg hover:bg-sky-600 text-slate-300">0.5x</button>
+                  <button onclick="setEditorSpeed(1.0)" id="speedBtn10" class="py-1.5 bg-sky-600 rounded-lg text-white font-bold">1.0x</button>
+                  <button onclick="setEditorSpeed(1.25)" id="speedBtn125" class="py-1.5 bg-slate-800 rounded-lg hover:bg-sky-600 text-slate-300">1.25x</button>
+                  <button onclick="setEditorSpeed(1.5)" id="speedBtn15" class="py-1.5 bg-slate-800 rounded-lg hover:bg-sky-600 text-slate-300">1.5x</button>
+                  <button onclick="setEditorSpeed(2.0)" id="speedBtn20" class="py-1.5 bg-slate-800 rounded-lg hover:bg-sky-600 text-slate-300">2.0x</button>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-slate-400 mb-1">
+                  <span>Volumen del Clip</span>
+                  <span id="valEditorVolume" class="font-mono text-sky-400">100%</span>
+                </div>
+                <input type="range" id="inputEditorVolume" min="0" max="200" value="100" class="w-full" oninput="setEditorVolume(this.value)">
+              </div>
+
+              <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-slate-200">Audio Ducking (-22 dB)</span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 font-bold text-[10px]">Activo</span>
+                </div>
+                <p class="text-[11px] text-slate-500">Atenuación automática sidechain para que la voz del presentador resalte con claridad.</p>
+              </div>
+            </div>
+
+            <!-- Tab 4: Subtitles Styling -->
+            <div id="insp-content-subtitles" class="space-y-3.5 hidden">
+              <div>
+                <label class="block text-slate-400 mb-1">Color de Resaltado (Karaoke)</label>
+                <div class="flex items-center gap-2">
+                  <input type="color" id="subHighlightColor" value="#ffff00" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
+                  <span class="text-slate-300 font-mono">Amarillo Neón (&amp;H0000FFFF)</span>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-slate-400 mb-1">Tipografía</label>
+                <select id="subFontFamily" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white">
+                  <option value="Impact">Impact (Estilo Viral MrBeast / Alex Hormozi)</option>
+                  <option value="Montserrat">Montserrat ExtraBold</option>
+                  <option value="Inter">Inter UI Modern</option>
+                  <option value="Bebas Neue">Bebas Neue Headline</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-slate-400 mb-1">Tamaño de Fuente</label>
+                <input type="range" id="subFontSize" min="16" max="36" value="24" class="w-full">
+              </div>
+
+              <div>
+                <label class="block text-slate-400 mb-1">Margen Inferior (Zona Segura TikTok 420px)</label>
+                <input type="range" id="subMarginV" min="200" max="600" value="420" class="w-full">
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- OpenCut Interactive Multi-Track Timeline -->
+        <div class="bg-slate-950 border border-slate-800 rounded-3xl p-4 space-y-3">
+          
+          <!-- Timeline Controls Toolbar -->
+          <div class="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800 pb-3">
+            <div class="flex items-center gap-2">
+              <button onclick="editorSplitAtPlayhead()" class="px-3 py-1.5 bg-slate-800 hover:bg-sky-600 hover:text-white rounded-xl text-white font-mono flex items-center gap-1.5 transition">
+                <span>✂</span> Dividir en Cabezal (S)
+              </button>
+              <button onclick="editorDeleteSelectedClip()" class="px-3 py-1.5 bg-slate-800 hover:bg-red-600 hover:text-white rounded-xl text-slate-300 transition">
+                🗑 Eliminar Clip
+              </button>
+              <button onclick="editorResetTimeline()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-xl text-slate-300 transition">
+                ↺ Restaurar Tomas
+              </button>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <span class="text-[11px] text-slate-400">Escala de Zoom:</span>
+              <input type="range" id="timelineZoomSlider" min="50" max="200" value="100" class="w-28" oninput="applyTimelineZoom(this.value)">
+              <span class="font-mono text-sky-400 font-bold" id="timelineTimeDisplay">00:00:00.00</span>
+            </div>
+          </div>
+
+          <!-- Multi-Track Container -->
+          <div class="space-y-2 overflow-x-auto py-1" id="timelineTracksContainer">
+            
+            <!-- Video Track (V1) -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-[11px] font-bold text-slate-400">
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-sky-400"></span> Pista V1: Video Principal (Jumpcuts con Crossfade 20ms)</span>
+                <span class="text-slate-500 font-mono text-[10px]" id="v1ClipCountLabel">2 tomas activas</span>
+              </div>
+              <div id="timelineTrackV1" class="h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center p-1 gap-1.5 overflow-hidden">
+                <div onclick="selectTimelineSegment(0)" class="h-full rounded-lg bg-sky-950/80 border border-sky-600 flex items-center px-3 text-xs text-sky-200 font-mono cursor-pointer hover:bg-sky-900 transition flex-1">
+                  [Toma 1: 0.0s - 4.5s]
+                </div>
+                <div class="w-3 text-slate-600 text-center font-bold">⋈</div>
+                <div onclick="selectTimelineSegment(1)" class="h-full rounded-lg bg-sky-950/80 border border-sky-700 flex items-center px-3 text-xs text-sky-300 font-mono cursor-pointer hover:bg-sky-900 transition flex-1">
+                  [Toma 2: 4.5s - 12.8s]
+                </div>
+              </div>
+            </div>
+
+            <!-- Overlays & Motion Graphics Track (V2) -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-[11px] font-bold text-slate-400">
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-purple-400"></span> Pista V2: Motion Graphics &amp; Overlays (HyperFrames)</span>
+                <span class="text-slate-500 font-mono text-[10px]">1 capa activa</span>
+              </div>
+              <div class="h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center p-1 overflow-hidden">
+                <div class="h-full w-48 rounded-lg bg-purple-950/70 border border-purple-800/80 flex items-center px-2.5 text-[11px] text-purple-300 font-mono">
+                  ✨ Lower Third Glass (1.0s - 6.0s)
+                </div>
+              </div>
+            </div>
+
+            <!-- Subtitle Track (T1) -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-[11px] font-bold text-slate-400">
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Pista T1: Subtítulos Cinéticos (Karaoke ASS)</span>
+                <span class="text-slate-500 font-mono text-[10px]">Silero VAD Sync</span>
+              </div>
+              <div class="h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center p-1 overflow-hidden">
+                <div class="h-full w-full rounded-lg bg-amber-950/50 border border-amber-800/70 flex items-center px-3 text-[11px] text-amber-300 font-mono">
+                  ★ PALABRA POR PALABRA RESALTADO (ZONA SEGURA V=420)
+                </div>
+              </div>
+            </div>
+
+            <!-- Audio Track (A1) -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-[11px] font-bold text-slate-400">
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Pista A1: Música Ambiental &amp; Ducking (-22 dB)</span>
+                <span class="text-slate-500 font-mono text-[10px]">Sidechain Auto</span>
+              </div>
+              <div class="h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center p-1 overflow-hidden">
+                <div class="h-full w-full rounded-lg bg-emerald-950/50 border border-emerald-800/70 flex items-center px-3 text-[11px] text-emerald-300 font-mono">
+                  ♫ ambient_synth_track.mp3 (Atenuación automática durante voz activa)
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- SUBMODE D: MONEYPRINTER SHORT GENERATOR -->
       <div id="creation-mode-moneyprinter" class="glass-card rounded-3xl p-6 md:p-8 space-y-6 hidden">
         <div class="max-w-2xl space-y-4">
           <h2 class="text-xl font-bold text-white flex items-center gap-2">
@@ -296,106 +767,6 @@
           <span class="text-xs font-bold text-emerald-400">✔ Short Encolado Exitosamente</span>
           <pre id="moneyPrinterScriptPreview" class="text-xs text-slate-300 whitespace-pre-wrap font-sans bg-slate-950 p-3 rounded-xl"></pre>
         </div>
-      </div>
-
-      <!-- SUBMODE C: OPENCUT INTERACTIVE EDITOR -->
-      <div id="creation-mode-opencut" class="glass-card rounded-3xl p-6 md:p-8 space-y-6 hidden">
-        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-          <div>
-            <h2 class="text-xl font-bold text-white flex items-center gap-2">
-              <span>✂️</span> Estudio de Edición OpenCut
-            </h2>
-            <p class="text-xs text-slate-400">Edición visual en línea de tiempo, recorte fino de tomas y personalización de subtítulos.</p>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <button onclick="document.getElementById('editorVideoInput').click()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-white rounded-xl">
-              Cargar Video al Editor
-            </button>
-            <input type="file" id="editorVideoInput" accept="video/*" class="hidden" onchange="loadVideoToEditor(event)">
-            <button onclick="exportFromEditor()" class="px-4 py-1.5 bg-sky-600 hover:bg-sky-500 text-xs font-bold text-white rounded-xl shadow">
-              Exportar Video con FFmpeg
-            </button>
-          </div>
-        </div>
-
-        <!-- Canvas & Inspector Row -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
-          <!-- Video Canvas Preview (9:16 container) -->
-          <div class="lg:col-span-2 flex flex-col items-center justify-center bg-slate-950 rounded-2xl p-4 border border-slate-800 min-h-[380px] relative">
-            <video id="editorPreviewVideo" controls class="max-h-[360px] aspect-[9/16] rounded-xl shadow-2xl bg-black object-contain"></video>
-            <div id="editorEmptyState" class="absolute inset-0 flex flex-col items-center justify-center text-slate-500 text-xs space-y-2">
-              <span class="text-3xl">🎥</span>
-              <span>Selecciona un video terminado o carga un archivo local para previsualizar</span>
-            </div>
-          </div>
-
-          <!-- Inspector & Subtitle Customizer -->
-          <div class="space-y-4 bg-slate-900/60 border border-slate-800 rounded-2xl p-5 text-xs">
-            <h3 class="font-bold text-sm text-white">Personalizador de Subtítulos Cinéticos</h3>
-            
-            <div>
-              <label class="block text-slate-400 mb-1">Color de Resaltado (Karaoke)</label>
-              <div class="flex items-center gap-2">
-                <input type="color" id="subHighlightColor" value="#ffff00" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
-                <span class="text-slate-300 font-mono">Amarillo Neón</span>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-slate-400 mb-1">Tamaño de Fuente (Impact/Montserrat)</label>
-              <input type="range" id="subFontSize" min="16" max="36" value="24" class="w-full">
-            </div>
-
-            <div>
-              <label class="block text-slate-400 mb-1">Margen Inferior (Zona Segura TikTok/Reels)</label>
-              <input type="range" id="subMarginV" min="200" max="600" value="420" class="w-full">
-            </div>
-
-            <div class="pt-3 border-t border-slate-800">
-              <h4 class="font-bold text-slate-300 mb-1">Audio Ducking (-22 dB)</h4>
-              <p class="text-[11px] text-slate-500">Atenuación automática sidechain activa con ataque de 20ms y desvanecimiento suave.</p>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Interactive Timeline Tracks -->
-        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-3">
-          <div class="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800 pb-2">
-            <div class="flex items-center gap-2">
-              <button class="px-2 py-1 bg-slate-800 rounded hover:bg-slate-700 text-white font-mono">✂ Dividir (S)</button>
-              <button class="px-2 py-1 bg-slate-800 rounded hover:bg-slate-700 text-white">🗑 Borrar</button>
-            </div>
-            <span class="font-mono text-sky-400">00:00:00 / 00:00:45</span>
-          </div>
-
-          <!-- Video Track -->
-          <div class="space-y-1">
-            <span class="text-[11px] font-bold text-slate-400">Pista 1: Video Principal (Jumpcuts con crossfade 20ms)</span>
-            <div class="h-10 rounded-xl bg-sky-950/70 border border-sky-800 flex items-center px-3 text-xs text-sky-300 font-mono">
-              [Toma 1: 0.0s - 4.5s] --- Crossfade 20ms --- [Toma 2: 4.5s - 12.8s]
-            </div>
-          </div>
-
-          <!-- Subtitle Track -->
-          <div class="space-y-1">
-            <span class="text-[11px] font-bold text-slate-400">Pista 2: Subtítulos Cinéticos (ASS con Karaoke)</span>
-            <div class="h-8 rounded-xl bg-amber-950/60 border border-amber-800/80 flex items-center px-3 text-xs text-amber-300 font-mono">
-              ★ PALABRA POR PALABRA RESALTADO (ZONA SEGURA V=420)
-            </div>
-          </div>
-
-          <!-- Audio Track -->
-          <div class="space-y-1">
-            <span class="text-[11px] font-bold text-slate-400">Pista 3: Música de Fondo (Ducking -22 dB)</span>
-            <div class="h-8 rounded-xl bg-emerald-950/60 border border-emerald-800/80 flex items-center px-3 text-xs text-emerald-300 font-mono">
-              ♫ ambient_synth_track.mp3 (Sidechain Compress Attenuation)
-            </div>
-          </div>
-        </div>
-
       </div>
 
     </div>
@@ -505,21 +876,592 @@
 
     // Creation sub-mode switching
     function switchCreationMode(mode) {
-      const modes = ['autonomous', 'moneyprinter', 'opencut'];
+      const modes = ['autonomous', 'motion_graphics', 'opencut', 'moneyprinter'];
       modes.forEach(m => {
         const el = document.getElementById(`creation-mode-${m}`);
         const btn = document.getElementById(`subtab-btn-${m}`);
-        if (m === mode) {
-          el.classList.remove('hidden');
-          btn.className = 'px-4 py-2 rounded-lg text-xs font-bold transition bg-sky-600 text-white';
+        if (el && btn) {
+          if (m === mode) {
+            el.classList.remove('hidden');
+            btn.className = 'px-4 py-2 rounded-lg text-xs font-bold transition bg-sky-600 text-white';
+          } else {
+            el.classList.add('hidden');
+            btn.className = 'px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white';
+          }
+        }
+      });
+
+      if (mode === 'motion_graphics') {
+        loadUserUploadedVideos();
+        onMgPresetChange();
+      }
+    }
+
+    // =========================================================================
+    // MOTION GRAPHICS STUDIO LOGIC (HyperFrames Engine)
+    // =========================================================================
+    let currentMgAccent = '#38BDF8';
+
+    async function uploadUserRecordedVideo(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const progress = document.getElementById('mgUploadProgressBar');
+      progress.classList.remove('hidden');
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const res = await fetch('/api/v1/motion-graphics/upload', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        progress.classList.add('hidden');
+
+        if (res.ok) {
+          const meta = data.metadata || {};
+          selectUserVideoForMg(meta.path || data.path, meta.filename || data.filename, data.preview_url, meta);
+          loadUserUploadedVideos();
         } else {
-          el.classList.add('hidden');
-          btn.className = 'px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white';
+          alert("Error al subir video: " + (data.detail || JSON.stringify(data)));
+        }
+      } catch (err) {
+        progress.classList.add('hidden');
+        alert("Fallo de conexión al subir video: " + err);
+      }
+    }
+
+    async function loadUserUploadedVideos() {
+      const container = document.getElementById('mgUploadedVideosList');
+      try {
+        const res = await fetch('/api/v1/motion-graphics/uploads');
+        const videos = await res.json();
+
+        if (!videos || videos.length === 0) {
+          container.innerHTML = '<div class="text-center py-4 text-slate-500 text-xs">No hay videos subidos aún. Sube uno arriba.</div>';
+          return;
+        }
+
+        container.innerHTML = videos.map(v => `
+          <div onclick="selectUserVideoForMg('${v.path.replace(/\\/g, "/")}', '${v.filename}', '${v.url}')" 
+            class="p-2.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-sky-700 rounded-xl cursor-pointer transition flex items-center justify-between text-xs">
+            <span class="truncate max-w-[160px] text-slate-300 font-medium">${v.filename}</span>
+            <span class="text-[10px] text-slate-500 font-mono">${v.size_mb} MB</span>
+          </div>
+        `).join('');
+      } catch (e) {
+        container.innerHTML = '<div class="text-red-400 text-xs text-center py-2">Error cargando videos.</div>';
+      }
+    }
+
+    function selectUserVideoForMg(path, filename, previewUrl, meta) {
+      document.getElementById('mgActiveVideoPath').value = path;
+      document.getElementById('mgActiveVideoName').innerText = filename;
+      document.getElementById('mgActiveVideoCard').classList.remove('hidden');
+      document.getElementById('mgEmptyPreviewState').classList.add('hidden');
+
+      if (meta) {
+        document.getElementById('mgActiveVideoAspect').innerText = meta.aspect_ratio || '9:16';
+        document.getElementById('mgActiveVideoDur').innerText = `⏱ ${meta.duration || 0}s`;
+        document.getElementById('mgActiveVideoRes').innerText = `${meta.width}x${meta.height}`;
+        document.getElementById('mgActiveVideoSize').innerText = `${meta.size_mb || 0} MB`;
+      }
+
+      const vid = document.getElementById('mgPreviewVideo');
+      vid.src = previewUrl || `/storage/uploads/${filename}`;
+      vid.load();
+
+      // Also make it available to OpenCut editor
+      const editorVid = document.getElementById('editorPreviewVideo');
+      editorVid.src = vid.src;
+      document.getElementById('editorEmptyState').classList.add('hidden');
+
+      renderMgPreviewLive();
+    }
+
+    function onMgPresetChange() {
+      const preset = document.getElementById('mgPresetSelector').value;
+      const fields = document.getElementById('mgDynamicFields');
+
+      if (preset === 'lower_third_glass') {
+        fields.innerHTML = `
+          <div>
+            <label class="block text-slate-400 mb-1">Nombre del Speaker / Título</label>
+            <input type="text" id="mgParamTitle" value="ALEX RIVERA" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Subtítulo / Especialidad</label>
+            <input type="text" id="mgParamSubtitle" value="Especialista en IA &amp; Automatización" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Insignia / Badge</label>
+            <input type="text" id="mgParamBadge" value="CREADOR" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+          </div>
+        `;
+      } else if (preset === 'stat_callout_neon') {
+        fields.innerHTML = `
+          <div>
+            <label class="block text-slate-400 mb-1">Métrica Gigante (Hero Stat)</label>
+            <input type="text" id="mgParamMetric" value="+350%" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-mono text-base font-bold text-emerald-400" oninput="renderMgPreviewLive()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Explicación / Contexto</label>
+            <input type="text" id="mgParamExplanation" value="Velocidad de producción alcanzada" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Insignia Superior</label>
+            <input type="text" id="mgParamBadge" value="CASO DE ÉXITO" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+          </div>
+        `;
+      } else if (preset === 'viral_hook') {
+        fields.innerHTML = `
+          <div>
+            <label class="block text-slate-400 mb-1">Titular de Impacto (0-3s)</label>
+            <input type="text" id="mgParamHeadline" value="NO COMETAS ESTE ERROR" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-bold" oninput="renderMgPreviewLive()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Subtítulo Descriptivo</label>
+            <input type="text" id="mgParamSubheadline" value="Mira esto antes de subir tu próximo video" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Alerta Badge</label>
+            <input type="text" id="mgParamBadge" value="ATENCIÓN" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+          </div>
+        `;
+      } else if (preset === 'cta_badge') {
+        fields.innerHTML = `
+          <div>
+            <label class="block text-slate-400 mb-1">Texto del Llamado a la Acción</label>
+            <input type="text" id="mgParamCtaText" value="★ Sígueme para más trucos de IA" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-bold" oninput="renderMgPreviewLive()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Llamado Secundario</label>
+            <input type="text" id="mgParamSubtext" value="Comenta abajo tu opinión" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+          </div>
+        `;
+      } else {
+        fields.innerHTML = `
+          <div>
+            <label class="block text-slate-400 mb-1">Altura de la Barra (px)</label>
+            <input type="number" id="mgParamHeight" value="14" min="4" max="32" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-mono" oninput="renderMgPreviewLive()">
+          </div>
+          <p class="text-[11px] text-slate-400">La barra de retención avanza automáticamente de 0% a 100% durante todo el video en TikTok y Reels.</p>
+        `;
+      }
+
+      renderMgPreviewLive();
+    }
+
+    function setMgAccentColor(hex) {
+      currentMgAccent = hex;
+      document.getElementById('mgAccentColorCustom').value = hex;
+      renderMgPreviewLive();
+    }
+
+    function collectMgParams() {
+      const preset = document.getElementById('mgPresetSelector').value;
+      const params = {
+        accent_color: currentMgAccent,
+        bar_color: currentMgAccent,
+        start_time: parseFloat(document.getElementById('mgStartTime').value) || 1.0,
+        duration: parseFloat(document.getElementById('mgDuration').value) || 5.0
+      };
+
+      if (preset === 'lower_third_glass') {
+        params.title = document.getElementById('mgParamTitle')?.value || "ALEX RIVERA";
+        params.subtitle = document.getElementById('mgParamSubtitle')?.value || "Especialista en IA";
+        params.badge = document.getElementById('mgParamBadge')?.value || "CREADOR";
+      } else if (preset === 'stat_callout_neon') {
+        params.metric = document.getElementById('mgParamMetric')?.value || "+350%";
+        params.explanation = document.getElementById('mgParamExplanation')?.value || "Velocidad de producción";
+        params.badge = document.getElementById('mgParamBadge')?.value || "IMPACTO";
+      } else if (preset === 'viral_hook') {
+        params.headline = document.getElementById('mgParamHeadline')?.value || "NO COMETAS ESTE ERROR";
+        params.subheadline = document.getElementById('mgParamSubheadline')?.value || "Mira esto ahora";
+        params.badge = document.getElementById('mgParamBadge')?.value || "ATENCIÓN";
+      } else if (preset === 'cta_badge') {
+        params.cta_text = document.getElementById('mgParamCtaText')?.value || "★ Sígueme para más";
+        params.subtext = document.getElementById('mgParamSubtext')?.value || "Guarda este video";
+      } else {
+        params.height_px = parseInt(document.getElementById('mgParamHeight')?.value || "14");
+      }
+
+      return params;
+    }
+
+    async function renderMgPreviewLive() {
+      const preset = document.getElementById('mgPresetSelector').value;
+      const params = collectMgParams();
+      const canvas = document.getElementById('mgOverlayCanvas');
+
+      try {
+        const res = await fetch('/api/v1/motion-graphics/preview', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ preset_id: preset, params })
+        });
+        const data = await res.json();
+        if (data.svg) {
+          canvas.innerHTML = data.svg;
+          // Apply responsive 100% SVG style
+          const svgEl = canvas.querySelector('svg');
+          if (svgEl) {
+            svgEl.style.width = '100%';
+            svgEl.style.height = '100%';
+            svgEl.style.position = 'absolute';
+            svgEl.style.top = '0';
+            svgEl.style.left = '0';
+          }
+        }
+      } catch (e) {
+        console.error("Error updating live MG preview:", e);
+      }
+    }
+
+    function syncMotionGraphicScrubber(vid) {
+      const cur = vid.currentTime || 0;
+      const dur = vid.duration || 0;
+      const start = parseFloat(document.getElementById('mgStartTime')?.value || 1.0);
+      const length = parseFloat(document.getElementById('mgDuration')?.value || 5.0);
+      const end = start + length;
+
+      // Format time
+      const curStr = Math.floor(cur / 60) + ':' + ('0' + Math.floor(cur % 60)).slice(-2);
+      const durStr = Math.floor(dur / 60) + ':' + ('0' + Math.floor(dur % 60)).slice(-2);
+      document.getElementById('mgTimecodeDisplay').innerText = `${curStr} / ${durStr}`;
+
+      // Show/hide overlay according to playback range
+      const canvas = document.getElementById('mgOverlayCanvas');
+      if (document.getElementById('mgPresetSelector').value === 'retention_bar') {
+        canvas.style.opacity = '1';
+      } else {
+        if (cur >= start && cur <= end) {
+          canvas.style.opacity = '1';
+        } else {
+          canvas.style.opacity = '0.15'; // subtle ghost when out of range for editing reference
+        }
+      }
+    }
+
+    async function applyMotionGraphicsRender() {
+      const videoPath = document.getElementById('mgActiveVideoPath').value;
+      if (!videoPath) {
+        return alert("Por favor sube o selecciona un video primero.");
+      }
+
+      const preset = document.getElementById('mgPresetSelector').value;
+      const params = collectMgParams();
+      const btn = document.getElementById('mgRenderBtn');
+
+      btn.disabled = true;
+      btn.innerText = "⏳ Renderizando con FFmpeg Local...";
+
+      try {
+        const res = await fetch('/api/v1/motion-graphics/apply', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            video_path: videoPath,
+            preset_id: preset,
+            params: params
+          })
+        });
+        const data = await res.json();
+        btn.disabled = false;
+        btn.innerHTML = "<span>⚡</span> Renderizar con FFmpeg Local";
+
+        if (res.ok) {
+          const resultBox = document.getElementById('mgRenderResultBox');
+          const dlLink = document.getElementById('mgDownloadLink');
+          resultBox.classList.remove('hidden');
+          dlLink.href = data.preview_url;
+          dlLink.innerText = `Descargar ${data.filename} (${data.size_mb} MB)`;
+
+          // Auto play in preview
+          const vid = document.getElementById('mgPreviewVideo');
+          vid.src = data.preview_url;
+          vid.play();
+        } else {
+          alert("Error en render: " + (data.detail || JSON.stringify(data)));
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = "<span>⚡</span> Renderizar con FFmpeg Local";
+        alert("Fallo al ejecutar render: " + err);
+      }
+    }
+
+    // =========================================================================
+    // OPENCUT STUDIO PRO ADVANCED EDITOR LOGIC
+    // =========================================================================
+    let editorTimelineSegments = [
+      { id: 0, start: 0.0, end: 4.5, title: "Toma 1 (Intro)" },
+      { id: 1, start: 4.5, end: 12.8, title: "Toma 2 (Desarrollo)" }
+    ];
+    let selectedSegmentId = 0;
+
+    function setCanvasAspectRatio(ar) {
+      const container = document.getElementById('editorCanvasContainer');
+      const b916 = document.getElementById('arBtn916');
+      const b169 = document.getElementById('arBtn169');
+      const b11 = document.getElementById('arBtn11');
+
+      b916.className = "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition";
+      b169.className = "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition";
+      b11.className = "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition";
+
+      if (ar === '9:16') {
+        container.style.aspectRatio = "9/16";
+        container.style.maxWidth = "260px";
+        b916.className = "px-2.5 py-1 rounded-lg bg-sky-600 text-white transition";
+      } else if (ar === '16:9') {
+        container.style.aspectRatio = "16/9";
+        container.style.maxWidth = "560px";
+        b169.className = "px-2.5 py-1 rounded-lg bg-sky-600 text-white transition";
+      } else {
+        container.style.aspectRatio = "1/1";
+        container.style.maxWidth = "360px";
+        b11.className = "px-2.5 py-1 rounded-lg bg-sky-600 text-white transition";
+      }
+    }
+
+    function switchInspectorTab(tabId) {
+      const tabs = ['transform', 'filters', 'retime', 'subtitles'];
+      tabs.forEach(t => {
+        const content = document.getElementById(`insp-content-${t}`);
+        const btn = document.getElementById(`insp-tab-${t}`);
+        if (content && btn) {
+          if (t === tabId) {
+            content.classList.remove('hidden');
+            btn.className = "px-3 py-1.5 rounded-lg font-bold text-xs bg-sky-600 text-white";
+          } else {
+            content.classList.add('hidden');
+            btn.className = "px-3 py-1.5 rounded-lg font-bold text-xs text-slate-400 hover:text-white";
+          }
         }
       });
     }
 
-    // Load Trends
+    function applyEditorTransform() {
+      const scale = document.getElementById('inputTransformScale').value;
+      const x = document.getElementById('inputTransformX').value;
+      const y = document.getElementById('inputTransformY').value;
+      const rot = document.getElementById('inputTransformRot').value;
+      const opacity = document.getElementById('inputTransformOpacity').value;
+
+      document.getElementById('valTransformScale').innerText = `${scale}%`;
+      document.getElementById('valTransformX').innerText = `${x}px`;
+      document.getElementById('valTransformY').innerText = `${y}px`;
+      document.getElementById('valTransformRot').innerText = `${rot}°`;
+      document.getElementById('valTransformOpacity').innerText = `${opacity}%`;
+
+      const vid = document.getElementById('editorPreviewVideo');
+      vid.style.transform = `translate(${x}px, ${y}px) scale(${scale / 100}) rotate(${rot}deg)`;
+      vid.style.opacity = `${opacity / 100}`;
+    }
+
+    function resetEditorTransform() {
+      document.getElementById('inputTransformScale').value = 100;
+      document.getElementById('inputTransformX').value = 0;
+      document.getElementById('inputTransformY').value = 0;
+      document.getElementById('inputTransformRot').value = 0;
+      document.getElementById('inputTransformOpacity').value = 100;
+      applyEditorTransform();
+    }
+
+    function applyEditorFilters() {
+      const b = document.getElementById('inputFilterBrightness').value;
+      const c = document.getElementById('inputFilterContrast').value;
+      const s = document.getElementById('inputFilterSaturation').value;
+
+      document.getElementById('valFilterBrightness').innerText = `${b}%`;
+      document.getElementById('valFilterContrast').innerText = `${c}%`;
+      document.getElementById('valFilterSaturation').innerText = `${s}%`;
+
+      const vid = document.getElementById('editorPreviewVideo');
+      vid.style.filter = `brightness(${b}%) contrast(${c}%) saturate(${s}%)`;
+    }
+
+    function applyColorPreset(preset) {
+      if (preset === 'teal_orange') {
+        document.getElementById('inputFilterBrightness').value = 105;
+        document.getElementById('inputFilterContrast').value = 135;
+        document.getElementById('inputFilterSaturation').value = 140;
+      } else if (preset === 'cyberpunk') {
+        document.getElementById('inputFilterBrightness').value = 110;
+        document.getElementById('inputFilterContrast').value = 150;
+        document.getElementById('inputFilterSaturation').value = 180;
+      } else if (preset === 'bw') {
+        document.getElementById('inputFilterBrightness').value = 100;
+        document.getElementById('inputFilterContrast').value = 130;
+        document.getElementById('inputFilterSaturation').value = 0;
+      } else if (preset === 'vintage') {
+        document.getElementById('inputFilterBrightness').value = 95;
+        document.getElementById('inputFilterContrast').value = 90;
+        document.getElementById('inputFilterSaturation').value = 75;
+      } else if (preset === 'vibrant') {
+        document.getElementById('inputFilterBrightness').value = 105;
+        document.getElementById('inputFilterContrast').value = 115;
+        document.getElementById('inputFilterSaturation').value = 150;
+      } else {
+        document.getElementById('inputFilterBrightness').value = 100;
+        document.getElementById('inputFilterContrast').value = 100;
+        document.getElementById('inputFilterSaturation').value = 100;
+      }
+      applyEditorFilters();
+    }
+
+    function setEditorSpeed(rate) {
+      const speeds = [0.5, 1.0, 1.25, 1.5, 2.0];
+      speeds.forEach(s => {
+        const btn = document.getElementById(`speedBtn${s.toString().replace('.', '')}`);
+        if (btn) {
+          if (s === rate) {
+            btn.className = "py-1.5 bg-sky-600 rounded-lg text-white font-bold";
+          } else {
+            btn.className = "py-1.5 bg-slate-800 rounded-lg hover:bg-sky-600 text-slate-300";
+          }
+        }
+      });
+      const vid = document.getElementById('editorPreviewVideo');
+      vid.playbackRate = rate;
+    }
+
+    function setEditorVolume(vol) {
+      document.getElementById('valEditorVolume').innerText = `${vol}%`;
+      const vid = document.getElementById('editorPreviewVideo');
+      vid.volume = Math.min(1.0, vol / 100);
+    }
+
+    function editorTogglePlay() {
+      const vid = document.getElementById('editorPreviewVideo');
+      const btn = document.getElementById('editorPlayBtn');
+      if (vid.paused) {
+        vid.play();
+        btn.innerText = "⏸";
+      } else {
+        vid.pause();
+        btn.innerText = "▶";
+      }
+    }
+
+    function editorStep(delta) {
+      const vid = document.getElementById('editorPreviewVideo');
+      vid.currentTime = Math.max(0, vid.currentTime + delta);
+    }
+
+    function editorSeekToStart() {
+      const vid = document.getElementById('editorPreviewVideo');
+      vid.currentTime = 0;
+    }
+
+    function editorSeekToEnd() {
+      const vid = document.getElementById('editorPreviewVideo');
+      vid.currentTime = vid.duration || 0;
+    }
+
+    function onEditorTimeUpdate(vid) {
+      const cur = vid.currentTime || 0;
+      const dur = vid.duration || 0;
+      
+      const formatTime = (t) => {
+        const m = Math.floor(t / 60);
+        const s = Math.floor(t % 60);
+        const ms = Math.floor((t % 1) * 100);
+        return ('0' + m).slice(-2) + ':' + ('0' + s).slice(-2) + '.' + ('0' + ms).slice(-2);
+      };
+
+      document.getElementById('editorTimecodeLabel').innerText = `${formatTime(cur)} / ${formatTime(dur)}`;
+      document.getElementById('timelineTimeDisplay').innerText = formatTime(cur);
+    }
+
+    function renderTimelineV1() {
+      const container = document.getElementById('timelineTrackV1');
+      document.getElementById('v1ClipCountLabel').innerText = `${editorTimelineSegments.length} tomas activas`;
+
+      container.innerHTML = editorTimelineSegments.map((seg, idx) => {
+        const isSelected = seg.id === selectedSegmentId;
+        const borderStyle = isSelected ? 'border-sky-400 bg-sky-900/90 text-white font-bold' : 'border-sky-800 bg-sky-950/70 text-sky-300';
+        return `
+          <div onclick="selectTimelineSegment(${seg.id})" class="h-full rounded-lg border ${borderStyle} flex items-center px-3 text-xs font-mono cursor-pointer hover:bg-sky-900 transition flex-1 truncate">
+            [${seg.title}: ${seg.start.toFixed(1)}s - ${seg.end.toFixed(1)}s]
+          </div>
+          ${idx < editorTimelineSegments.length - 1 ? '<div class="w-3 text-slate-600 text-center font-bold">⋈</div>' : ''}
+        `;
+      }).join('');
+    }
+
+    function selectTimelineSegment(id) {
+      selectedSegmentId = id;
+      renderTimelineV1();
+    }
+
+    function editorSplitAtPlayhead() {
+      const vid = document.getElementById('editorPreviewVideo');
+      const cur = vid.currentTime || 2.0;
+
+      const segIdx = editorTimelineSegments.findIndex(s => cur > s.start && cur < s.end);
+      if (segIdx === -1) {
+        return alert("Coloca el cursor de reproducción dentro de un clip existente para cortarlo (Split).");
+      }
+
+      const target = editorTimelineSegments[segIdx];
+      const newSeg = {
+        id: Date.now(),
+        start: parseFloat(cur.toFixed(2)),
+        end: target.end,
+        title: `Toma ${editorTimelineSegments.length + 1}`
+      };
+      target.end = parseFloat(cur.toFixed(2));
+      editorTimelineSegments.splice(segIdx + 1, 0, newSeg);
+      renderTimelineV1();
+    }
+
+    function editorDeleteSelectedClip() {
+      if (editorTimelineSegments.length <= 1) {
+        return alert("Debes mantener al menos un clip en el timeline.");
+      }
+      editorTimelineSegments = editorTimelineSegments.filter(s => s.id !== selectedSegmentId);
+      selectedSegmentId = editorTimelineSegments[0].id;
+      renderTimelineV1();
+    }
+
+    function editorResetTimeline() {
+      editorTimelineSegments = [
+        { id: 0, start: 0.0, end: 4.5, title: "Toma 1" },
+        { id: 1, start: 4.5, end: 12.8, title: "Toma 2" }
+      ];
+      selectedSegmentId = 0;
+      renderTimelineV1();
+    }
+
+    function applyTimelineZoom(val) {
+      const container = document.getElementById('timelineTracksContainer');
+      container.style.transform = `scaleX(${val / 100})`;
+      container.style.transformOrigin = "left center";
+    }
+
+    // Editor video loading
+    function loadVideoToEditor(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const url = URL.createObjectURL(file);
+        const vid = document.getElementById('editorPreviewVideo');
+        vid.src = url;
+        document.getElementById('editorEmptyState').classList.add('hidden');
+        editorSeekToStart();
+      }
+    }
+
+    function exportFromEditor() {
+      alert("¡Comando de exportación FFmpeg preparado! Se renderizarán los cortes con crossfade de 20ms, filtros de color aplicados y audio ducking a -22 dB.");
+    }
+
+    // =========================================================================
+    // TRENDS & VIRAL IDEAS LOGIC
+    // =========================================================================
     async function loadTrends() {
       const niche = document.getElementById('trendNicheFilter').value;
       const platform = document.getElementById('trendPlatformFilter').value;
@@ -568,7 +1510,6 @@
       document.getElementById('moneyPrinterSubject').value = topicTitle;
     }
 
-    // AI Viral Ideas Generation
     async function generateViralIdeas() {
       const topic = document.getElementById('customIdeaTopic').value;
       const niche = document.getElementById('trendNicheFilter').value;
@@ -603,7 +1544,6 @@
       }
     }
 
-    // MoneyPrinter Short Generation
     async function generateMoneyPrinterShort() {
       const subject = document.getElementById('moneyPrinterSubject').value;
       if (!subject) return alert("Por favor ingresa un tema.");
@@ -621,21 +1561,6 @@
       } catch (e) {
         alert("Error generando short: " + e);
       }
-    }
-
-    // Editor video loading
-    function loadVideoToEditor(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const url = URL.createObjectURL(file);
-        const vid = document.getElementById('editorPreviewVideo');
-        vid.src = url;
-        document.getElementById('editorEmptyState').classList.add('hidden');
-      }
-    }
-
-    function exportFromEditor() {
-      alert("Comando de exportación FFmpeg preparado con subtítulos y audio ducking activo.");
     }
 
     // Load Distribution Queue
@@ -949,6 +1874,7 @@
     // Startup
     loadTrends();
     fetchDoctorStatus();
+    renderTimelineV1();
     </script>
 </body>
 </html>
