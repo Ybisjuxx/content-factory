@@ -32,9 +32,13 @@ htmlcov/
 # Local Autonomous Video Factory dynamic storage
 storage/cache/
 storage/outputs/
+storage/uploads/
 storage/*.db
 storage/*.db-journal
 storage/*.log
+
+# Cloned standalone modules
+modules/
 
 # Whisper model weight downloads (avoid committing heavy weights to git)
 storage/cache/whisper_models/
