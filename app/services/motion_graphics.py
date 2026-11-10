@@ -100,6 +100,83 @@ class MotionGraphicsService:
                     "start_time": 0.0,
                     "duration": 0.0,  # 0.0 means full video duration
                 }
+            },
+            {
+                "id": "attention_arrow",
+                "name": "Flecha de Atención & Alerta Neón",
+                "category": "Retención & Cues",
+                "description": "Flecha brillante y badge palpitante para dirigir la mirada del espectador a un detalle clave.",
+                "default_params": {
+                    "label": "¡OJO CON ESTO!",
+                    "sublabel": "Detalle que la mayoría ignora",
+                    "accent_color": "#EF4444",
+                    "direction": "down",
+                    "position": "center",
+                    "start_time": 1.5,
+                    "duration": 4.0,
+                    "spring_type": "bouncy"
+                }
+            },
+            {
+                "id": "social_handle",
+                "name": "Badge de Redes Sociales (@Handle)",
+                "category": "Marca & Crecimiento",
+                "description": "Cápsula flotante minimalista con tu arroba de TikTok, Instagram, YouTube o X.",
+                "default_params": {
+                    "handle": "@alexrivera_ai",
+                    "platform": "TikTok / Instagram",
+                    "accent_color": "#EC4899",
+                    "position": "top_left",
+                    "start_time": 2.0,
+                    "duration": 6.0,
+                    "spring_type": "smooth"
+                }
+            },
+            {
+                "id": "quote_card",
+                "name": "Tarjeta de Cita / Frase en Cristal",
+                "category": "Autoridad & Storytelling",
+                "description": "Tarjeta elegante de vidrio esmerilado con comillas cinéticas para destacar una frase poderosa.",
+                "default_params": {
+                    "quote": "La clave de la viralidad no es la suerte, sino la retención del primer segundo.",
+                    "author": "REGLA DE ORO",
+                    "accent_color": "#A855F7",
+                    "position": "center",
+                    "start_time": 2.0,
+                    "duration": 5.0,
+                    "spring_type": "snappy"
+                }
+            },
+            {
+                "id": "number_counter",
+                "name": "Contador Numérico Dinámico",
+                "category": "Datos & Impacto",
+                "description": "Cifra gigante con anillo de brillo neón para enfatizar resultados o seguidores.",
+                "default_params": {
+                    "number_val": "+150,000",
+                    "label": "Nuevas Reproducciones Orgánicas",
+                    "badge": "MÉTRICA REAL",
+                    "accent_color": "#06B6D4",
+                    "position": "bottom_card",
+                    "start_time": 1.0,
+                    "duration": 4.5,
+                    "spring_type": "bouncy"
+                }
+            },
+            {
+                "id": "warning_alert",
+                "name": "Alerta Crítica (Detén el Scroll)",
+                "category": "Retención Inicial",
+                "description": "Caja de alerta estilo advertencia con franjas diagonales de alto impacto para hooks.",
+                "default_params": {
+                    "warning_title": "¡DETÉNTE AQUÍ!",
+                    "warning_desc": "Si haces esto tu cuenta puede ser penalizada",
+                    "accent_color": "#F59E0B",
+                    "position": "center",
+                    "start_time": 0.2,
+                    "duration": 3.2,
+                    "spring_type": "snappy"
+                }
             }
         ]
 
@@ -227,12 +304,95 @@ class MotionGraphicsService:
   </g>
 </svg>"""
 
+        elif preset_id == "attention_arrow":
+            label = params.get("label", "¡OJO CON ESTO!").upper()
+            sublabel = params.get("sublabel", "Detalle clave que no viste")
+            return f"""<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g id="attention_arrow" transform="translate(140, 800)">
+    <rect width="800" height="220" rx="30" fill="#18181B" fill-opacity="0.94" stroke="{accent}" stroke-width="3.5"/>
+    <!-- Animated pulse ring -->
+    <circle cx="80" cy="110" r="38" fill="{accent}" fill-opacity="0.2" stroke="{accent}" stroke-width="2"/>
+    <text x="80" y="122" font-family="'Segoe UI', sans-serif" font-size="34" font-weight="900" fill="{accent}" text-anchor="middle">👇</text>
+    <text x="145" y="95" font-family="'Montserrat', sans-serif" font-size="36" font-weight="900" fill="#FFFFFF">{label}</text>
+    <text x="145" y="148" font-family="'Segoe UI', sans-serif" font-size="22" font-weight="600" fill="{accent}">{sublabel}</text>
+  </g>
+</svg>"""
+
+        elif preset_id == "social_handle":
+            handle = params.get("handle", "@creador_digital")
+            platform = params.get("platform", "TikTok / Instagram")
+            return f"""<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g id="social_handle" transform="translate(60, 120)">
+    <rect width="460" height="96" rx="48" fill="#09090B" fill-opacity="0.90" stroke="{accent}" stroke-width="2.5"/>
+    <circle cx="48" cy="48" r="28" fill="{accent}" fill-opacity="0.25"/>
+    <text x="48" y="58" font-family="'Segoe UI', sans-serif" font-size="24" fill="{accent}" text-anchor="middle">⚡</text>
+    <text x="96" y="44" font-family="'Montserrat', sans-serif" font-size="22" font-weight="900" fill="#FFFFFF">{handle}</text>
+    <text x="96" y="72" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="600" fill="{accent}">{platform}</text>
+  </g>
+</svg>"""
+
+        elif preset_id == "quote_card":
+            quote = params.get("quote", "La clave no es la suerte, es la retención.")
+            author = params.get("author", "REGLA DE ORO").upper()
+            return f"""<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g id="quote_card" transform="translate(60, 750)">
+    <rect width="960" height="340" rx="32" fill="#0F172A" fill-opacity="0.92" stroke="{accent}" stroke-width="3"/>
+    <text x="70" y="80" font-family="'Impact', serif" font-size="70" fill="{accent}" fill-opacity="0.6">“</text>
+    <text x="70" y="160" font-family="'Montserrat', sans-serif" font-size="30" font-weight="700" fill="#FFFFFF">{quote[:48]}</text>
+    <text x="70" y="210" font-family="'Montserrat', sans-serif" font-size="28" font-weight="600" fill="#E2E8F0">{quote[48:100]}</text>
+    <rect x="70" y="260" width="160" height="32" rx="16" fill="{accent}" fill-opacity="0.2" stroke="{accent}" stroke-width="1.5"/>
+    <text x="150" y="282" font-family="'Montserrat', sans-serif" font-size="14" font-weight="800" fill="{accent}" text-anchor="middle">— {author}</text>
+  </g>
+</svg>"""
+
+        elif preset_id == "number_counter":
+            number_val = params.get("number_val", "+150,000")
+            label = params.get("label", "Nuevas Reproducciones")
+            badge = params.get("badge", "MÉTRICA REAL").upper()
+            return f"""<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g id="number_counter" transform="translate(60, 1280)">
+    <rect width="960" height="300" rx="32" fill="#082F49" fill-opacity="0.92" stroke="{accent}" stroke-width="3"/>
+    <rect x="50" y="32" width="160" height="32" rx="16" fill="{accent}" fill-opacity="0.25" stroke="{accent}" stroke-width="1.5"/>
+    <text x="130" y="54" font-family="'Montserrat', sans-serif" font-size="13" font-weight="800" fill="{accent}" text-anchor="middle">{badge}</text>
+    <text x="50" y="160" font-family="'Impact', sans-serif" font-size="94" font-weight="900" fill="{accent}">{number_val}</text>
+    <text x="50" y="230" font-family="'Montserrat', sans-serif" font-size="28" font-weight="700" fill="#FFFFFF">{label}</text>
+  </g>
+</svg>"""
+
+        elif preset_id == "warning_alert":
+            w_title = params.get("warning_title", "¡DETÉNTE AQUÍ!").upper()
+            w_desc = params.get("warning_desc", "Error que destruye tu retención")
+            return f"""<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g id="warning_alert" transform="translate(60, 750)">
+    <rect width="960" height="280" rx="28" fill="#1C1917" fill-opacity="0.95" stroke="{accent}" stroke-width="4"/>
+    <rect x="0" y="0" width="960" height="14" rx="7" fill="{accent}"/>
+    <text x="480" y="110" font-family="'Impact', sans-serif" font-size="64" font-weight="900" fill="{accent}" text-anchor="middle" letter-spacing="2">⚠️ {w_title}</text>
+    <text x="480" y="190" font-family="'Montserrat', sans-serif" font-size="26" font-weight="700" fill="#F5F5F4" text-anchor="middle">{w_desc}</text>
+  </g>
+</svg>"""
+
         else:  # retention_bar
             bar_color = params.get("bar_color", "#38BDF8")
             h = int(params.get("height_px", 14))
             return f"""<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect x="0" y="{height - h}" width="{width}" height="{h}" fill="{bar_color}"/>
 </svg>"""
+
+    def _get_font(self, font_name: str, size: int) -> ImageFont.ImageFont:
+        """Helper to safely load system TrueType fonts with fallback."""
+        candidates = [
+            f"C:/Windows/Fonts/{font_name}",
+            f"C:/Windows/Fonts/{font_name.lower()}",
+            f"{font_name}",
+            "C:/Windows/Fonts/segoeui.ttf",
+            "C:/Windows/Fonts/arial.ttf",
+        ]
+        for c in candidates:
+            try:
+                return ImageFont.truetype(c, size)
+            except Exception:
+                continue
+        return ImageFont.load_default()
 
     def generate_overlay_png(
         self,
@@ -241,8 +401,12 @@ class MotionGraphicsService:
         width: int = 1080,
         height: int = 1920
     ) -> Path:
-        """Generates a high-resolution transparent 1080x1920 RGBA PNG using Pillow."""
-        img = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+        """Generates a high-resolution transparent 1080x1920 RGBA PNG using Pillow with TrueType fonts."""
+        # Always enforce standard reference resolution (1080x1920 for portrait, 1920x1080 for landscape)
+        ref_w = 1920 if width > height else 1080
+        ref_h = 1080 if width > height else 1920
+
+        img = Image.new("RGBA", (ref_w, ref_h), (0, 0, 0, 0))
         draw = ImageDraw.Draw(img)
 
         # Parse accent color hex to RGB
@@ -258,10 +422,12 @@ class MotionGraphicsService:
         accent_rgb = (r, g, b, 255)
         accent_dim = (r, g, b, 50)
 
-        # Fallback system font loading
-        font_large = ImageFont.load_default()
-        font_med = ImageFont.load_default()
-        font_small = ImageFont.load_default()
+        # Crisp font hierarchy
+        f_title = self._get_font("segoeui.ttf", 44)
+        f_subtitle = self._get_font("segoeui.ttf", 26)
+        f_badge = self._get_font("arial.ttf", 18)
+        f_metric = self._get_font("impact.ttf", 76)
+        f_quote = self._get_font("segoeui.ttf", 34)
 
         file_id = str(uuid.uuid4())[:8]
         output_file = self.cache_dir / f"overlay_{preset_id}_{file_id}.png"
@@ -276,12 +442,12 @@ class MotionGraphicsService:
             # Accent vertical stripe
             draw.rounded_rectangle([96, 1452, 106, 1618], radius=5, fill=accent_rgb)
             # Badge pill
-            draw.rounded_rectangle([130, 1456, 270, 1490], radius=17, fill=accent_dim, outline=accent_rgb, width=2)
-            draw.text((155, 1466), badge, fill=accent_rgb)
+            draw.rounded_rectangle([130, 1456, 280, 1494], radius=18, fill=accent_dim, outline=accent_rgb, width=2)
+            draw.text((150, 1464), badge, font=f_badge, fill=accent_rgb)
             # Title
-            draw.text((130, 1515), title, fill=(255, 255, 255, 255))
+            draw.text((130, 1512), title, font=f_title, fill=(255, 255, 255, 255))
             # Subtitle
-            draw.text((130, 1565), subtitle, fill=(148, 163, 184, 255))
+            draw.text((130, 1572), subtitle, font=f_subtitle, fill=(148, 163, 184, 255))
 
         elif preset_id == "stat_callout_neon":
             metric = params.get("metric", "+350%")
@@ -291,13 +457,13 @@ class MotionGraphicsService:
             # Glass card
             draw.rounded_rectangle([60, 1260, 1020, 1600], radius=32, fill=(11, 19, 43, 230), outline=accent_rgb, width=3)
             # Badge
-            draw.rounded_rectangle([108, 1296, 288, 1332], radius=18, fill=accent_dim, outline=accent_rgb, width=2)
-            draw.text((140, 1308), badge, fill=accent_rgb)
+            draw.rounded_rectangle([108, 1296, 300, 1334], radius=18, fill=accent_dim, outline=accent_rgb, width=2)
+            draw.text((130, 1304), badge, font=f_badge, fill=accent_rgb)
             # Metric
-            draw.text((108, 1360), metric, fill=accent_rgb)
+            draw.text((108, 1350), metric, font=f_metric, fill=accent_rgb)
             # Explanation
-            draw.text((108, 1460), explanation, fill=(255, 255, 255, 255))
-            draw.text((108, 1520), "100% LOCAL & AUTONOMO", fill=(100, 116, 139, 255))
+            draw.text((108, 1455), explanation, font=f_title, fill=(255, 255, 255, 255))
+            draw.text((108, 1520), "100% LOCAL & AUTONOMO", font=f_subtitle, fill=(100, 116, 139, 255))
 
         elif preset_id == "viral_hook":
             headline = params.get("headline", "NO COMETAS ESTE ERROR").upper()
@@ -306,24 +472,68 @@ class MotionGraphicsService:
 
             draw.rounded_rectangle([60, 720, 1020, 1100], radius=36, fill=(24, 24, 27, 240), outline=accent_rgb, width=4)
             # Badge
-            draw.rounded_rectangle([440, 760, 640, 802], radius=21, fill=accent_dim, outline=accent_rgb, width=2)
-            draw.text((490, 773), badge, fill=accent_rgb)
+            draw.rounded_rectangle([430, 760, 650, 804], radius=21, fill=accent_dim, outline=accent_rgb, width=2)
+            draw.text((470, 770), badge, font=f_badge, fill=accent_rgb)
             # Headline
-            draw.text((140, 850), headline, fill=(255, 255, 255, 255))
+            draw.text((120, 840), headline, font=f_title, fill=(255, 255, 255, 255))
             # Subheadline
-            draw.text((140, 930), subheadline, fill=(228, 228, 231, 255))
+            draw.text((120, 930), subheadline, font=f_subtitle, fill=(228, 228, 231, 255))
 
         elif preset_id == "cta_badge":
             cta_text = params.get("cta_text", "Sigueme para mas contenido")
             subtext = params.get("subtext", "Comenta abajo tu opinion")
 
-            draw.rounded_rectangle([100, 1500, 980, 1670], radius=30, fill=(30, 27, 75, 230), outline=accent_rgb, width=3)
-            draw.text((220, 1545), cta_text, fill=(255, 255, 255, 255))
-            draw.text((260, 1600), subtext, fill=accent_rgb)
+            draw.rounded_rectangle([100, 1500, 980, 1680], radius=30, fill=(30, 27, 75, 235), outline=accent_rgb, width=3)
+            draw.text((180, 1540), cta_text, font=f_title, fill=(255, 255, 255, 255))
+            draw.text((220, 1610), subtext, font=f_subtitle, fill=accent_rgb)
+
+        elif preset_id == "attention_arrow":
+            label = params.get("label", "¡OJO CON ESTO!").upper()
+            sublabel = params.get("sublabel", "Detalle clave que no viste")
+            draw.rounded_rectangle([120, 800, 960, 1030], radius=30, fill=(24, 24, 27, 240), outline=accent_rgb, width=4)
+            draw.ellipse([180, 880, 240, 940], fill=accent_dim, outline=accent_rgb, width=2)
+            draw.text((270, 860), label, font=f_title, fill=(255, 255, 255, 255))
+            draw.text((270, 935), sublabel, font=f_subtitle, fill=accent_rgb)
+
+        elif preset_id == "social_handle":
+            handle = params.get("handle", "@creador_digital")
+            platform = params.get("platform", "TikTok / Instagram")
+            draw.rounded_rectangle([60, 120, 560, 230], radius=48, fill=(9, 9, 11, 235), outline=accent_rgb, width=3)
+            draw.ellipse([80, 140, 140, 200], fill=accent_dim)
+            draw.text((160, 140), handle, font=f_title, fill=(255, 255, 255, 255))
+            draw.text((160, 185), platform, font=f_subtitle, fill=accent_rgb)
+
+        elif preset_id == "quote_card":
+            quote = params.get("quote", "La clave no es la suerte, es la retencion.")
+            author = params.get("author", "REGLA DE ORO").upper()
+            draw.rounded_rectangle([60, 750, 1020, 1100], radius=32, fill=(15, 23, 42, 240), outline=accent_rgb, width=3)
+            draw.text((100, 800), f'"{quote[:45]}"', font=f_quote, fill=(255, 255, 255, 255))
+            if len(quote) > 45:
+                draw.text((100, 860), f'{quote[45:90]}', font=f_quote, fill=(226, 232, 240, 255))
+            draw.rounded_rectangle([100, 980, 360, 1030], radius=16, fill=accent_dim, outline=accent_rgb, width=2)
+            draw.text((130, 992), f"— {author}", font=f_badge, fill=accent_rgb)
+
+        elif preset_id == "number_counter":
+            number_val = params.get("number_val", "+150,000")
+            label = params.get("label", "Nuevas Reproducciones")
+            badge = params.get("badge", "METRICA REAL").upper()
+            draw.rounded_rectangle([60, 1260, 1020, 1590], radius=32, fill=(8, 47, 73, 240), outline=accent_rgb, width=3)
+            draw.rounded_rectangle([110, 1296, 340, 1334], radius=18, fill=accent_dim, outline=accent_rgb, width=2)
+            draw.text((130, 1304), badge, font=f_badge, fill=accent_rgb)
+            draw.text((110, 1360), number_val, font=f_metric, fill=accent_rgb)
+            draw.text((110, 1475), label, font=f_title, fill=(255, 255, 255, 255))
+
+        elif preset_id == "warning_alert":
+            w_title = params.get("warning_title", "¡DETENTE AQUI!").upper()
+            w_desc = params.get("warning_desc", "Error que destruye tu retencion")
+            draw.rounded_rectangle([60, 750, 1020, 1050], radius=28, fill=(28, 25, 23, 245), outline=accent_rgb, width=4)
+            draw.rectangle([60, 750, 1020, 768], fill=accent_rgb)
+            draw.text((160, 830), f"AVISO: {w_title}", font=f_title, fill=accent_rgb)
+            draw.text((160, 930), w_desc, font=f_subtitle, fill=(245, 245, 244, 255))
 
         else:  # retention_bar
             bar_h = int(params.get("height_px", 14))
-            draw.rectangle([0, height - bar_h, width, height], fill=accent_rgb)
+            draw.rectangle([0, ref_h - bar_h, ref_w, ref_h], fill=accent_rgb)
 
         img.save(output_file, "PNG")
         logger.info(f"Generated transparent motion graphic PNG at: {output_file}")
@@ -354,8 +564,10 @@ class MotionGraphicsService:
         end_time = min(vid_dur, start_time + duration)
         fade_time = 0.3
 
-        # Generate transparent overlay matching video dimensions
-        overlay_png = self.generate_overlay_png(preset_id, params, width=vid_w, height=vid_h)
+        # Always generate on reference standard dimensions (1080x1920 or 1920x1080)
+        ref_w = 1920 if vid_w > vid_h else 1080
+        ref_h = 1080 if vid_w > vid_h else 1920
+        overlay_png = self.generate_overlay_png(preset_id, params, width=ref_w, height=ref_h)
 
         if not output_path:
             out_filename = f"mg_{Path(video_path).stem}_{preset_id}_{str(uuid.uuid4())[:6]}.mp4"
@@ -365,9 +577,9 @@ class MotionGraphicsService:
 
         out_p.parent.mkdir(parents=True, exist_ok=True)
 
-        # Build FFmpeg command with smooth alpha fade in & out
+        # Scale overlay to match video dimensions and apply smooth alpha fade
         filter_complex = (
-            f"[1:v]format=yuva420p,"
+            f"[1:v]scale={vid_w}:{vid_h},format=yuva420p,"
             f"fade=t=in:st=0:d={fade_time}:alpha=1,"
             f"fade=t=out:st={max(0.1, duration - fade_time)}:d={fade_time}:alpha=1,"
             f"setpts=PTS-STARTPTS+{start_time}/TB[over];"
@@ -401,3 +613,4 @@ class MotionGraphicsService:
             pass
 
         return str(out_p)
+

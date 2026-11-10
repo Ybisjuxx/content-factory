@@ -6,6 +6,7 @@ from app.api.routes_trends import router as trends_router
 from app.api.routes_distribution import router as distribution_router
 from app.api.routes_moneyprinter import router as moneyprinter_router
 from app.api.routes_motion_graphics import router as motion_graphics_router
+from app.api.routes_editor import router as editor_router
 
 api_router = APIRouter()
 api_router.include_router(jobs_router)
@@ -15,5 +16,6 @@ api_router.include_router(trends_router)
 api_router.include_router(distribution_router)
 api_router.include_router(moneyprinter_router)
 api_router.include_router(motion_graphics_router)
+api_router.include_router(editor_router)
 
 __all__ = ["api_router"]

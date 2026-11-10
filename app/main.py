@@ -1,6 +1,13 @@
+import sys
 import logging
 from contextlib import asynccontextmanager
 from pathlib import Path
+
+# Ensure project root is in sys.path regardless of execution environment
+_root_dir = str(Path(__file__).resolve().parent.parent)
+if _root_dir not in sys.path:
+    sys.path.insert(0, _root_dir)
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, FileResponse

@@ -1,36 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Content Factory - Suite Unificada de Contenido</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Impact&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Impact&display=swap"
+    rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #080c14; color: #f1f5f9; }
-    .neon-border { border-color: #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.25); }
-    .glass-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(51, 65, 85, 0.5); }
-    .tab-active { background: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%); color: #ffffff; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.35); }
-    .tab-inactive { background: rgba(30, 41, 59, 0.5); color: #94a3b8; }
-    .tab-inactive:hover { background: rgba(51, 65, 85, 0.7); color: #ffffff; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #080c14;
+      color: #f1f5f9;
+    }
+
+    .neon-border {
+      border-color: #38bdf8;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+    }
+
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(51, 65, 85, 0.5);
+    }
+
+    .tab-active {
+      background: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(14, 165, 233, 0.35);
+    }
+
+    .tab-inactive {
+      background: rgba(30, 41, 59, 0.5);
+      color: #94a3b8;
+    }
+
+    .tab-inactive:hover {
+      background: rgba(51, 65, 85, 0.7);
+      color: #ffffff;
+    }
+
     /* Timeline styling */
-    .timeline-track { background: repeating-linear-gradient(90deg, #1e293b, #1e293b 40px, #0f172a 40px, #0f172a 80px); }
+    .timeline-track {
+      background: repeating-linear-gradient(90deg, #1e293b, #1e293b 40px, #0f172a 40px, #0f172a 80px);
+    }
   </style>
 </head>
+
 <body class="min-h-screen p-4 md:p-8">
   <div class="max-w-7xl mx-auto space-y-6">
-    
+
     <!-- Top Global Header -->
     <header class="flex flex-col lg:flex-row lg:items-center justify-between pb-6 border-b border-slate-800 gap-4">
       <div>
         <div class="flex flex-wrap items-center gap-2">
-          <span class="px-3 py-1 text-xs font-black tracking-widest text-sky-400 bg-sky-950/70 border border-sky-800/80 rounded-full">
+          <span
+            class="px-3 py-1 text-xs font-black tracking-widest text-sky-400 bg-sky-950/70 border border-sky-800/80 rounded-full">
             CONTENT FACTORY SUITE
           </span>
-          <span class="px-3 py-1 text-xs font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800/80 rounded-full flex items-center gap-1.5">
+          <span
+            class="px-3 py-1 text-xs font-semibold text-emerald-400 bg-emerald-950/60 border border-emerald-800/80 rounded-full flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> 100% LOCAL &amp; AUTÓNOMO
           </span>
-          <span class="px-2.5 py-1 text-xs font-mono text-indigo-300 bg-indigo-950/60 border border-indigo-800/60 rounded-full">
+          <span
+            class="px-2.5 py-1 text-xs font-mono text-indigo-300 bg-indigo-950/60 border border-indigo-800/60 rounded-full">
             n8n • Ollama • Whisper • OpenCut
           </span>
         </div>
@@ -38,17 +74,20 @@
           Suite de Creación &amp; Distribución de Contenido
         </h1>
         <p class="text-xs md:text-sm text-slate-400 mt-1">
-          Detección de tendencias virales, producción autónoma con IA local, edición interactiva y publicación automatizada.
+          Detección de tendencias virales, producción autónoma con IA local, edición interactiva y publicación
+          automatizada.
         </p>
       </div>
 
       <!-- Quick Actions -->
       <div class="flex items-center gap-2">
-        <button onclick="openDoctorModal()" class="px-4 py-2 text-xs font-bold text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-xl transition border border-slate-700 flex items-center gap-1.5 shadow">
+        <button onclick="openDoctorModal()"
+          class="px-4 py-2 text-xs font-bold text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-xl transition border border-slate-700 flex items-center gap-1.5 shadow">
           <span>🩺</span>
           <span>Diagnóstico del Sistema</span>
         </button>
-        <button onclick="reindexBroll()" class="px-4 py-2 text-xs font-bold text-sky-400 bg-sky-950 hover:bg-sky-900 border border-sky-800 rounded-xl transition">
+        <button onclick="reindexBroll()"
+          class="px-4 py-2 text-xs font-bold text-sky-400 bg-sky-950 hover:bg-sky-900 border border-sky-800 rounded-xl transition">
           📂 Indexar B-Roll
         </button>
       </div>
@@ -91,15 +130,18 @@
 
     <!-- Navigation Tabs (Trends, Creación, Distribución) -->
     <div class="flex items-center gap-2 p-1.5 bg-slate-900/90 border border-slate-800 rounded-2xl">
-      <button onclick="switchTab('trends')" id="tab-btn-trends" class="flex-1 py-3 px-4 rounded-xl font-bold text-sm transition flex items-center justify-center gap-2 tab-active">
+      <button onclick="switchTab('trends')" id="tab-btn-trends"
+        class="flex-1 py-3 px-4 rounded-xl font-bold text-sm transition flex items-center justify-center gap-2 tab-active">
         <span>📈</span>
         <span>Trends (TrendTracker AI)</span>
       </button>
-      <button onclick="switchTab('creation')" id="tab-btn-creation" class="flex-1 py-3 px-4 rounded-xl font-bold text-sm transition flex items-center justify-center gap-2 tab-inactive">
+      <button onclick="switchTab('creation')" id="tab-btn-creation"
+        class="flex-1 py-3 px-4 rounded-xl font-bold text-sm transition flex items-center justify-center gap-2 tab-inactive">
         <span>🎬</span>
         <span>Creación (OpenCut &amp; Motor IA)</span>
       </button>
-      <button onclick="switchTab('distribution')" id="tab-btn-distribution" class="flex-1 py-3 px-4 rounded-xl font-bold text-sm transition flex items-center justify-center gap-2 tab-inactive">
+      <button onclick="switchTab('distribution')" id="tab-btn-distribution"
+        class="flex-1 py-3 px-4 rounded-xl font-bold text-sm transition flex items-center justify-center gap-2 tab-inactive">
         <span>🚀</span>
         <span>Distribución (n8n &amp; Redes)</span>
       </button>
@@ -109,38 +151,100 @@
     <!-- TAB 1: TRENDS (TrendTracker AI) -->
     <!-- ========================================================================================= -->
     <div id="tab-content-trends" class="space-y-6">
-      
-      <!-- Top Filters -->
+
+      <!-- Top Filters & Live Actions Bar -->
       <div class="glass-card rounded-3xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 class="text-xl font-bold text-white flex items-center gap-2">
-            <span>🔥</span> Tendencias en Redes Sociales
+            <span>🔥</span> Radar de Tendencias &amp; Fuentes
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">Analiza temas con alto potencial viral en YouTube, TikTok, Instagram y X.</p>
+          <p class="text-xs text-slate-400 mt-0.5">Monitoreo con enlaces directos a fuentes verificadas (Salud, Ciencia,
+            Historia, Tech y más).</p>
         </div>
 
-        <div class="flex flex-wrap items-center gap-3">
-          <select id="trendNicheFilter" onchange="loadTrends()" class="bg-slate-800 border border-slate-700 text-xs text-white rounded-xl px-3 py-2 focus:outline-none focus:border-sky-500">
-            <option value="todos">Todos los Nichos</option>
-            <option value="Tecnología & IA">Tecnología &amp; IA</option>
-            <option value="Productividad">Productividad &amp; Hacks</option>
-            <option value="Negocios & Finanzas">Negocios &amp; Finanzas</option>
-            <option value="Creadores de Contenido">Creadores de Contenido</option>
+        <div class="flex flex-wrap items-center gap-2.5">
+          <!-- Live Refresh Button -->
+          <button onclick="refreshLiveTrends()" id="btnRefreshTrends"
+            class="px-3.5 py-2 bg-slate-800 hover:bg-sky-600 hover:text-white border border-slate-700 text-xs font-bold text-sky-400 rounded-xl transition flex items-center gap-1.5 shadow">
+            <span id="refreshTrendsIcon">🔄</span>
+            <span>Actualizar en Vivo</span>
+          </button>
+
+          <!-- View Mode Switcher -->
+          <div
+            class="flex items-center gap-1 bg-slate-900 border border-slate-700 rounded-xl p-1 text-xs font-semibold">
+            <button onclick="setTrendsViewMode('cards')" id="trendsViewCardsBtn"
+              class="px-3 py-1.5 rounded-lg bg-sky-600 text-white transition flex items-center gap-1">
+              <span>🎴</span> Tarjetas
+            </button>
+            <button onclick="setTrendsViewMode('grouped')" id="trendsViewGroupedBtn"
+              class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1">
+              <span>📁</span> Agrupar Enlaces
+            </button>
+          </div>
+
+          <!-- Content Type Selector (All vs Breaking News vs Trends) -->
+          <select id="trendTypeFilter" onchange="loadTrends()"
+            class="bg-slate-800 border border-slate-700 text-xs text-white rounded-xl px-3 py-2 focus:outline-none focus:border-rose-500 font-semibold">
+            <option value="all">📰 Noticias &amp; 🔥 Tendencias</option>
+            <option value="news">🔴 Solo Noticias del Momento</option>
+            <option value="trends">🔥 Solo Tendencias Virales</option>
           </select>
 
-          <select id="trendPlatformFilter" onchange="loadTrends()" class="bg-slate-800 border border-slate-700 text-xs text-white rounded-xl px-3 py-2 focus:outline-none focus:border-sky-500">
+          <!-- Niche Selector with Expanded Categories -->
+          <select id="trendNicheFilter" onchange="loadTrends()"
+            class="bg-slate-800 border border-slate-700 text-xs text-white rounded-xl px-3 py-2 focus:outline-none focus:border-sky-500">
+            <option value="todos">Todos los Nichos</option>
+            <option value="Salud & Biohacking">🩺 Salud &amp; Biohacking</option>
+            <option value="Ciencia & Espacio">🔬 Ciencia &amp; Espacio</option>
+            <option value="Historia & Curiosidades">📜 Historia &amp; Curiosidades</option>
+            <option value="Tecnología & IA">💻 Tecnología &amp; IA</option>
+            <option value="Negocios & Finanzas">📈 Negocios &amp; Finanzas</option>
+            <option value="Productividad & Mindset">⚡ Productividad &amp; Mindset</option>
+            <option value="Cultura Pop & Cine">🎬 Cultura Pop &amp; Cine</option>
+          </select>
+
+          <!-- Platform Selector -->
+          <select id="trendPlatformFilter" onchange="loadTrends()"
+            class="bg-slate-800 border border-slate-700 text-xs text-white rounded-xl px-3 py-2 focus:outline-none focus:border-sky-500">
             <option value="todas">Todas las Plataformas</option>
+            <option value="Google News">Google News / Prensa</option>
             <option value="TikTok">TikTok</option>
             <option value="YouTube Shorts">YouTube Shorts</option>
             <option value="Instagram Reels">Instagram Reels</option>
             <option value="Twitter / X">Twitter / X</option>
+            <option value="Reddit">Reddit</option>
+            <option value="Google Trends">Google Trends</option>
           </select>
         </div>
       </div>
 
-      <!-- Trends Grid -->
+      <!-- Breaking News Live Ticker / Pill Bar -->
+      <div id="breakingNewsBanner"
+        class="p-3 bg-gradient-to-r from-rose-950/80 via-slate-900 to-slate-900 border border-rose-800/80 rounded-2xl flex items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
+          <span
+            class="px-2 py-0.5 rounded bg-rose-900/90 text-rose-200 font-black tracking-wider uppercase text-[10px]">ÚLTIMA
+            HORA</span>
+        </div>
+        <div id="breakingNewsTickerText" class="truncate font-semibold text-white">
+          Sincronizando principales noticias del momento en salud, ciencia, tecnología, negocios e historia...
+        </div>
+        <button onclick="setTrendTypeQuick('news')"
+          class="flex-shrink-0 text-rose-400 hover:text-white underline font-bold text-[11px]">
+          Ver solo noticias ➔
+        </button>
+      </div>
+
+      <!-- Trends Grid (Cards View) -->
       <div id="trendsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div class="text-center py-12 text-slate-500 text-sm col-span-3">Cargando tendencias virales...</div>
+      </div>
+
+      <!-- Trends Grouped by Niche / Links View -->
+      <div id="trendsGroupedContainer" class="hidden space-y-4">
+        <!-- Rendered dynamically by renderTrendsGrouped() -->
       </div>
 
       <!-- AI Content Ideas Generator Panel -->
@@ -150,12 +254,14 @@
             <h3 class="text-lg font-bold text-white flex items-center gap-2">
               <span class="text-sky-400">💡</span> Generador de Ideas &amp; Ganchos Virales (Ollama Local)
             </h3>
-            <p class="text-xs text-slate-400">Genera ganchos hipnóticos y esquemas de guion basados en cualquier nicho o tendencia.</p>
+            <p class="text-xs text-slate-400">Genera ganchos hipnóticos y esquemas de guion basados en cualquier nicho o
+              tendencia.</p>
           </div>
           <div class="flex items-center gap-2">
-            <input type="text" id="customIdeaTopic" placeholder="Tema personalizado (ej. 3 webs secretas)" 
+            <input type="text" id="customIdeaTopic" placeholder="Tema personalizado (ej. 3 webs secretas)"
               class="px-4 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 w-64">
-            <button onclick="generateViralIdeas()" class="px-5 py-2 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-xs font-bold text-white rounded-xl transition shadow">
+            <button onclick="generateViralIdeas()"
+              class="px-5 py-2 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-xs font-bold text-white rounded-xl transition shadow">
               Generar Ideas
             </button>
           </div>
@@ -163,8 +269,10 @@
 
         <div id="ideasList" class="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <!-- Ideas generated here -->
-          <div class="p-6 bg-slate-900/60 border border-slate-800/80 rounded-2xl text-center col-span-3 text-slate-500 text-xs">
-            Haz clic en "Generar Ideas" o selecciona una tendencia de la lista superior para desglosar ganchos y guiones.
+          <div
+            class="p-6 bg-slate-900/60 border border-slate-800/80 rounded-2xl text-center col-span-3 text-slate-500 text-xs">
+            Haz clic en "Generar Ideas" o selecciona una tendencia de la lista superior para desglosar ganchos y
+            guiones.
           </div>
         </div>
       </div>
@@ -175,66 +283,77 @@
     <!-- TAB 2: CREACIÓN (Content Factory + OpenCut Editor + MoneyPrinter) -->
     <!-- ========================================================================================= -->
     <div id="tab-content-creation" class="space-y-6 hidden">
-      
+
       <!-- Creation Submode Switcher -->
       <div class="flex flex-wrap items-center gap-2 p-1 bg-slate-900/80 border border-slate-800 rounded-xl w-fit">
-        <button onclick="switchCreationMode('autonomous')" id="subtab-btn-autonomous" class="px-4 py-2 rounded-lg text-xs font-bold transition bg-sky-600 text-white">
+        <button onclick="switchCreationMode('autonomous')" id="subtab-btn-autonomous"
+          class="px-4 py-2 rounded-lg text-xs font-bold transition bg-sky-600 text-white">
           🎬 Pipeline Autónomo
         </button>
-        <button onclick="switchCreationMode('motion_graphics')" id="subtab-btn-motion_graphics" class="px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white">
+        <button onclick="switchCreationMode('motion_graphics')" id="subtab-btn-motion_graphics"
+          class="px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white">
           ✨ Subir Video &amp; Motion Graphics (HyperFrames)
         </button>
-        <button onclick="switchCreationMode('opencut')" id="subtab-btn-opencut" class="px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white">
+        <button onclick="switchCreationMode('opencut')" id="subtab-btn-opencut"
+          class="px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white">
           ✂️ OpenCut Studio Pro (Editor Multipista)
         </button>
-        <button onclick="switchCreationMode('moneyprinter')" id="subtab-btn-moneyprinter" class="px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white">
+        <button onclick="switchCreationMode('moneyprinter')" id="subtab-btn-moneyprinter"
+          class="px-4 py-2 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white">
           🤖 MoneyPrinter (Faceless Shorts)
         </button>
       </div>
 
       <!-- SUBMODE A: PRODUCCIÓN AUTÓNOMA LOCAL -->
       <div id="creation-mode-autonomous" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
+
         <!-- Form -->
         <div class="glass-card rounded-3xl p-6 lg:p-8 space-y-5">
           <h2 class="text-xl font-bold text-white flex items-center gap-2">
             <span>⚡</span> Pipeline Autónomo
           </h2>
-          <p class="text-xs text-slate-400">Poda tomas repetidas, sincroniza subtítulos cinéticos ASS y atenúa música de fondo.</p>
+          <p class="text-xs text-slate-400">Poda tomas repetidas, sincroniza subtítulos cinéticos ASS y atenúa música de
+            fondo.</p>
 
           <form id="jobForm" onsubmit="submitJob(event)" class="space-y-4">
             <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1">Ruta del Video Crudo Local (*.mp4, *.mov)</label>
-              <input type="text" id="inputPath" required placeholder="C:/Videos/grabacion_tomas.mp4" 
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Ruta del Video Crudo Local (*.mp4,
+                *.mov)</label>
+              <input type="text" id="inputPath" required placeholder="C:/Videos/grabacion_tomas.mp4"
                 class="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs focus:outline-none focus:border-sky-500 text-white">
             </div>
 
             <div>
               <label class="block text-xs font-semibold text-slate-300 mb-1">Ruta de Salida (Opcional)</label>
-              <input type="text" id="outputPath" placeholder="Auto en storage/outputs/..." 
+              <input type="text" id="outputPath" placeholder="Auto en storage/outputs/..."
                 class="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs focus:outline-none focus:border-sky-500 text-white">
             </div>
 
             <div class="space-y-2 pt-1 border-t border-slate-800">
               <label class="flex items-center gap-2.5 text-xs text-slate-300 cursor-pointer">
-                <input type="checkbox" id="enableSubtitles" checked class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
+                <input type="checkbox" id="enableSubtitles" checked
+                  class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
                 <span>Subtítulos Cinéticos ASS (Resaltado Amarillo)</span>
               </label>
               <label class="flex items-center gap-2.5 text-xs text-slate-300 cursor-pointer">
-                <input type="checkbox" id="enableBroll" checked class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
+                <input type="checkbox" id="enableBroll" checked
+                  class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
                 <span>Cortes Automáticos a B-Roll Vertical 9:16</span>
               </label>
               <label class="flex items-center gap-2.5 text-xs text-slate-300 cursor-pointer">
-                <input type="checkbox" id="enableSvg" checked class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
+                <input type="checkbox" id="enableSvg" checked
+                  class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
                 <span>Tarjetas Gráficas Procedurales SVG</span>
               </label>
               <label class="flex items-center gap-2.5 text-xs text-slate-300 cursor-pointer">
-                <input type="checkbox" id="enableDucking" checked class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
+                <input type="checkbox" id="enableDucking" checked
+                  class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
                 <span>Audio Ducking de Música Ambiental (-22 dB)</span>
               </label>
             </div>
 
-            <button type="submit" class="w-full py-3 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 font-bold text-xs uppercase tracking-wider text-white rounded-xl shadow-lg transition">
+            <button type="submit"
+              class="w-full py-3 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 font-bold text-xs uppercase tracking-wider text-white rounded-xl shadow-lg transition">
               Renderizar Video con IA Local
             </button>
           </form>
@@ -250,7 +369,8 @@
           </div>
 
           <div id="jobsList" class="space-y-3">
-            <div class="text-center py-12 text-slate-500 text-xs">No hay trabajos encolados. Sube tu primer video para comenzar.</div>
+            <div class="text-center py-12 text-slate-500 text-xs">No hay trabajos encolados. Sube tu primer video para
+              comenzar.</div>
           </div>
         </div>
 
@@ -263,22 +383,29 @@
             <h2 class="text-xl font-bold text-white flex items-center gap-2">
               <span>✨</span> Motion Graphics Studio (Motor HyperFrames Local)
             </h2>
-            <p class="text-xs text-slate-400">Sube videos grabados por ti y superpón gráficos cinéticos deterministas (Lower Thirds, Métricas flotantes, Barras de retención y CTAs).</p>
+            <p class="text-xs text-slate-400">Sube videos grabados por ti y superpón gráficos cinéticos deterministas
+              (Lower Thirds, Métricas flotantes, Barras de retención y CTAs).</p>
           </div>
           <div class="flex items-center gap-2">
-            <span class="px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 text-[11px] font-bold">● Motor Activo (FFmpeg + Pillow)</span>
+            <span
+              class="px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 text-[11px] font-bold">●
+              Motor Activo (FFmpeg + Pillow)</span>
           </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          
+
           <!-- Column 1: Video Upload & Recorded Videos Library (4 cols) -->
           <div class="lg:col-span-4 space-y-4">
-            
+
             <!-- Upload Box -->
-            <div class="p-6 bg-slate-900/80 border-2 border-dashed border-slate-700 hover:border-sky-500 rounded-3xl text-center space-y-3 transition cursor-pointer" onclick="document.getElementById('mgVideoFileInput').click()">
-              <input type="file" id="mgVideoFileInput" accept="video/mp4,video/quicktime,video/webm,video/x-matroska" class="hidden" onchange="uploadUserRecordedVideo(event)">
-              <div class="w-12 h-12 mx-auto rounded-2xl bg-sky-950/80 border border-sky-800 flex items-center justify-center text-2xl text-sky-400">
+            <div
+              class="p-6 bg-slate-900/80 border-2 border-dashed border-slate-700 hover:border-sky-500 rounded-3xl text-center space-y-3 transition cursor-pointer"
+              onclick="document.getElementById('mgVideoFileInput').click()">
+              <input type="file" id="mgVideoFileInput" accept="video/mp4,video/quicktime,video/webm,video/x-matroska"
+                class="hidden" onchange="uploadUserRecordedVideo(event)">
+              <div
+                class="w-12 h-12 mx-auto rounded-2xl bg-sky-950/80 border border-sky-800 flex items-center justify-center text-2xl text-sky-400">
                 📤
               </div>
               <div>
@@ -286,15 +413,18 @@
                 <span class="text-[11px] text-slate-400">Formatos soportados: MP4, MOV, WebM, MKV</span>
               </div>
               <div id="mgUploadProgressBar" class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden hidden">
-                <div class="bg-gradient-to-r from-sky-400 to-indigo-500 h-1.5 rounded-full animate-pulse" style="width: 100%"></div>
+                <div class="bg-gradient-to-r from-sky-400 to-indigo-500 h-1.5 rounded-full animate-pulse"
+                  style="width: 100%"></div>
               </div>
             </div>
 
             <!-- Uploaded Video Details Card -->
-            <div id="mgActiveVideoCard" class="hidden p-4 bg-slate-900/60 border border-slate-800 rounded-2xl space-y-2 text-xs">
+            <div id="mgActiveVideoCard"
+              class="hidden p-4 bg-slate-900/60 border border-slate-800 rounded-2xl space-y-2 text-xs">
               <div class="flex items-center justify-between">
                 <span class="font-bold text-white truncate max-w-[200px]" id="mgActiveVideoName">video.mp4</span>
-                <span class="px-2 py-0.5 rounded bg-sky-950 text-sky-400 font-mono text-[10px]" id="mgActiveVideoAspect">9:16</span>
+                <span class="px-2 py-0.5 rounded bg-sky-950 text-sky-400 font-mono text-[10px]"
+                  id="mgActiveVideoAspect">9:16</span>
               </div>
               <div class="flex items-center justify-between text-slate-400 text-[11px]">
                 <span id="mgActiveVideoDur">⏱ 00:00</span>
@@ -308,7 +438,8 @@
             <div class="space-y-2">
               <div class="flex items-center justify-between text-xs">
                 <span class="font-bold text-slate-300">Tus Videos en Almacenamiento Local</span>
-                <button onclick="loadUserUploadedVideos()" class="text-sky-400 hover:underline text-[11px]">Actualizar</button>
+                <button onclick="loadUserUploadedVideos()"
+                  class="text-sky-400 hover:underline text-[11px]">Actualizar</button>
               </div>
               <div id="mgUploadedVideosList" class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
                 <div class="text-center py-4 text-slate-500 text-xs">Cargando videos locales...</div>
@@ -318,26 +449,32 @@
           </div>
 
           <!-- Column 2: Live Video Canvas + Live Animated Motion Graphic Overlay (5 cols) -->
-          <div class="lg:col-span-5 flex flex-col items-center justify-center bg-slate-950 rounded-3xl p-4 border border-slate-800 min-h-[440px] relative overflow-hidden">
-            
-            <div class="relative w-full max-w-[280px] aspect-[9/16] bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
+          <div
+            class="lg:col-span-5 flex flex-col items-center justify-center bg-slate-950 rounded-3xl p-4 border border-slate-800 min-h-[440px] relative overflow-hidden">
+
+            <div
+              class="relative w-full max-w-[280px] aspect-[9/16] bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
               <!-- Underlying Video Player -->
-              <video id="mgPreviewVideo" controls class="w-full h-full object-cover bg-black" ontimeupdate="syncMotionGraphicScrubber(this)"></video>
-              
+              <video id="mgPreviewVideo" controls class="w-full h-full object-cover bg-black"
+                ontimeupdate="syncMotionGraphicScrubber(this)"></video>
+
               <!-- Real-time Animated Motion Graphic SVG/HTML Layer -->
-              <div id="mgOverlayCanvas" class="absolute inset-0 pointer-events-none transition-all duration-300 flex flex-col justify-end">
+              <div id="mgOverlayCanvas"
+                class="absolute inset-0 pointer-events-none transition-all duration-300 flex flex-col justify-end">
                 <!-- Live SVG rendered here -->
               </div>
 
               <!-- Placeholder when no video loaded -->
-              <div id="mgEmptyPreviewState" class="absolute inset-0 flex flex-col items-center justify-center text-slate-500 text-xs space-y-2 bg-slate-950/90 pointer-events-none p-4 text-center">
+              <div id="mgEmptyPreviewState"
+                class="absolute inset-0 flex flex-col items-center justify-center text-slate-500 text-xs space-y-2 bg-slate-950/90 pointer-events-none p-4 text-center">
                 <span class="text-4xl">✨</span>
                 <span class="font-bold text-slate-300">Previsualizador de Motion Graphics</span>
                 <span>Sube un video o selecciona uno de tu lista para ver la animación en vivo sobre tu metraje</span>
               </div>
             </div>
 
-            <div class="mt-3 flex items-center justify-between w-full max-w-[280px] text-[11px] text-slate-400 font-mono">
+            <div
+              class="mt-3 flex items-center justify-between w-full max-w-[280px] text-[11px] text-slate-400 font-mono">
               <span id="mgTimecodeDisplay">00:00 / 00:00</span>
               <span class="text-sky-400 font-bold">Previsualización Real-Time</span>
             </div>
@@ -346,19 +483,98 @@
 
           <!-- Column 3: Motion Graphics Presets & Customizer (3 cols) -->
           <div class="lg:col-span-3 space-y-4 bg-slate-900/60 border border-slate-800 rounded-3xl p-5 text-xs">
-            <h3 class="font-bold text-sm text-white flex items-center gap-1.5">
+
+            <!-- Motion AI Kit Assistant -->
+            <div
+              class="p-3.5 bg-gradient-to-br from-indigo-950/80 to-slate-900 border border-indigo-700/60 rounded-2xl space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white flex items-center gap-1.5">
+                  <span class="text-indigo-400">⚡</span> Asistente Motion IA
+                </span>
+                <span
+                  class="text-[10px] font-mono text-indigo-300 bg-indigo-950 px-2 py-0.5 rounded-full border border-indigo-800">Motion.dev
+                  AI Kit</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Describe el gráfico en lenguaje natural y la IA compondrá las curvas
+                de animación y estilos.</p>
+
+              <div class="space-y-1.5 pt-1">
+                <input type="text" id="mgAiPromptInput"
+                  placeholder="Ej. Alerta roja a los 2 segundos que diga Peligro con este error..."
+                  class="w-full px-3 py-1.5 bg-slate-950/90 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-indigo-400">
+
+                <!-- Quick AI prompts spanning all 10 presets -->
+                <div class="flex flex-wrap gap-1">
+                  <button type="button"
+                    onclick="setMgAiPrompt('Flecha neón roja apuntando al centro con texto OJO AQUÍ')"
+                    class="px-2 py-0.5 bg-slate-800 hover:bg-indigo-900 text-[10px] text-indigo-300 rounded-lg">👇
+                    Flecha Ojo</button>
+                  <button type="button" onclick="setMgAiPrompt('Alerta crítica de peligro Deténte Aquí')"
+                    class="px-2 py-0.5 bg-slate-800 hover:bg-indigo-900 text-[10px] text-amber-300 rounded-lg">⚠️
+                    Alerta</button>
+                  <button type="button"
+                    onclick="setMgAiPrompt('Hook explosivo al inicio que diga NO COMETAS ESTE ERROR')"
+                    class="px-2 py-0.5 bg-slate-800 hover:bg-indigo-900 text-[10px] text-orange-300 rounded-lg">🔥 Hook
+                    0-3s</button>
+                  <button type="button" onclick="setMgAiPrompt('Métrica verde de +350% velocidad de producción')"
+                    class="px-2 py-0.5 bg-slate-800 hover:bg-indigo-900 text-[10px] text-emerald-300 rounded-lg">📈
+                    Métrica +350%</button>
+                  <button type="button" onclick="setMgAiPrompt('Contador de +250,000 reproducciones orgánicas')"
+                    class="px-2 py-0.5 bg-slate-800 hover:bg-indigo-900 text-[10px] text-cyan-300 rounded-lg">💰 +250K
+                    Cifra</button>
+                  <button type="button" onclick="setMgAiPrompt('Badge para mi cuenta de TikTok @alex_ai')"
+                    class="px-2 py-0.5 bg-slate-800 hover:bg-indigo-900 text-[10px] text-pink-300 rounded-lg">📱
+                    @Handle</button>
+                  <button type="button" onclick="setMgAiPrompt('Llamado a la acción con botón Sígueme para más trucos')"
+                    class="px-2 py-0.5 bg-slate-800 hover:bg-indigo-900 text-[10px] text-purple-300 rounded-lg">★
+                    Suscríbete</button>
+                  <button type="button"
+                    onclick="setMgAiPrompt('Cita célebre La clave no es la suerte sino la retención')"
+                    class="px-2 py-0.5 bg-slate-800 hover:bg-indigo-900 text-[10px] text-violet-300 rounded-lg">💬 Cita
+                    Cristal</button>
+                  <button type="button" onclick="setMgAiPrompt('Nombre del presentador Alex Rivera Ingeniero en IA')"
+                    class="px-2 py-0.5 bg-slate-800 hover:bg-indigo-900 text-[10px] text-sky-300 rounded-lg">👤
+                    Presentador</button>
+                  <button type="button" onclick="setMgAiPrompt('Barra de progreso de retención en el borde inferior')"
+                    class="px-2 py-0.5 bg-slate-800 hover:bg-indigo-900 text-[10px] text-blue-300 rounded-lg">📊 Barra
+                    Retención</button>
+                </div>
+
+                <button type="button" onclick="generateWithMotionAI()" id="btnGenerateMotionAI"
+                  class="w-full mt-1 py-1.5 bg-indigo-600 hover:bg-indigo-500 font-bold text-white rounded-xl transition shadow flex items-center justify-center gap-1.5 text-xs">
+                  <span>✨</span> Componer con Motion IA
+                </button>
+              </div>
+            </div>
+
+            <h3 class="font-bold text-sm text-white flex items-center gap-1.5 pt-1">
               <span>🎨</span> Preset de Motion Graphic
             </h3>
 
             <!-- Preset Selection -->
             <div>
-              <label class="block text-slate-400 mb-1 font-semibold">Seleccionar Estilo</label>
-              <select id="mgPresetSelector" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white" onchange="onMgPresetChange()">
-                <option value="lower_third_glass">Lower Third Cinético (Glass Minimal)</option>
-                <option value="stat_callout_neon">Métrica de Impacto (Stat Callout)</option>
-                <option value="viral_hook">Hook Explosivo (Título 0-3s)</option>
-                <option value="cta_badge">Llamado a la Acción (Animated CTA)</option>
-                <option value="retention_bar">Barra de Retención Viral (Progress Bar)</option>
+              <label class="block text-slate-400 mb-1 font-semibold">Seleccionar Herramienta / Estilo</label>
+              <select id="mgPresetSelector"
+                class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white"
+                onchange="onMgPresetChange()">
+                <optgroup label="Texto &amp; Identificación">
+                  <option value="lower_third_glass">Lower Third Cinético (Glass Minimal)</option>
+                  <option value="social_handle">Badge de Redes Sociales (@Handle)</option>
+                  <option value="quote_card">Tarjeta de Cita / Frase en Cristal</option>
+                </optgroup>
+                <optgroup label="Métricas &amp; Datos">
+                  <option value="stat_callout_neon">Métrica de Impacto (Stat Callout)</option>
+                  <option value="number_counter">Contador Numérico Dinámico (+150K)</option>
+                </optgroup>
+                <optgroup label="Retención &amp; Cues Visuales">
+                  <option value="viral_hook">Hook Explosivo (Título 0-3s)</option>
+                  <option value="attention_arrow">Flecha de Atención &amp; Alerta Neón</option>
+                  <option value="warning_alert">Alerta Crítica (Detén el Scroll)</option>
+                  <option value="retention_bar">Barra de Retención Viral (Progress Bar)</option>
+                </optgroup>
+                <optgroup label="Conversión">
+                  <option value="cta_badge">Llamado a la Acción (Animated CTA)</option>
+                </optgroup>
               </select>
             </div>
 
@@ -371,11 +587,15 @@
             <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800">
               <div>
                 <label class="block text-slate-400 mb-1">Inicio (seg)</label>
-                <input type="number" id="mgStartTime" step="0.1" value="1.0" min="0" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" onchange="renderMgPreviewLive()">
+                <input type="number" id="mgStartTime" step="0.1" value="1.0" min="0"
+                  class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white"
+                  onchange="renderMgPreviewLive()">
               </div>
               <div>
                 <label class="block text-slate-400 mb-1">Duración (seg)</label>
-                <input type="number" id="mgDuration" step="0.1" value="5.0" min="0.5" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" onchange="renderMgPreviewLive()">
+                <input type="number" id="mgDuration" step="0.1" value="5.0" min="0.5"
+                  class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white"
+                  onchange="renderMgPreviewLive()">
               </div>
             </div>
 
@@ -383,57 +603,165 @@
             <div>
               <label class="block text-slate-400 mb-1">Acento de Color Neón</label>
               <div class="flex items-center gap-2">
-                <button type="button" onclick="setMgAccentColor('#38BDF8')" class="w-6 h-6 rounded-full bg-[#38BDF8] border-2 border-white/20 hover:scale-110 transition shadow"></button>
-                <button type="button" onclick="setMgAccentColor('#10B981')" class="w-6 h-6 rounded-full bg-[#10B981] border-2 border-white/20 hover:scale-110 transition shadow"></button>
-                <button type="button" onclick="setMgAccentColor('#F59E0B')" class="w-6 h-6 rounded-full bg-[#F59E0B] border-2 border-white/20 hover:scale-110 transition shadow"></button>
-                <button type="button" onclick="setMgAccentColor('#818CF8')" class="w-6 h-6 rounded-full bg-[#818CF8] border-2 border-white/20 hover:scale-110 transition shadow"></button>
-                <input type="color" id="mgAccentColorCustom" value="#38BDF8" class="w-7 h-7 rounded border-0 cursor-pointer bg-transparent" onchange="setMgAccentColor(this.value)">
+                <button type="button" onclick="setMgAccentColor('#38BDF8')"
+                  class="w-6 h-6 rounded-full bg-[#38BDF8] border-2 border-white/20 hover:scale-110 transition shadow"></button>
+                <button type="button" onclick="setMgAccentColor('#10B981')"
+                  class="w-6 h-6 rounded-full bg-[#10B981] border-2 border-white/20 hover:scale-110 transition shadow"></button>
+                <button type="button" onclick="setMgAccentColor('#F59E0B')"
+                  class="w-6 h-6 rounded-full bg-[#F59E0B] border-2 border-white/20 hover:scale-110 transition shadow"></button>
+                <button type="button" onclick="setMgAccentColor('#EF4444')"
+                  class="w-6 h-6 rounded-full bg-[#EF4444] border-2 border-white/20 hover:scale-110 transition shadow"
+                  title="Rojo Alerta"></button>
+                <button type="button" onclick="setMgAccentColor('#EC4899')"
+                  class="w-6 h-6 rounded-full bg-[#EC4899] border-2 border-white/20 hover:scale-110 transition shadow"
+                  title="Rosa Neón"></button>
+                <button type="button" onclick="setMgAccentColor('#818CF8')"
+                  class="w-6 h-6 rounded-full bg-[#818CF8] border-2 border-white/20 hover:scale-110 transition shadow"></button>
+                <input type="color" id="mgAccentColorCustom" value="#38BDF8"
+                  class="w-7 h-7 rounded border-0 cursor-pointer bg-transparent"
+                  onchange="setMgAccentColor(this.value)">
               </div>
             </div>
 
             <!-- Render Button -->
-            <button onclick="applyMotionGraphicsRender()" id="mgRenderBtn" class="w-full py-3 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 font-bold text-xs uppercase tracking-wider text-white rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+            <button onclick="applyMotionGraphicsRender()" id="mgRenderBtn"
+              class="w-full py-3 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 font-bold text-xs uppercase tracking-wider text-white rounded-xl shadow-lg transition flex items-center justify-center gap-2">
               <span>⚡</span> Renderizar con FFmpeg Local
             </button>
 
             <!-- Render Result Notification -->
-            <div id="mgRenderResultBox" class="hidden p-3 bg-emerald-950/70 border border-emerald-800 rounded-xl space-y-1">
+            <div id="mgRenderResultBox"
+              class="hidden p-3 bg-emerald-950/70 border border-emerald-800 rounded-xl space-y-1">
               <span class="text-emerald-400 font-bold block">✔ Video Renderizado con Éxito</span>
-              <a id="mgDownloadLink" href="#" download class="text-xs text-sky-300 underline font-semibold block">Descargar MP4 Final</a>
+              <a id="mgDownloadLink" href="#" download
+                class="text-xs text-sky-300 underline font-semibold block">Descargar MP4 Final</a>
             </div>
 
           </div>
 
         </div>
 
+        <!-- Complementary Motion Graphics Engines Hub -->
+        <div class="mt-6 pt-5 border-t border-slate-800 space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                <span>🛠️</span> Ecosistema de Motores de Motion Graphics Integrados
+              </h3>
+              <p class="text-[11px] text-slate-400">Repositorios clonados en <code
+                  class="text-sky-300 font-mono">C:\Developer\content_factory\modules\</code> para animación
+                programática.</p>
+            </div>
+            <span
+              class="px-2.5 py-1 text-[10px] font-mono text-emerald-400 bg-emerald-950/70 border border-emerald-800 rounded-full font-bold">5
+              Motores Activos</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
+
+            <!-- Remotion -->
+            <div
+              class="p-3.5 bg-slate-900/90 border border-slate-800 rounded-2xl space-y-2 hover:border-indigo-600 transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-xs text-white flex items-center gap-1.5">
+                  <span>⚛️</span> Remotion
+                </span>
+                <span
+                  class="text-[9px] px-1.5 py-0.5 rounded bg-indigo-950 text-indigo-300 font-mono border border-indigo-800">React
+                  + TS</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Video y motion graphics programáticos con React, transiciones, audio
+                y renderizado con Chromium + FFmpeg.</p>
+              <div class="text-[10px] font-mono text-slate-500 truncate">modules/remotion</div>
+            </div>
+
+            <!-- Motion Canvas -->
+            <div
+              class="p-3.5 bg-slate-900/90 border border-slate-800 rounded-2xl space-y-2 hover:border-cyan-600 transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-xs text-white flex items-center gap-1.5">
+                  <span>🎨</span> Motion Canvas
+                </span>
+                <span
+                  class="text-[9px] px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 font-mono border border-cyan-800">Vectorial
+                  TS</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Animación procedural cuadro a cuadro y gráficos vectoriales
+                continuos con Canvas 2D y WebCodecs.</p>
+              <div class="text-[10px] font-mono text-slate-500 truncate">modules/motion-canvas</div>
+            </div>
+
+            <!-- Manim Community -->
+            <div
+              class="p-3.5 bg-slate-900/90 border border-slate-800 rounded-2xl space-y-2 hover:border-amber-600 transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-xs text-white flex items-center gap-1.5">
+                  <span>📐</span> Manim Engine
+                </span>
+                <span
+                  class="text-[9px] px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 font-mono border border-amber-800">Python
+                  3Blue1Brown</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Motor en Python para crear animaciones de fórmulas, gráficos
+                científicos, funciones y geometría analítica.</p>
+              <div class="text-[10px] font-mono text-slate-500 truncate">modules/manim</div>
+            </div>
+
+            <!-- Motion.dev & HyperFrames -->
+            <div
+              class="p-3.5 bg-slate-900/90 border border-slate-800 rounded-2xl space-y-2 hover:border-sky-600 transition">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-xs text-white flex items-center gap-1.5">
+                  <span>⚡</span> Motion + HyperFrames
+                </span>
+                <span
+                  class="text-[9px] px-1.5 py-0.5 rounded bg-sky-950 text-sky-300 font-mono border border-sky-800">Spring
+                  + FFmpeg</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Física elástica de muelles en tiempo real y composición de 10
+                presets cinéticos sobre videos de usuario.</p>
+              <div class="text-[10px] font-mono text-slate-500 truncate">modules/motion &amp; hyperframes</div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
 
       <!-- SUBMODE C: OPENCUT STUDIO PRO (EDITOR MULTIPISTA COMPLETO) -->
       <div id="creation-mode-opencut" class="glass-card rounded-3xl p-6 md:p-8 space-y-5 hidden">
-        
+
         <!-- OpenCut Header with Tools & Aspect Ratio -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800">
           <div>
             <h2 class="text-xl font-bold text-white flex items-center gap-2">
               <span>✂️</span> OpenCut Studio Pro
             </h2>
-            <p class="text-xs text-slate-400">Suite de edición multipista con recorte fino, transformaciones de lienzo, filtros cromáticos, retime y audio ducking.</p>
+            <p class="text-xs text-slate-400">Suite de edición multipista con recorte fino, transformaciones de lienzo,
+              filtros cromáticos, retime y audio ducking.</p>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
             <!-- Aspect Ratio Selector -->
-            <div class="flex items-center gap-1 bg-slate-900 border border-slate-700 rounded-xl p-1 text-xs font-semibold">
-              <button onclick="setCanvasAspectRatio('9:16')" id="arBtn916" class="px-2.5 py-1 rounded-lg bg-sky-600 text-white transition">9:16 Vertical</button>
-              <button onclick="setCanvasAspectRatio('16:9')" id="arBtn169" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">16:9 Horizontal</button>
-              <button onclick="setCanvasAspectRatio('1:1')" id="arBtn11" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">1:1 Cuadrado</button>
+            <div
+              class="flex items-center gap-1 bg-slate-900 border border-slate-700 rounded-xl p-1 text-xs font-semibold">
+              <button onclick="setCanvasAspectRatio('9:16')" id="arBtn916"
+                class="px-2.5 py-1 rounded-lg bg-sky-600 text-white transition">9:16 Vertical</button>
+              <button onclick="setCanvasAspectRatio('16:9')" id="arBtn169"
+                class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">16:9 Horizontal</button>
+              <button onclick="setCanvasAspectRatio('1:1')" id="arBtn11"
+                class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">1:1 Cuadrado</button>
             </div>
 
-            <button onclick="document.getElementById('editorVideoInput').click()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-white rounded-xl flex items-center gap-1.5 transition">
+            <button onclick="document.getElementById('editorVideoInput').click()"
+              class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-white rounded-xl flex items-center gap-1.5 transition">
               <span>📂</span> Cargar Clip
             </button>
-            <input type="file" id="editorVideoInput" accept="video/*" class="hidden" onchange="loadVideoToEditor(event)">
+            <input type="file" id="editorVideoInput" accept="video/*" class="hidden"
+              onchange="loadVideoToEditor(event)">
 
-            <button onclick="exportFromEditor()" class="px-4 py-2 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-xs font-bold text-white rounded-xl shadow transition flex items-center gap-1.5">
+            <button onclick="exportFromEditor()"
+              class="px-4 py-2 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-xs font-bold text-white rounded-xl shadow transition flex items-center gap-1.5">
               <span>🚀</span> Exportar Video con FFmpeg
             </button>
           </div>
@@ -441,29 +769,45 @@
 
         <!-- Canvas & Comprehensive Inspector Row -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          
+
           <!-- Central Video Canvas Monitor (7 cols) -->
-          <div class="lg:col-span-7 flex flex-col items-center justify-center bg-slate-950 rounded-3xl p-5 border border-slate-800 min-h-[440px] relative">
-            
-            <div id="editorCanvasContainer" class="relative max-h-[380px] aspect-[9/16] bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-800 transition-all duration-300">
-              <video id="editorPreviewVideo" class="w-full h-full object-contain bg-black" ontimeupdate="onEditorTimeUpdate(this)"></video>
-              
+          <div
+            class="lg:col-span-7 flex flex-col items-center justify-center bg-slate-950 rounded-3xl p-5 border border-slate-800 min-h-[440px] relative">
+
+            <div id="editorCanvasContainer"
+              class="relative max-h-[380px] aspect-[9/16] bg-black rounded-2xl overflow-hidden shadow-2xl border border-slate-800 transition-all duration-300">
+              <video id="editorPreviewVideo" class="w-full h-full object-contain bg-black"
+                ontimeupdate="onEditorTimeUpdate(this)"></video>
+
+              <!-- Live Kinetic Subtitle Overlay on Video Canvas -->
+              <div id="editorSubtitleOverlay"
+                class="absolute inset-x-0 bottom-6 pointer-events-none z-20 px-3 flex flex-col items-center justify-center transition-all duration-75">
+                <!-- Dynamic active words rendered here in real time as video plays -->
+              </div>
+
               <!-- Canvas empty state -->
-              <div id="editorEmptyState" class="absolute inset-0 flex flex-col items-center justify-center text-slate-500 text-xs space-y-2 pointer-events-none p-4 text-center">
+              <div id="editorEmptyState"
+                class="absolute inset-0 flex flex-col items-center justify-center text-slate-500 text-xs space-y-2 pointer-events-none p-4 text-center">
                 <span class="text-4xl">🎬</span>
                 <span class="font-bold text-slate-300">Lienzo de Edición Vacío</span>
-                <span>Carga un archivo local o selecciona uno renderizado para editar en tiempo real</span>
+                <span>Carga un archivo local o selecciona uno de tus videos para transcribir y editar</span>
               </div>
             </div>
 
             <!-- Transport Playback Controls Bar -->
-            <div class="mt-4 flex items-center justify-between w-full max-w-md px-4 py-2 bg-slate-900/90 border border-slate-800 rounded-2xl text-xs">
+            <div
+              class="mt-4 flex items-center justify-between w-full max-w-md px-4 py-2 bg-slate-900/90 border border-slate-800 rounded-2xl text-xs">
               <div class="flex items-center gap-1">
-                <button onclick="editorSeekToStart()" title="Ir al Inicio" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300">⏮</button>
-                <button onclick="editorStep(-1.0)" title="-1 segundo" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300 font-mono text-[11px]">-1s</button>
-                <button onclick="editorTogglePlay()" id="editorPlayBtn" title="Play/Pause" class="px-3 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm">▶</button>
-                <button onclick="editorStep(1.0)" title="+1 segundo" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300 font-mono text-[11px]">+1s</button>
-                <button onclick="editorSeekToEnd()" title="Ir al Final" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300">⏭</button>
+                <button onclick="editorSeekToStart()" title="Ir al Inicio"
+                  class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300">⏮</button>
+                <button onclick="editorStep(-1.0)" title="-1 segundo"
+                  class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300 font-mono text-[11px]">-1s</button>
+                <button onclick="editorTogglePlay()" id="editorPlayBtn" title="Play/Pause"
+                  class="px-3 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm">▶</button>
+                <button onclick="editorStep(1.0)" title="+1 segundo"
+                  class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300 font-mono text-[11px]">+1s</button>
+                <button onclick="editorSeekToEnd()" title="Ir al Final"
+                  class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300">⏭</button>
               </div>
 
               <div class="font-mono text-sky-400 font-bold" id="editorTimecodeLabel">00:00:00 / 00:00:00</div>
@@ -473,13 +817,18 @@
 
           <!-- Comprehensive Inspector (5 cols) -->
           <div class="lg:col-span-5 bg-slate-900/70 border border-slate-800 rounded-3xl p-5 space-y-4 text-xs">
-            
+
             <!-- Inspector Tabs -->
             <div class="flex items-center gap-1 border-b border-slate-800 pb-2">
-              <button onclick="switchInspectorTab('transform')" id="insp-tab-transform" class="px-3 py-1.5 rounded-lg font-bold text-xs bg-sky-600 text-white">Transformación</button>
-              <button onclick="switchInspectorTab('filters')" id="insp-tab-filters" class="px-3 py-1.5 rounded-lg font-bold text-xs text-slate-400 hover:text-white">Color &amp; Filtros</button>
-              <button onclick="switchInspectorTab('retime')" id="insp-tab-retime" class="px-3 py-1.5 rounded-lg font-bold text-xs text-slate-400 hover:text-white">Velocidad</button>
-              <button onclick="switchInspectorTab('subtitles')" id="insp-tab-subtitles" class="px-3 py-1.5 rounded-lg font-bold text-xs text-slate-400 hover:text-white">Subtítulos</button>
+              <button onclick="switchInspectorTab('transform')" id="insp-tab-transform"
+                class="px-3 py-1.5 rounded-lg font-bold text-xs bg-sky-600 text-white">Transformación</button>
+              <button onclick="switchInspectorTab('filters')" id="insp-tab-filters"
+                class="px-3 py-1.5 rounded-lg font-bold text-xs text-slate-400 hover:text-white">Color &amp;
+                Filtros</button>
+              <button onclick="switchInspectorTab('retime')" id="insp-tab-retime"
+                class="px-3 py-1.5 rounded-lg font-bold text-xs text-slate-400 hover:text-white">Velocidad</button>
+              <button onclick="switchInspectorTab('subtitles')" id="insp-tab-subtitles"
+                class="px-3 py-1.5 rounded-lg font-bold text-xs text-slate-400 hover:text-white">Subtítulos</button>
             </div>
 
             <!-- Tab 1: Transform -->
@@ -489,7 +838,8 @@
                   <span>Escala / Zoom</span>
                   <span id="valTransformScale" class="font-mono text-sky-400">100%</span>
                 </div>
-                <input type="range" id="inputTransformScale" min="50" max="200" value="100" class="w-full" oninput="applyEditorTransform()">
+                <input type="range" id="inputTransformScale" min="50" max="200" value="100" class="w-full"
+                  oninput="applyEditorTransform()">
               </div>
 
               <div class="grid grid-cols-2 gap-3">
@@ -498,14 +848,16 @@
                     <span>Posición X</span>
                     <span id="valTransformX" class="font-mono text-sky-400">0px</span>
                   </div>
-                  <input type="range" id="inputTransformX" min="-300" max="300" value="0" class="w-full" oninput="applyEditorTransform()">
+                  <input type="range" id="inputTransformX" min="-300" max="300" value="0" class="w-full"
+                    oninput="applyEditorTransform()">
                 </div>
                 <div>
                   <div class="flex justify-between text-slate-400 mb-1">
                     <span>Posición Y</span>
                     <span id="valTransformY" class="font-mono text-sky-400">0px</span>
                   </div>
-                  <input type="range" id="inputTransformY" min="-300" max="300" value="0" class="w-full" oninput="applyEditorTransform()">
+                  <input type="range" id="inputTransformY" min="-300" max="300" value="0" class="w-full"
+                    oninput="applyEditorTransform()">
                 </div>
               </div>
 
@@ -515,19 +867,23 @@
                     <span>Rotación</span>
                     <span id="valTransformRot" class="font-mono text-sky-400">0°</span>
                   </div>
-                  <input type="range" id="inputTransformRot" min="0" max="360" value="0" class="w-full" oninput="applyEditorTransform()">
+                  <input type="range" id="inputTransformRot" min="0" max="360" value="0" class="w-full"
+                    oninput="applyEditorTransform()">
                 </div>
                 <div>
                   <div class="flex justify-between text-slate-400 mb-1">
                     <span>Opacidad</span>
                     <span id="valTransformOpacity" class="font-mono text-sky-400">100%</span>
                   </div>
-                  <input type="range" id="inputTransformOpacity" min="10" max="100" value="100" class="w-full" oninput="applyEditorTransform()">
+                  <input type="range" id="inputTransformOpacity" min="10" max="100" value="100" class="w-full"
+                    oninput="applyEditorTransform()">
                 </div>
               </div>
 
               <div class="flex items-center gap-2 pt-2">
-                <button onclick="resetEditorTransform()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 font-semibold">Reiniciar Transformación</button>
+                <button onclick="resetEditorTransform()"
+                  class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 font-semibold">Reiniciar
+                  Transformación</button>
               </div>
             </div>
 
@@ -536,12 +892,21 @@
               <div>
                 <label class="block text-slate-400 mb-1 font-semibold">Presets Cinemáticos</label>
                 <div class="grid grid-cols-3 gap-1.5">
-                  <button onclick="applyColorPreset('none')" class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-slate-300">Original</button>
-                  <button onclick="applyColorPreset('teal_orange')" class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-cyan-400">Teal &amp; Orange</button>
-                  <button onclick="applyColorPreset('cyberpunk')" class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-fuchsia-400">Cyberpunk</button>
-                  <button onclick="applyColorPreset('bw')" class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-slate-200">B &amp; W</button>
-                  <button onclick="applyColorPreset('vintage')" class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-amber-300">Vintage 70s</button>
-                  <button onclick="applyColorPreset('vibrant')" class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-emerald-400">Vibrante</button>
+                  <button onclick="applyColorPreset('none')"
+                    class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-slate-300">Original</button>
+                  <button onclick="applyColorPreset('teal_orange')"
+                    class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-cyan-400">Teal
+                    &amp; Orange</button>
+                  <button onclick="applyColorPreset('cyberpunk')"
+                    class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-fuchsia-400">Cyberpunk</button>
+                  <button onclick="applyColorPreset('bw')"
+                    class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-slate-200">B
+                    &amp; W</button>
+                  <button onclick="applyColorPreset('vintage')"
+                    class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-amber-300">Vintage
+                    70s</button>
+                  <button onclick="applyColorPreset('vibrant')"
+                    class="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 text-[11px] font-semibold text-emerald-400">Vibrante</button>
                 </div>
               </div>
 
@@ -550,7 +915,8 @@
                   <span>Brillo</span>
                   <span id="valFilterBrightness" class="font-mono text-sky-400">100%</span>
                 </div>
-                <input type="range" id="inputFilterBrightness" min="50" max="150" value="100" class="w-full" oninput="applyEditorFilters()">
+                <input type="range" id="inputFilterBrightness" min="50" max="150" value="100" class="w-full"
+                  oninput="applyEditorFilters()">
               </div>
 
               <div>
@@ -558,7 +924,8 @@
                   <span>Contraste</span>
                   <span id="valFilterContrast" class="font-mono text-sky-400">100%</span>
                 </div>
-                <input type="range" id="inputFilterContrast" min="50" max="180" value="100" class="w-full" oninput="applyEditorFilters()">
+                <input type="range" id="inputFilterContrast" min="50" max="180" value="100" class="w-full"
+                  oninput="applyEditorFilters()">
               </div>
 
               <div>
@@ -566,7 +933,8 @@
                   <span>Saturación</span>
                   <span id="valFilterSaturation" class="font-mono text-sky-400">100%</span>
                 </div>
-                <input type="range" id="inputFilterSaturation" min="0" max="200" value="100" class="w-full" oninput="applyEditorFilters()">
+                <input type="range" id="inputFilterSaturation" min="0" max="200" value="100" class="w-full"
+                  oninput="applyEditorFilters()">
               </div>
             </div>
 
@@ -575,11 +943,16 @@
               <div>
                 <label class="block text-slate-400 mb-1 font-semibold">Velocidad de Reproducción (Retime)</label>
                 <div class="grid grid-cols-5 gap-1 text-center font-mono text-[11px]">
-                  <button onclick="setEditorSpeed(0.5)" id="speedBtn05" class="py-1.5 bg-slate-800 rounded-lg hover:bg-sky-600 text-slate-300">0.5x</button>
-                  <button onclick="setEditorSpeed(1.0)" id="speedBtn10" class="py-1.5 bg-sky-600 rounded-lg text-white font-bold">1.0x</button>
-                  <button onclick="setEditorSpeed(1.25)" id="speedBtn125" class="py-1.5 bg-slate-800 rounded-lg hover:bg-sky-600 text-slate-300">1.25x</button>
-                  <button onclick="setEditorSpeed(1.5)" id="speedBtn15" class="py-1.5 bg-slate-800 rounded-lg hover:bg-sky-600 text-slate-300">1.5x</button>
-                  <button onclick="setEditorSpeed(2.0)" id="speedBtn20" class="py-1.5 bg-slate-800 rounded-lg hover:bg-sky-600 text-slate-300">2.0x</button>
+                  <button onclick="setEditorSpeed(0.5)" id="speedBtn05"
+                    class="py-1.5 bg-slate-800 rounded-lg hover:bg-sky-600 text-slate-300">0.5x</button>
+                  <button onclick="setEditorSpeed(1.0)" id="speedBtn10"
+                    class="py-1.5 bg-sky-600 rounded-lg text-white font-bold">1.0x</button>
+                  <button onclick="setEditorSpeed(1.25)" id="speedBtn125"
+                    class="py-1.5 bg-slate-800 rounded-lg hover:bg-sky-600 text-slate-300">1.25x</button>
+                  <button onclick="setEditorSpeed(1.5)" id="speedBtn15"
+                    class="py-1.5 bg-slate-800 rounded-lg hover:bg-sky-600 text-slate-300">1.5x</button>
+                  <button onclick="setEditorSpeed(2.0)" id="speedBtn20"
+                    class="py-1.5 bg-slate-800 rounded-lg hover:bg-sky-600 text-slate-300">2.0x</button>
                 </div>
               </div>
 
@@ -588,7 +961,8 @@
                   <span>Volumen del Clip</span>
                   <span id="valEditorVolume" class="font-mono text-sky-400">100%</span>
                 </div>
-                <input type="range" id="inputEditorVolume" min="0" max="200" value="100" class="w-full" oninput="setEditorVolume(this.value)">
+                <input type="range" id="inputEditorVolume" min="0" max="200" value="100" class="w-full"
+                  oninput="setEditorVolume(this.value)">
               </div>
 
               <div class="p-3 bg-slate-950 border border-slate-800 rounded-xl space-y-1">
@@ -596,39 +970,120 @@
                   <span class="font-bold text-slate-200">Audio Ducking (-22 dB)</span>
                   <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 font-bold text-[10px]">Activo</span>
                 </div>
-                <p class="text-[11px] text-slate-500">Atenuación automática sidechain para que la voz del presentador resalte con claridad.</p>
+                <p class="text-[11px] text-slate-500">Atenuación automática sidechain para que la voz del presentador
+                  resalte con claridad.</p>
               </div>
             </div>
 
-            <!-- Tab 4: Subtitles Styling -->
-            <div id="insp-content-subtitles" class="space-y-3.5 hidden">
-              <div>
-                <label class="block text-slate-400 mb-1">Color de Resaltado (Karaoke)</label>
-                <div class="flex items-center gap-2">
-                  <input type="color" id="subHighlightColor" value="#ffff00" class="w-8 h-8 rounded border-0 cursor-pointer bg-transparent">
-                  <span class="text-slate-300 font-mono">Amarillo Neón (&amp;H0000FFFF)</span>
+            <!-- Tab 4: Subtitles Styling & Whisper Auto-Transcription -->
+            <div id="insp-content-subtitles" class="space-y-4 hidden">
+
+              <!-- Whisper Speech-to-Text Generator Card -->
+              <div
+                class="p-4 bg-gradient-to-br from-sky-950/80 to-slate-900 border border-sky-700/60 rounded-2xl space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-white flex items-center gap-1.5 text-xs">
+                    <span class="text-sky-400">🎙️</span> Auto-Subtítulos con Whisper
+                  </span>
+                  <span
+                    class="px-2 py-0.5 rounded-full bg-sky-900/80 text-sky-300 font-mono text-[10px] border border-sky-700">100%
+                    Local</span>
+                </div>
+                <p class="text-[11px] text-slate-400">Escucha la voz del hablante en el video y sincroniza subtítulos
+                  palabra por palabra con resaltado karaoke.</p>
+
+                <div class="grid grid-cols-2 gap-2 pt-1">
+                  <div>
+                    <label class="block text-slate-400 mb-0.5 text-[11px]">Idioma de Voz</label>
+                    <select id="editorWhisperLang"
+                      class="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded-lg text-white text-xs">
+                      <option value="auto">Auto (Detectar)</option>
+                      <option value="es" selected>Español (es)</option>
+                      <option value="en">English (en)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-slate-400 mb-0.5 text-[11px]">Estilo Visual</label>
+                    <select id="editorSubtitleStylePreset" onchange="applySubtitleStylePreset(this.value)"
+                      class="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-700 rounded-lg text-white text-xs">
+                      <option value="hormozi" selected>Karaoke Amarillo (Hormozi)</option>
+                      <option value="tiktok_white">TikTok Viral (Blanco Puro)</option>
+                      <option value="cyan_cyber">Cian Neón Cyber</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button type="button" onclick="generateAutoSubtitlesWhisper()" id="btnTranscribeWhisper"
+                  class="w-full mt-1.5 py-2.5 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-xs rounded-xl shadow transition flex items-center justify-center gap-2">
+                  <span id="transcribeBtnIcon">⚡</span>
+                  <span id="transcribeBtnText">Generar Subtítulos de Voz</span>
+                </button>
+
+                <!-- Status alert -->
+                <div id="whisperStatusBox"
+                  class="hidden p-2 rounded-lg text-[11px] bg-slate-900 border border-slate-700 flex items-center gap-2">
+                  <span id="whisperStatusIcon">⏳</span>
+                  <span id="whisperStatusText" class="text-slate-300">Extrayendo audio y procesando con
+                    Whisper...</span>
                 </div>
               </div>
 
-              <div>
-                <label class="block text-slate-400 mb-1">Tipografía</label>
-                <select id="subFontFamily" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white">
-                  <option value="Impact">Impact (Estilo Viral MrBeast / Alex Hormozi)</option>
-                  <option value="Montserrat">Montserrat ExtraBold</option>
-                  <option value="Inter">Inter UI Modern</option>
-                  <option value="Bebas Neue">Bebas Neue Headline</option>
-                </select>
+              <!-- Subtitle Styling Controls -->
+              <div class="space-y-3 pt-2 border-t border-slate-800">
+                <div class="flex items-center justify-between">
+                  <label class="text-slate-400 font-semibold text-xs">Color Resaltado Activo</label>
+                  <div class="flex items-center gap-2">
+                    <input type="color" id="subHighlightColor" value="#ffff00"
+                      class="w-6 h-6 rounded border-0 cursor-pointer bg-transparent"
+                      onchange="updateSubtitleOverlayLive()">
+                    <span class="text-slate-300 font-mono text-[11px]" id="subHighlightColorLabel">#FFFF00</span>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <label class="block text-slate-400 mb-1 text-[11px]">Tipografía</label>
+                    <select id="subFontFamily" onchange="updateSubtitleOverlayLive()"
+                      class="w-full px-2.5 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-xs">
+                      <option value="Impact" selected>Impact (Viral)</option>
+                      <option value="Montserrat">Montserrat ExtraBold</option>
+                      <option value="Inter">Inter UI Modern</option>
+                      <option value="Bebas Neue">Bebas Neue Headline</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-slate-400 mb-1 text-[11px]">Tamaño de Fuente</label>
+                    <input type="range" id="subFontSize" min="16" max="36" value="24" class="w-full"
+                      oninput="updateSubtitleOverlayLive()">
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-slate-400 mb-1 text-[11px]">
+                    <span>Margen Inferior (Zona Segura TikTok 420px)</span>
+                    <span id="valSubMarginV" class="font-mono text-sky-400">420px</span>
+                  </div>
+                  <input type="range" id="subMarginV" min="150" max="600" value="420" class="w-full"
+                    oninput="document.getElementById('valSubMarginV').innerText = this.value + 'px'; updateSubtitleOverlayLive()">
+                </div>
               </div>
 
-              <div>
-                <label class="block text-slate-400 mb-1">Tamaño de Fuente</label>
-                <input type="range" id="subFontSize" min="16" max="36" value="24" class="w-full">
+              <!-- Detected Cues List & Inline Editor -->
+              <div class="space-y-2 pt-2 border-t border-slate-800">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-bold text-slate-300 flex items-center gap-1.5">
+                    <span>📝</span> Líneas de Subtítulos (<span id="editorSubCount">0</span>)
+                  </span>
+                  <button type="button" onclick="clearEditorSubtitles()"
+                    class="text-slate-500 hover:text-red-400 text-[10px]">Borrar</button>
+                </div>
+
+                <div id="editorSubtitlesList" class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                  <div class="text-center py-4 text-slate-500 text-xs">No hay subtítulos generados aún. Haz clic en
+                    "Generar Subtítulos de Voz" arriba.</div>
+                </div>
               </div>
 
-              <div>
-                <label class="block text-slate-400 mb-1">Margen Inferior (Zona Segura TikTok 420px)</label>
-                <input type="range" id="subMarginV" min="200" max="600" value="420" class="w-full">
-              </div>
             </div>
 
           </div>
@@ -637,43 +1092,51 @@
 
         <!-- OpenCut Interactive Multi-Track Timeline -->
         <div class="bg-slate-950 border border-slate-800 rounded-3xl p-4 space-y-3">
-          
+
           <!-- Timeline Controls Toolbar -->
           <div class="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800 pb-3">
             <div class="flex items-center gap-2">
-              <button onclick="editorSplitAtPlayhead()" class="px-3 py-1.5 bg-slate-800 hover:bg-sky-600 hover:text-white rounded-xl text-white font-mono flex items-center gap-1.5 transition">
+              <button onclick="editorSplitAtPlayhead()"
+                class="px-3 py-1.5 bg-slate-800 hover:bg-sky-600 hover:text-white rounded-xl text-white font-mono flex items-center gap-1.5 transition">
                 <span>✂</span> Dividir en Cabezal (S)
               </button>
-              <button onclick="editorDeleteSelectedClip()" class="px-3 py-1.5 bg-slate-800 hover:bg-red-600 hover:text-white rounded-xl text-slate-300 transition">
+              <button onclick="editorDeleteSelectedClip()"
+                class="px-3 py-1.5 bg-slate-800 hover:bg-red-600 hover:text-white rounded-xl text-slate-300 transition">
                 🗑 Eliminar Clip
               </button>
-              <button onclick="editorResetTimeline()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-xl text-slate-300 transition">
+              <button onclick="editorResetTimeline()"
+                class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-xl text-slate-300 transition">
                 ↺ Restaurar Tomas
               </button>
             </div>
 
             <div class="flex items-center gap-3">
               <span class="text-[11px] text-slate-400">Escala de Zoom:</span>
-              <input type="range" id="timelineZoomSlider" min="50" max="200" value="100" class="w-28" oninput="applyTimelineZoom(this.value)">
+              <input type="range" id="timelineZoomSlider" min="50" max="200" value="100" class="w-28"
+                oninput="applyTimelineZoom(this.value)">
               <span class="font-mono text-sky-400 font-bold" id="timelineTimeDisplay">00:00:00.00</span>
             </div>
           </div>
 
           <!-- Multi-Track Container -->
           <div class="space-y-2 overflow-x-auto py-1" id="timelineTracksContainer">
-            
+
             <!-- Video Track (V1) -->
             <div class="space-y-1">
               <div class="flex items-center justify-between text-[11px] font-bold text-slate-400">
-                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-sky-400"></span> Pista V1: Video Principal (Jumpcuts con Crossfade 20ms)</span>
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-sky-400"></span> Pista V1:
+                  Video Principal (Jumpcuts con Crossfade 20ms)</span>
                 <span class="text-slate-500 font-mono text-[10px]" id="v1ClipCountLabel">2 tomas activas</span>
               </div>
-              <div id="timelineTrackV1" class="h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center p-1 gap-1.5 overflow-hidden">
-                <div onclick="selectTimelineSegment(0)" class="h-full rounded-lg bg-sky-950/80 border border-sky-600 flex items-center px-3 text-xs text-sky-200 font-mono cursor-pointer hover:bg-sky-900 transition flex-1">
+              <div id="timelineTrackV1"
+                class="h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center p-1 gap-1.5 overflow-hidden">
+                <div onclick="selectTimelineSegment(0)"
+                  class="h-full rounded-lg bg-sky-950/80 border border-sky-600 flex items-center px-3 text-xs text-sky-200 font-mono cursor-pointer hover:bg-sky-900 transition flex-1">
                   [Toma 1: 0.0s - 4.5s]
                 </div>
                 <div class="w-3 text-slate-600 text-center font-bold">⋈</div>
-                <div onclick="selectTimelineSegment(1)" class="h-full rounded-lg bg-sky-950/80 border border-sky-700 flex items-center px-3 text-xs text-sky-300 font-mono cursor-pointer hover:bg-sky-900 transition flex-1">
+                <div onclick="selectTimelineSegment(1)"
+                  class="h-full rounded-lg bg-sky-950/80 border border-sky-700 flex items-center px-3 text-xs text-sky-300 font-mono cursor-pointer hover:bg-sky-900 transition flex-1">
                   [Toma 2: 4.5s - 12.8s]
                 </div>
               </div>
@@ -682,11 +1145,13 @@
             <!-- Overlays & Motion Graphics Track (V2) -->
             <div class="space-y-1">
               <div class="flex items-center justify-between text-[11px] font-bold text-slate-400">
-                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-purple-400"></span> Pista V2: Motion Graphics &amp; Overlays (HyperFrames)</span>
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-purple-400"></span> Pista
+                  V2: Motion Graphics &amp; Overlays (HyperFrames)</span>
                 <span class="text-slate-500 font-mono text-[10px]">1 capa activa</span>
               </div>
               <div class="h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center p-1 overflow-hidden">
-                <div class="h-full w-48 rounded-lg bg-purple-950/70 border border-purple-800/80 flex items-center px-2.5 text-[11px] text-purple-300 font-mono">
+                <div
+                  class="h-full w-48 rounded-lg bg-purple-950/70 border border-purple-800/80 flex items-center px-2.5 text-[11px] text-purple-300 font-mono">
                   ✨ Lower Third Glass (1.0s - 6.0s)
                 </div>
               </div>
@@ -695,11 +1160,13 @@
             <!-- Subtitle Track (T1) -->
             <div class="space-y-1">
               <div class="flex items-center justify-between text-[11px] font-bold text-slate-400">
-                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Pista T1: Subtítulos Cinéticos (Karaoke ASS)</span>
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Pista
+                  T1: Subtítulos Cinéticos (Karaoke ASS)</span>
                 <span class="text-slate-500 font-mono text-[10px]">Silero VAD Sync</span>
               </div>
               <div class="h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center p-1 overflow-hidden">
-                <div class="h-full w-full rounded-lg bg-amber-950/50 border border-amber-800/70 flex items-center px-3 text-[11px] text-amber-300 font-mono">
+                <div
+                  class="h-full w-full rounded-lg bg-amber-950/50 border border-amber-800/70 flex items-center px-3 text-[11px] text-amber-300 font-mono">
                   ★ PALABRA POR PALABRA RESALTADO (ZONA SEGURA V=420)
                 </div>
               </div>
@@ -708,11 +1175,13 @@
             <!-- Audio Track (A1) -->
             <div class="space-y-1">
               <div class="flex items-center justify-between text-[11px] font-bold text-slate-400">
-                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Pista A1: Música Ambiental &amp; Ducking (-22 dB)</span>
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Pista
+                  A1: Música Ambiental &amp; Ducking (-22 dB)</span>
                 <span class="text-slate-500 font-mono text-[10px]">Sidechain Auto</span>
               </div>
               <div class="h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center p-1 overflow-hidden">
-                <div class="h-full w-full rounded-lg bg-emerald-950/50 border border-emerald-800/70 flex items-center px-3 text-[11px] text-emerald-300 font-mono">
+                <div
+                  class="h-full w-full rounded-lg bg-emerald-950/50 border border-emerald-800/70 flex items-center px-3 text-[11px] text-emerald-300 font-mono">
                   ♫ ambient_synth_track.mp3 (Atenuación automática durante voz activa)
                 </div>
               </div>
@@ -730,19 +1199,22 @@
           <h2 class="text-xl font-bold text-white flex items-center gap-2">
             <span>🤖</span> Generador Automático de Shorts (Motor MoneyPrinter)
           </h2>
-          <p class="text-xs text-slate-400">Crea videos verticales completos sin mostrar tu cara: genera el guion con Ollama, voz en off y fondo de B-Roll automáticamente.</p>
+          <p class="text-xs text-slate-400">Crea videos verticales completos sin mostrar tu cara: genera el guion con
+            Ollama, voz en off y fondo de B-Roll automáticamente.</p>
 
           <div class="space-y-3">
             <div>
               <label class="block text-xs font-semibold text-slate-300 mb-1">Tema del Video Short</label>
-              <input type="text" id="moneyPrinterSubject" placeholder="Ej: 3 curiosidades históricas que parecen de película" 
+              <input type="text" id="moneyPrinterSubject"
+                placeholder="Ej: 3 curiosidades históricas que parecen de película"
                 class="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500">
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label class="block text-xs font-semibold text-slate-300 mb-1">Voz / Idioma</label>
-                <select id="moneyPrinterVoice" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white">
+                <select id="moneyPrinterVoice"
+                  class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white">
                   <option value="es_mx_male">Español (Latinoamérica - Masculino)</option>
                   <option value="es_mx_female">Español (Latinoamérica - Femenino)</option>
                   <option value="en_us_male">English (US - Male)</option>
@@ -750,14 +1222,16 @@
               </div>
               <div>
                 <label class="block text-xs font-semibold text-slate-300 mb-1">Música de Fondo</label>
-                <select id="moneyPrinterMusic" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white">
+                <select id="moneyPrinterMusic"
+                  class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white">
                   <option value="ambient_synth">Ambient Synth / Lo-Fi Focus</option>
                   <option value="cinematic_dark">Cinematic Tension</option>
                 </select>
               </div>
             </div>
 
-            <button onclick="generateMoneyPrinterShort()" class="w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 font-bold text-xs uppercase tracking-wider text-white rounded-xl shadow transition">
+            <button onclick="generateMoneyPrinterShort()"
+              class="w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 font-bold text-xs uppercase tracking-wider text-white rounded-xl shadow transition">
               Generar Short Completo con MoneyPrinter
             </button>
           </div>
@@ -765,7 +1239,8 @@
 
         <div id="moneyPrinterResult" class="p-4 bg-slate-900/80 border border-slate-800 rounded-2xl hidden space-y-2">
           <span class="text-xs font-bold text-emerald-400">✔ Short Encolado Exitosamente</span>
-          <pre id="moneyPrinterScriptPreview" class="text-xs text-slate-300 whitespace-pre-wrap font-sans bg-slate-950 p-3 rounded-xl"></pre>
+          <pre id="moneyPrinterScriptPreview"
+            class="text-xs text-slate-300 whitespace-pre-wrap font-sans bg-slate-950 p-3 rounded-xl"></pre>
         </div>
       </div>
 
@@ -775,7 +1250,7 @@
     <!-- TAB 3: DISTRIBUCIÓN (n8n & Redes Sociales) -->
     <!-- ========================================================================================= -->
     <div id="tab-content-distribution" class="space-y-6 hidden">
-      
+
       <!-- Channels Status Grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="distributionChannelsList">
         <div class="glass-card rounded-2xl p-5">
@@ -794,9 +1269,11 @@
             <h2 class="text-xl font-bold text-white flex items-center gap-2">
               <span>🚀</span> Cola de Videos Listos para Publicar
             </h2>
-            <p class="text-xs text-slate-400">Videos renderizados en tu almacenamiento local listos para despacho automático.</p>
+            <p class="text-xs text-slate-400">Videos renderizados en tu almacenamiento local listos para despacho
+              automático.</p>
           </div>
-          <button onclick="loadDistributionQueue()" class="text-xs text-sky-400 hover:underline">Actualizar Cola</button>
+          <button onclick="loadDistributionQueue()" class="text-xs text-sky-400 hover:underline">Actualizar
+            Cola</button>
         </div>
 
         <div id="readyVideosTable" class="space-y-3">
@@ -809,17 +1286,18 @@
         <h3 class="text-lg font-bold text-white flex items-center gap-2">
           <span>📤</span> Despachador de Publicación
         </h3>
-        
+
         <form onsubmit="dispatchPublish(event)" class="space-y-4 max-w-2xl">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Ruta del Video a Publicar</label>
-            <input type="text" id="publishVideoPath" required placeholder="C:/Developer/content_factory/storage/outputs/final_video.mp4" 
+            <input type="text" id="publishVideoPath" required
+              placeholder="C:/Developer/content_factory/storage/outputs/final_video.mp4"
               class="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500">
           </div>
 
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">Título / Caption Viral</label>
-            <input type="text" id="publishTitle" required placeholder="Título impactante con emojis y gancho" 
+            <input type="text" id="publishTitle" required placeholder="Título impactante con emojis y gancho"
               class="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500">
           </div>
 
@@ -827,26 +1305,31 @@
             <label class="block text-xs font-semibold text-slate-300 mb-1">Canales de Destino</label>
             <div class="flex flex-wrap items-center gap-4 text-xs text-slate-300 pt-1">
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" id="pubDestN8N" checked class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
+                <input type="checkbox" id="pubDestN8N" checked
+                  class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
                 <span>Webhook n8n (:5678)</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" id="pubDestYT" class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
+                <input type="checkbox" id="pubDestYT"
+                  class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
                 <span>YouTube Shorts API</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" id="pubDestTikTok" class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
+                <input type="checkbox" id="pubDestTikTok"
+                  class="w-4 h-4 rounded text-sky-500 bg-slate-800 border-slate-700">
                 <span>TikTok (vía n8n)</span>
               </label>
             </div>
           </div>
 
-          <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-400 hover:to-sky-400 text-xs font-bold text-white rounded-xl shadow transition">
+          <button type="submit"
+            class="px-6 py-2.5 bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-400 hover:to-sky-400 text-xs font-bold text-white rounded-xl shadow transition">
             Disparar Publicación Automatizada
           </button>
         </form>
 
-        <div id="publishStatusResult" class="hidden text-xs p-3 rounded-xl bg-slate-900 border border-slate-800 font-mono"></div>
+        <div id="publishStatusResult"
+          class="hidden text-xs p-3 rounded-xl bg-slate-900 border border-slate-800 font-mono"></div>
       </div>
 
     </div>
@@ -945,10 +1428,16 @@
         }
 
         container.innerHTML = videos.map(v => `
-          <div onclick="selectUserVideoForMg('${v.path.replace(/\\/g, "/")}', '${v.filename}', '${v.url}')" 
-            class="p-2.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-sky-700 rounded-xl cursor-pointer transition flex items-center justify-between text-xs">
-            <span class="truncate max-w-[160px] text-slate-300 font-medium">${v.filename}</span>
-            <span class="text-[10px] text-slate-500 font-mono">${v.size_mb} MB</span>
+          <div class="p-2.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-sky-700 rounded-xl transition flex items-center justify-between text-xs gap-2">
+            <div onclick="selectUserVideoForMg('${v.path.replace(/\\/g, "/")}', '${v.filename}', '${v.url}')" class="truncate max-w-[140px] cursor-pointer">
+              <span class="text-slate-200 font-medium block truncate">${v.filename}</span>
+              <span class="text-[10px] text-slate-500 font-mono">${v.size_mb} MB</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <button type="button" onclick="openVideoInOpenCut('${v.path.replace(/\\/g, "/")}', '${v.filename}', '${v.url}')" class="px-2 py-1 bg-sky-950 hover:bg-sky-600 text-sky-400 hover:text-white rounded-lg text-[10px] font-bold transition border border-sky-800" title="Editar y transcribir con Whisper">
+                ✂️ Abrir en OpenCut
+              </button>
+            </div>
           </div>
         `).join('');
       } catch (e) {
@@ -956,11 +1445,20 @@
       }
     }
 
+    function openVideoInOpenCut(path, filename, url) {
+      selectUserVideoForMg(path, filename, url);
+      switchTab('creation');
+      switchCreationMode('opencut');
+      switchInspectorTab('subtitles');
+    }
+
     function selectUserVideoForMg(path, filename, previewUrl, meta) {
       document.getElementById('mgActiveVideoPath').value = path;
       document.getElementById('mgActiveVideoName').innerText = filename;
       document.getElementById('mgActiveVideoCard').classList.remove('hidden');
       document.getElementById('mgEmptyPreviewState').classList.add('hidden');
+
+      currentEditorVideoPath = path;
 
       if (meta) {
         document.getElementById('mgActiveVideoAspect').innerText = meta.aspect_ratio || '9:16';
@@ -978,7 +1476,96 @@
       editorVid.src = vid.src;
       document.getElementById('editorEmptyState').classList.add('hidden');
 
+      const statusBox = document.getElementById('whisperStatusBox');
+      if (statusBox) {
+        statusBox.classList.remove('hidden');
+        document.getElementById('whisperStatusIcon').innerText = "ℹ️";
+        document.getElementById('whisperStatusText').innerText = `Video "${filename}" cargado en OpenCut. Haz clic en "Generar Subtítulos de Voz" para transcribir con Whisper.`;
+      }
+
       renderMgPreviewLive();
+    }
+
+    function setMgAiPrompt(promptText) {
+      document.getElementById('mgAiPromptInput').value = promptText;
+    }
+
+    async function generateWithMotionAI() {
+      const prompt = document.getElementById('mgAiPromptInput').value.trim();
+      if (!prompt) return alert("Por favor escribe una descripción para el motion graphic.");
+
+      const btn = document.getElementById('btnGenerateMotionAI');
+      const oldHtml = btn.innerHTML;
+      btn.innerHTML = '<span>⏳</span> Componiendo física de animación...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/v1/motion-graphics/ai-generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: prompt })
+        });
+        const data = await res.json();
+        btn.innerHTML = oldHtml;
+        btn.disabled = false;
+
+        if (res.ok && data.status === 'success') {
+          document.getElementById('mgPresetSelector').value = data.preset_id;
+          onMgPresetChange();
+
+          // Populate generated values into fields
+          const p = data.params || {};
+          if (p.accent_color) setMgAccentColor(p.accent_color);
+          if (p.start_time !== undefined) document.getElementById('mgStartTime').value = p.start_time;
+          if (p.duration !== undefined) document.getElementById('mgDuration').value = p.duration;
+
+          // Lower third
+          if (p.title && document.getElementById('mgParamTitle')) document.getElementById('mgParamTitle').value = p.title;
+          if (p.subtitle && document.getElementById('mgParamSubtitle')) document.getElementById('mgParamSubtitle').value = p.subtitle;
+          if (p.badge && document.getElementById('mgParamBadge')) document.getElementById('mgParamBadge').value = p.badge;
+          // Viral hook
+          if (p.headline && document.getElementById('mgParamHeadline')) document.getElementById('mgParamHeadline').value = p.headline;
+          if (p.subheadline && document.getElementById('mgParamSubheadline')) document.getElementById('mgParamSubheadline').value = p.subheadline;
+          // Stat callout
+          if (p.metric && document.getElementById('mgParamMetric')) document.getElementById('mgParamMetric').value = p.metric;
+          if (p.explanation && document.getElementById('mgParamExplanation')) document.getElementById('mgParamExplanation').value = p.explanation;
+          // CTA badge
+          if (p.cta_text && document.getElementById('mgParamCtaText')) document.getElementById('mgParamCtaText').value = p.cta_text;
+          if (p.subtext && document.getElementById('mgParamSubtext')) document.getElementById('mgParamSubtext').value = p.subtext;
+          // Arrow
+          if (p.label && document.getElementById('mgParamArrowLabel')) document.getElementById('mgParamArrowLabel').value = p.label;
+          if (p.sublabel && document.getElementById('mgParamArrowSublabel')) document.getElementById('mgParamArrowSublabel').value = p.sublabel;
+          // Warning
+          if (p.warning_title && document.getElementById('mgParamWarningTitle')) document.getElementById('mgParamWarningTitle').value = p.warning_title;
+          if (p.warning_desc && document.getElementById('mgParamWarningDesc')) document.getElementById('mgParamWarningDesc').value = p.warning_desc;
+          // Number counter
+          if (p.number_val && document.getElementById('mgParamNumberVal')) document.getElementById('mgParamNumberVal').value = p.number_val;
+          if (p.label && document.getElementById('mgParamNumberLabel')) document.getElementById('mgParamNumberLabel').value = p.label;
+          // Quote
+          if (p.quote && document.getElementById('mgParamQuote')) document.getElementById('mgParamQuote').value = p.quote;
+          if (p.author && document.getElementById('mgParamAuthor')) document.getElementById('mgParamAuthor').value = p.author;
+          // Social
+          if (p.handle && document.getElementById('mgParamHandle')) document.getElementById('mgParamHandle').value = p.handle;
+          if (p.platform && document.getElementById('mgParamPlatform')) document.getElementById('mgParamPlatform').value = p.platform;
+          // Retention bar
+          if (p.height_px && document.getElementById('mgParamHeight')) document.getElementById('mgParamHeight').value = p.height_px;
+
+          // Scrub video player to start_time to view overlay directly on the frame
+          const vid = document.getElementById('mgPreviewVideo');
+          if (vid && !isNaN(vid.duration) && vid.duration > 0) {
+            const targetTime = Math.min(vid.duration, Math.max(0, p.start_time || 0.5));
+            vid.currentTime = targetTime;
+          }
+
+          renderMgPreviewLive();
+        } else {
+          alert("Error generando motion graphic con IA.");
+        }
+      } catch (e) {
+        btn.innerHTML = oldHtml;
+        btn.disabled = false;
+        alert("Fallo de conexión al generar motion graphic: " + e);
+      }
     }
 
     function onMgPresetChange() {
@@ -1041,6 +1628,61 @@
             <input type="text" id="mgParamSubtext" value="Comenta abajo tu opinión" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
           </div>
         `;
+      } else if (preset === 'attention_arrow') {
+        fields.innerHTML = `
+          <div>
+            <label class="block text-slate-400 mb-1">Texto de Advertencia / Flecha</label>
+            <input type="text" id="mgParamArrowLabel" value="¡OJO CON ESTO!" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-bold" oninput="renderMgPreviewLive()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Detalle o Explicación</label>
+            <input type="text" id="mgParamArrowSublabel" value="Detalle clave que la mayoría ignora" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+          </div>
+        `;
+      } else if (preset === 'social_handle') {
+        fields.innerHTML = `
+          <div>
+            <label class="block text-slate-400 mb-1">Tu Usuario / Arroba (@Handle)</label>
+            <input type="text" id="mgParamHandle" value="@alexrivera_ai" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-mono" oninput="renderMgPreviewLive()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Plataforma</label>
+            <input type="text" id="mgParamPlatform" value="TikTok / Instagram" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+          </div>
+        `;
+      } else if (preset === 'quote_card') {
+        fields.innerHTML = `
+          <div>
+            <label class="block text-slate-400 mb-1">Cita o Frase Destacada</label>
+            <input type="text" id="mgParamQuote" value="La clave no es la suerte, es la retención del primer segundo." class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Autor / Etiqueta</label>
+            <input type="text" id="mgParamAuthor" value="REGLA DE ORO" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+          </div>
+        `;
+      } else if (preset === 'number_counter') {
+        fields.innerHTML = `
+          <div>
+            <label class="block text-slate-400 mb-1">Cifra / Número de Impacto</label>
+            <input type="text" id="mgParamNumberVal" value="+150,000" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-mono font-bold text-base text-cyan-400" oninput="renderMgPreviewLive()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Etiqueta de la Métrica</label>
+            <input type="text" id="mgParamNumberLabel" value="Nuevas Reproducciones Orgánicas" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+          </div>
+        `;
+      } else if (preset === 'warning_alert') {
+        fields.innerHTML = `
+          <div>
+            <label class="block text-slate-400 mb-1">Título de Alerta</label>
+            <input type="text" id="mgParamWarningTitle" value="¡DETÉNTE AQUÍ!" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-bold text-amber-400" oninput="renderMgPreviewLive()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Mensaje de Advertencia</label>
+            <input type="text" id="mgParamWarningDesc" value="Si haces esto tu cuenta puede ser penalizada" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+          </div>
+        `;
       } else {
         fields.innerHTML = `
           <div>
@@ -1084,6 +1726,21 @@
       } else if (preset === 'cta_badge') {
         params.cta_text = document.getElementById('mgParamCtaText')?.value || "★ Sígueme para más";
         params.subtext = document.getElementById('mgParamSubtext')?.value || "Guarda este video";
+      } else if (preset === 'attention_arrow') {
+        params.label = document.getElementById('mgParamArrowLabel')?.value || "¡OJO CON ESTO!";
+        params.sublabel = document.getElementById('mgParamArrowSublabel')?.value || "Detalle que la mayoría ignora";
+      } else if (preset === 'social_handle') {
+        params.handle = document.getElementById('mgParamHandle')?.value || "@alexrivera_ai";
+        params.platform = document.getElementById('mgParamPlatform')?.value || "TikTok / Instagram";
+      } else if (preset === 'quote_card') {
+        params.quote = document.getElementById('mgParamQuote')?.value || "La clave no es la suerte, es la retención.";
+        params.author = document.getElementById('mgParamAuthor')?.value || "REGLA DE ORO";
+      } else if (preset === 'number_counter') {
+        params.number_val = document.getElementById('mgParamNumberVal')?.value || "+150,000";
+        params.label = document.getElementById('mgParamNumberLabel')?.value || "Nuevas Reproducciones";
+      } else if (preset === 'warning_alert') {
+        params.warning_title = document.getElementById('mgParamWarningTitle')?.value || "¡DETÉNTE AQUÍ!";
+        params.warning_desc = document.getElementById('mgParamWarningDesc')?.value || "Error que destruye tu retención";
       } else {
         params.height_px = parseInt(document.getElementById('mgParamHeight')?.value || "14");
       }
@@ -1114,6 +1771,7 @@
             svgEl.style.top = '0';
             svgEl.style.left = '0';
           }
+          canvas.style.opacity = '1';
         }
       } catch (e) {
         console.error("Error updating live MG preview:", e);
@@ -1137,10 +1795,16 @@
       if (document.getElementById('mgPresetSelector').value === 'retention_bar') {
         canvas.style.opacity = '1';
       } else {
-        if (cur >= start && cur <= end) {
+        if (vid.paused) {
+          // In design/paused mode, always display the graphic at full opacity over the frame
           canvas.style.opacity = '1';
         } else {
-          canvas.style.opacity = '0.15'; // subtle ghost when out of range for editing reference
+          // During video playback, accurately appear and disappear within timing window
+          if (cur >= start && cur <= end) {
+            canvas.style.opacity = '1';
+          } else {
+            canvas.style.opacity = '0';
+          }
         }
       }
     }
@@ -1362,10 +2026,15 @@
       vid.currentTime = vid.duration || 0;
     }
 
+    // Editor state
+    let currentEditorVideoPath = '';
+    let editorTranscriptSegments = [];
+    let editorAssPath = '';
+
     function onEditorTimeUpdate(vid) {
       const cur = vid.currentTime || 0;
       const dur = vid.duration || 0;
-      
+
       const formatTime = (t) => {
         const m = Math.floor(t / 60);
         const s = Math.floor(t % 60);
@@ -1375,6 +2044,209 @@
 
       document.getElementById('editorTimecodeLabel').innerText = `${formatTime(cur)} / ${formatTime(dur)}`;
       document.getElementById('timelineTimeDisplay').innerText = formatTime(cur);
+
+      // Real-time Kinetic Subtitles Engine
+      const subOverlay = document.getElementById('editorSubtitleOverlay');
+      if (subOverlay) {
+        if (editorTranscriptSegments && editorTranscriptSegments.length > 0) {
+          const activeSeg = editorTranscriptSegments.find(s => cur >= s.start && cur <= s.end);
+          if (activeSeg) {
+            const hlColor = document.getElementById('subHighlightColor')?.value || '#FFFF00';
+            const fontFamily = document.getElementById('subFontFamily')?.value || 'Impact';
+            const fontSize = document.getElementById('subFontSize')?.value || '24';
+
+            // Check if word-level timestamps are present
+            if (activeSeg.words && activeSeg.words.length > 0) {
+              const wordsHtml = activeSeg.words.map(w => {
+                const isWordActive = (cur >= w.start && cur <= w.end);
+                if (isWordActive) {
+                  return `<span style="color: ${hlColor}; transform: scale(1.12); display: inline-block; font-weight: 900; text-shadow: 0 0 16px ${hlColor}aa;">${w.word}</span>`;
+                } else {
+                  return `<span style="color: #FFFFFF; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.9);">${w.word}</span>`;
+                }
+              }).join(' ');
+
+              subOverlay.innerHTML = `
+                <div style="font-family: '${fontFamily}', sans-serif; font-size: ${fontSize}px; text-transform: uppercase; letter-spacing: 1px; line-height: 1.25; background: rgba(0,0,0,0.72); padding: 6px 14px; border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.15); backdrop-filter: blur(4px);">
+                  ${wordsHtml}
+                </div>
+              `;
+            } else {
+              subOverlay.innerHTML = `
+                <div style="font-family: '${fontFamily}', sans-serif; font-size: ${fontSize}px; color: ${hlColor}; text-shadow: 2px 2px 4px rgba(0,0,0,0.9); background: rgba(0,0,0,0.72); padding: 6px 14px; border-radius: 12px; font-weight: 900;">
+                  ${activeSeg.text}
+                </div>
+              `;
+            }
+          } else {
+            subOverlay.innerHTML = '';
+          }
+        } else {
+          subOverlay.innerHTML = '';
+        }
+      }
+    }
+
+    function applySubtitleStylePreset(preset) {
+      if (preset === 'hormozi') {
+        document.getElementById('subHighlightColor').value = '#ffff00';
+        document.getElementById('subHighlightColorLabel').innerText = '#FFFF00';
+        document.getElementById('subFontFamily').value = 'Impact';
+        document.getElementById('subFontSize').value = 26;
+      } else if (preset === 'tiktok_white') {
+        document.getElementById('subHighlightColor').value = '#ffffff';
+        document.getElementById('subHighlightColorLabel').innerText = '#FFFFFF';
+        document.getElementById('subFontFamily').value = 'Montserrat';
+        document.getElementById('subFontSize').value = 22;
+      } else if (preset === 'cyan_cyber') {
+        document.getElementById('subHighlightColor').value = '#06b6d4';
+        document.getElementById('subHighlightColorLabel').innerText = '#06B6D4';
+        document.getElementById('subFontFamily').value = 'Inter';
+        document.getElementById('subFontSize').value = 24;
+      }
+      updateSubtitleOverlayLive();
+    }
+
+    function updateSubtitleOverlayLive() {
+      const col = document.getElementById('subHighlightColor')?.value || '#FFFF00';
+      if (document.getElementById('subHighlightColorLabel')) {
+        document.getElementById('subHighlightColorLabel').innerText = col.toUpperCase();
+      }
+      const vid = document.getElementById('editorPreviewVideo');
+      if (vid) onEditorTimeUpdate(vid);
+    }
+
+    async function generateAutoSubtitlesWhisper() {
+      let videoPath = currentEditorVideoPath || document.getElementById('mgActiveVideoPath')?.value;
+      if (!videoPath) {
+        return alert("Por favor carga primero un video en OpenCut o selecciónalo de la lista en '✨ Subir Video & Motion Graphics'.");
+      }
+
+      const lang = document.getElementById('editorWhisperLang').value;
+      const statusBox = document.getElementById('whisperStatusBox');
+      const btn = document.getElementById('btnTranscribeWhisper');
+      const btnText = document.getElementById('transcribeBtnText');
+      const icon = document.getElementById('transcribeBtnIcon');
+
+      statusBox.classList.remove('hidden');
+      document.getElementById('whisperStatusIcon').innerText = "⏳";
+      document.getElementById('whisperStatusText').innerText = "Extrayendo audio y procesando con Whisper local...";
+      btn.disabled = true;
+      btnText.innerText = "Transcribiendo con IA...";
+      icon.innerText = "⏳";
+
+      try {
+        const res = await fetch('/api/v1/editor/transcribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ video_path: videoPath, language: lang })
+        });
+        const data = await res.json();
+        btn.disabled = false;
+        btnText.innerText = "Generar Subtítulos de Voz";
+        icon.innerText = "⚡";
+
+        if (res.ok && data.status === 'success') {
+          editorTranscriptSegments = data.segments || [];
+          editorAssPath = data.ass_path || '';
+          document.getElementById('whisperStatusIcon').innerText = "✔";
+          document.getElementById('whisperStatusText').innerText = `¡Subtítulos sincronizados! (${editorTranscriptSegments.length} segmentos con timestamps precisos).`;
+
+          renderEditorSubtitleCues();
+          renderTimelineSubtitles();
+
+          // If timeline duration matches video duration, update timeline segments
+          const vid = document.getElementById('editorPreviewVideo');
+          if (vid && vid.duration) {
+            editorTimelineSegments = [
+              { id: 0, start: 0.0, end: parseFloat(vid.duration.toFixed(2)), title: "Toma Principal" }
+            ];
+            renderTimelineV1();
+          }
+        } else {
+          document.getElementById('whisperStatusIcon').innerText = "❌";
+          document.getElementById('whisperStatusText').innerText = "Error: " + (data.detail || "Fallo en Whisper local.");
+        }
+      } catch (e) {
+        btn.disabled = false;
+        btnText.innerText = "Generar Subtítulos de Voz";
+        icon.innerText = "⚡";
+        document.getElementById('whisperStatusIcon').innerText = "❌";
+        document.getElementById('whisperStatusText').innerText = "Error de conexión: " + e;
+      }
+    }
+
+    function renderEditorSubtitleCues() {
+      const container = document.getElementById('editorSubtitlesList');
+      const countEl = document.getElementById('editorSubCount');
+      if (countEl) countEl.innerText = editorTranscriptSegments.length;
+
+      if (!editorTranscriptSegments || editorTranscriptSegments.length === 0) {
+        container.innerHTML = '<div class="text-center py-4 text-slate-500 text-xs">No hay subtítulos generados aún. Haz clic en "Generar Subtítulos de Voz" arriba.</div>';
+        return;
+      }
+
+      container.innerHTML = editorTranscriptSegments.map((seg, idx) => `
+        <div class="p-2.5 bg-slate-900 border border-slate-800 rounded-xl space-y-1.5 text-xs hover:border-sky-800 transition">
+          <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span class="text-sky-400 font-bold">#${idx + 1} [${seg.start.toFixed(2)}s - ${seg.end.toFixed(2)}s]</span>
+            <button type="button" onclick="seekEditorTo(${seg.start})" class="text-indigo-400 hover:underline">Ir a tiempo ➔</button>
+          </div>
+          <input type="text" value="${seg.text.replace(/"/g, '&quot;')}" oninput="updateSegmentText(${idx}, this.value)" 
+            class="w-full px-2.5 py-1 bg-slate-950 border border-slate-700 rounded-lg text-white font-medium focus:border-sky-500 text-xs">
+        </div>
+      `).join('');
+    }
+
+    function seekEditorTo(sec) {
+      const vid = document.getElementById('editorPreviewVideo');
+      if (vid) {
+        vid.currentTime = sec;
+        vid.play();
+      }
+    }
+
+    function updateSegmentText(idx, newText) {
+      if (editorTranscriptSegments[idx]) {
+        editorTranscriptSegments[idx].text = newText;
+        // Also update word text roughly if single segment
+        const words = newText.split(' ');
+        if (editorTranscriptSegments[idx].words && editorTranscriptSegments[idx].words.length === words.length) {
+          words.forEach((w, i) => {
+            if (editorTranscriptSegments[idx].words[i]) editorTranscriptSegments[idx].words[i].word = w;
+          });
+        }
+      }
+    }
+
+    function clearEditorSubtitles() {
+      editorTranscriptSegments = [];
+      renderEditorSubtitleCues();
+      renderTimelineSubtitles();
+      const subOverlay = document.getElementById('editorSubtitleOverlay');
+      if (subOverlay) subOverlay.innerHTML = '';
+      if (document.getElementById('editorSubCount')) document.getElementById('editorSubCount').innerText = '0';
+    }
+
+    function renderTimelineSubtitles() {
+      const container = document.getElementById('timelineTrackT1');
+      if (!container) return;
+
+      if (!editorTranscriptSegments || editorTranscriptSegments.length === 0) {
+        container.innerHTML = `
+          <div class="h-full w-full rounded-lg bg-amber-950/50 border border-amber-800/70 flex items-center px-3 text-[11px] text-amber-300 font-mono">
+            ★ PALABRA POR PALABRA RESALTADO (ZONA SEGURA V=420)
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = editorTranscriptSegments.map(seg => `
+        <div onclick="seekEditorTo(${seg.start})" title="[${seg.start}s - ${seg.end}s] ${seg.text}"
+          class="h-full px-2.5 bg-amber-950/80 border border-amber-600/80 rounded-lg flex items-center text-[10px] text-amber-200 font-mono truncate cursor-pointer hover:bg-amber-900 transition flex-shrink-0 max-w-[140px]">
+          💬 ${seg.text}
+        </div>
+      `).join('');
     }
 
     function renderTimelineV1() {
@@ -1443,64 +2315,340 @@
       container.style.transformOrigin = "left center";
     }
 
-    // Editor video loading
-    function loadVideoToEditor(e) {
+    // Editor video loading & upload
+    async function loadVideoToEditor(e) {
       const file = e.target.files[0];
-      if (file) {
-        const url = URL.createObjectURL(file);
-        const vid = document.getElementById('editorPreviewVideo');
-        vid.src = url;
-        document.getElementById('editorEmptyState').classList.add('hidden');
-        editorSeekToStart();
+      if (!file) return;
+
+      const url = URL.createObjectURL(file);
+      const vid = document.getElementById('editorPreviewVideo');
+      vid.src = url;
+      document.getElementById('editorEmptyState').classList.add('hidden');
+      editorSeekToStart();
+
+      // Automatically upload file in background so Whisper local can transcribe it
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const statusBox = document.getElementById('whisperStatusBox');
+      statusBox.classList.remove('hidden');
+      document.getElementById('whisperStatusIcon').innerText = "⏳";
+      document.getElementById('whisperStatusText').innerText = "Subiendo archivo a storage local para transcripción...";
+
+      try {
+        const res = await fetch('/api/v1/motion-graphics/upload', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        if (res.ok) {
+          currentEditorVideoPath = data.metadata?.path || data.path;
+          document.getElementById('whisperStatusIcon').innerText = "✔";
+          document.getElementById('whisperStatusText').innerText = "Clip cargado. Haz clic en 'Generar Subtítulos de Voz' para transcribir con Whisper.";
+        } else {
+          document.getElementById('whisperStatusIcon').innerText = "ℹ️";
+          document.getElementById('whisperStatusText').innerText = "Clip cargado en memoria del navegador.";
+        }
+      } catch (err) {
+        document.getElementById('whisperStatusText').innerText = "Clip listo para previsualización.";
       }
     }
 
-    function exportFromEditor() {
-      alert("¡Comando de exportación FFmpeg preparado! Se renderizarán los cortes con crossfade de 20ms, filtros de color aplicados y audio ducking a -22 dB.");
+    async function exportFromEditor() {
+      let videoPath = currentEditorVideoPath || document.getElementById('mgActiveVideoPath')?.value;
+      if (!videoPath) {
+        return alert("Por favor carga un video antes de exportar.");
+      }
+
+      const btn = event?.target || document.querySelector('button[onclick="exportFromEditor()"]');
+      const oldHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.innerHTML = '<span>⏳</span> Renderizando con FFmpeg...';
+        btn.disabled = true;
+      }
+
+      const reqBody = {
+        video_path: videoPath,
+        aspect_ratio: document.getElementById('arBtn916')?.classList.contains('bg-sky-600') ? "9:16" : (document.getElementById('arBtn169')?.classList.contains('bg-sky-600') ? "16:9" : "1:1"),
+        brightness: parseFloat(document.getElementById('inputFilterBrightness')?.value || 100) / 100,
+        contrast: parseFloat(document.getElementById('inputFilterContrast')?.value || 100) / 100,
+        saturation: parseFloat(document.getElementById('inputFilterSaturation')?.value || 100) / 100,
+        speed: document.getElementById('editorPreviewVideo')?.playbackRate || 1.0,
+        include_subtitles: (editorTranscriptSegments && editorTranscriptSegments.length > 0),
+        subtitle_style: {
+          font_name: document.getElementById('subFontFamily')?.value || 'Impact',
+          font_size: parseInt(document.getElementById('subFontSize')?.value || '24'),
+          highlight_color: document.getElementById('subHighlightColor')?.value || '#FFFF00',
+          margin_v: parseInt(document.getElementById('subMarginV')?.value || '420')
+        },
+        transcript_segments: editorTranscriptSegments
+      };
+
+      try {
+        const res = await fetch('/api/v1/editor/export', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(reqBody)
+        });
+        const data = await res.json();
+        if (btn) {
+          btn.innerHTML = oldHtml;
+          btn.disabled = false;
+        }
+
+        if (res.ok && data.download_url) {
+          const a = document.createElement('a');
+          a.href = data.download_url;
+          a.download = data.filename || 'export.mp4';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          alert("¡Exportación completada! Tu video renderizado con subtítulos se ha descargado.");
+        } else {
+          alert("Error exportando video: " + (data.detail || JSON.stringify(data)));
+        }
+      } catch (err) {
+        if (btn) {
+          btn.innerHTML = oldHtml;
+          btn.disabled = false;
+        }
+        alert("Fallo de conexión al exportar: " + err);
+      }
     }
 
     // =========================================================================
     // TRENDS & VIRAL IDEAS LOGIC
     // =========================================================================
+    let trendsViewMode = 'cards';
+
+    function setTrendsViewMode(mode) {
+      trendsViewMode = mode;
+      const cardsBtn = document.getElementById('trendsViewCardsBtn');
+      const groupedBtn = document.getElementById('trendsViewGroupedBtn');
+      const cardsList = document.getElementById('trendsList');
+      const groupedContainer = document.getElementById('trendsGroupedContainer');
+
+      if (mode === 'cards') {
+        cardsBtn.className = "px-3 py-1.5 rounded-lg bg-sky-600 text-white transition flex items-center gap-1";
+        groupedBtn.className = "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1";
+        cardsList.classList.remove('hidden');
+        groupedContainer.classList.add('hidden');
+        loadTrends();
+      } else {
+        cardsBtn.className = "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1";
+        groupedBtn.className = "px-3 py-1.5 rounded-lg bg-sky-600 text-white transition flex items-center gap-1";
+        cardsList.classList.add('hidden');
+        groupedContainer.classList.remove('hidden');
+        renderTrendsGrouped();
+      }
+    }
+
+    async function refreshLiveTrends() {
+      const icon = document.getElementById('refreshTrendsIcon');
+      if (icon) icon.classList.add('animate-spin');
+
+      try {
+        const res = await fetch('/api/v1/trends/refresh', { method: 'POST' });
+        const data = await res.json();
+        if (icon) icon.classList.remove('animate-spin');
+
+        if (trendsViewMode === 'cards') {
+          loadTrends();
+        } else {
+          renderTrendsGrouped();
+        }
+        alert(`Tendencias sincronizadas en vivo: ${data.message || 'Catálogo actualizado.'}`);
+      } catch (e) {
+        if (icon) icon.classList.remove('animate-spin');
+        alert("No se pudo conectar a los feeds remotos; mostrando tendencias del catálogo local.");
+        loadTrends();
+      }
+    }
+
+    function setTrendTypeQuick(typeVal) {
+      const el = document.getElementById('trendTypeFilter');
+      if (el) {
+        el.value = typeVal;
+        loadTrends();
+      }
+    }
+
     async function loadTrends() {
       const niche = document.getElementById('trendNicheFilter').value;
       const platform = document.getElementById('trendPlatformFilter').value;
+      const contentType = document.getElementById('trendTypeFilter')?.value || 'all';
       const container = document.getElementById('trendsList');
 
       try {
-        const res = await fetch(`/api/v1/trends/topics?niche=${encodeURIComponent(niche)}&platform=${encodeURIComponent(platform)}`);
+        const res = await fetch(`/api/v1/trends/topics?niche=${encodeURIComponent(niche)}&platform=${encodeURIComponent(platform)}&content_type=${encodeURIComponent(contentType)}`);
         const topics = await res.json();
 
         if (!topics || topics.length === 0) {
-          container.innerHTML = '<div class="text-center py-12 text-slate-500 text-sm col-span-3">No hay tendencias para este filtro.</div>';
+          container.innerHTML = '<div class="text-center py-12 text-slate-500 text-sm col-span-3">No hay noticias o tendencias para este filtro.</div>';
           return;
         }
 
-        container.innerHTML = topics.map(t => `
-          <div class="glass-card rounded-2xl p-5 space-y-3 border border-slate-800/80 hover:border-sky-800/80 transition">
-            <div class="flex items-center justify-between">
-              <span class="px-2.5 py-0.5 text-[11px] font-bold rounded-full bg-sky-950 text-sky-400 border border-sky-800">${t.platform}</span>
-              <span class="text-xs font-extrabold text-amber-400">🔥 ${t.heat_score} / 100</span>
+        // Update live news banner with the latest breaking item
+        const firstNews = topics.find(t => t.is_news);
+        const ticker = document.getElementById('breakingNewsTickerText');
+        if (ticker && firstNews) {
+          ticker.innerHTML = `<span class="text-rose-400 font-bold">[${firstNews.niche}]</span> ${firstNews.title} <span class="text-slate-400 text-[10px]">(${firstNews.publisher || 'Prensa'})</span>`;
+        }
+
+        container.innerHTML = topics.map((t, idx) => {
+          const sourcesCount = (t.sources && t.sources.length) ? t.sources.length : 0;
+          const isNews = !!t.is_news;
+          return `
+          <div class="glass-card rounded-2xl p-5 space-y-3 border ${isNews ? 'border-rose-900/60 bg-rose-950/10' : 'border-slate-800/80'} hover:border-sky-800/80 transition flex flex-col justify-between">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between">
+                ${isNews ? `
+                  <span class="px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-rose-950 text-rose-300 border border-rose-800 flex items-center gap-1.5 shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+                    <span>🔴 ${t.publisher || 'NOTICIA DEL MOMENTO'}</span>
+                  </span>
+                ` : `
+                  <span class="px-2.5 py-0.5 text-[11px] font-bold rounded-full bg-sky-950 text-sky-400 border border-sky-800">${t.platform}</span>
+                `}
+                <div class="flex items-center gap-2">
+                  ${t.published_at ? `<span class="text-[10px] text-slate-400 font-mono">🕒 ${t.published_at}</span>` : ''}
+                  <span class="text-xs font-extrabold ${isNews ? 'text-rose-400' : 'text-amber-400'}">🔥 ${t.heat_score} / 100</span>
+                </div>
+              </div>
+
+              <h3 class="font-bold text-sm text-white">${t.title}</h3>
+              
+              <div class="flex items-center justify-between text-xs text-slate-400">
+                <span class="font-semibold text-slate-300">${t.niche}</span>
+                <span class="${isNews ? 'text-rose-400 font-bold' : 'text-emerald-400 font-semibold'}">${t.growth}</span>
+              </div>
+
+              ${t.summary ? `<p class="text-xs text-slate-400 line-clamp-2">${t.summary}</p>` : ''}
+
+              <div class="flex flex-wrap gap-1 pt-1">
+                ${t.tags.map(tag => `<span class="px-2 py-0.5 bg-slate-800 text-[10px] text-slate-300 rounded font-mono">#${tag}</span>`).join('')}
+              </div>
             </div>
 
-            <h3 class="font-bold text-sm text-white">${t.title}</h3>
-            
-            <div class="flex items-center justify-between text-xs text-slate-400">
-              <span>${t.niche}</span>
-              <span class="text-emerald-400 font-semibold">${t.growth}</span>
-            </div>
+            <div class="space-y-2 pt-2 border-t border-slate-800/60">
+              <!-- Sources toggle drawer -->
+              ${sourcesCount > 0 ? `
+                <div class="space-y-1.5">
+                  <button type="button" onclick="toggleSourcesDrawer('sources-${idx}')" class="text-[11px] text-sky-400 hover:text-sky-300 flex items-center justify-between w-full font-semibold">
+                    <span>🔗 ${sourcesCount} Fuentes &amp; Enlaces directos</span>
+                    <span id="sources-${idx}-arrow">▼</span>
+                  </button>
+                  <div id="sources-${idx}" class="hidden space-y-1 bg-slate-950/80 p-2.5 rounded-xl border border-slate-800 text-[11px]">
+                    ${t.sources.map(s => `
+                      <div class="flex items-center justify-between gap-2">
+                        <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="truncate text-slate-300 hover:text-sky-300 underline font-medium">
+                          ${s.title}
+                        </a>
+                        <span class="text-[10px] px-1.5 py-0.5 bg-slate-800 text-slate-400 rounded flex-shrink-0">${s.platform}</span>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              ` : ''}
 
-            <div class="flex flex-wrap gap-1 pt-1">
-              ${t.tags.map(tag => `<span class="px-2 py-0.5 bg-slate-800 text-[10px] text-slate-300 rounded font-mono">#${tag}</span>`).join('')}
+              <button onclick="useTrendInCreation('${t.title.replace(/'/g, "\\'")}')" class="w-full py-2 bg-slate-800 hover:bg-sky-600 hover:text-white text-sky-400 text-xs font-bold rounded-xl transition border border-slate-700">
+                ⚡ Usar en Creación ➔
+              </button>
             </div>
-
-            <button onclick="useTrendInCreation('${t.title.replace(/'/g, "\\'")}')" class="w-full mt-2 py-2 bg-slate-800 hover:bg-sky-600 hover:text-white text-sky-400 text-xs font-bold rounded-xl transition border border-slate-700">
-              ⚡ Usar en Creación ➔
-            </button>
           </div>
-        `).join('');
+        `}).join('');
       } catch (e) {
         console.error("Error loading trends:", e);
+      }
+    }
+
+    function toggleSourcesDrawer(id) {
+      const el = document.getElementById(id);
+      const arrow = document.getElementById(id + '-arrow');
+      if (el) {
+        if (el.classList.contains('hidden')) {
+          el.classList.remove('hidden');
+          if (arrow) arrow.innerText = '▲';
+        } else {
+          el.classList.add('hidden');
+          if (arrow) arrow.innerText = '▼';
+        }
+      }
+    }
+
+    async function renderTrendsGrouped() {
+      const container = document.getElementById('trendsGroupedContainer');
+      container.innerHTML = '<div class="text-center py-12 text-slate-500 text-sm">Agrupando fuentes y temas por categoría...</div>';
+
+      try {
+        const res = await fetch('/api/v1/trends/grouped-links');
+        const grouped = await res.json();
+
+        const categories = Object.keys(grouped);
+        if (categories.length === 0) {
+          container.innerHTML = '<div class="text-center py-8 text-slate-500 text-sm">No hay enlaces agrupados disponibles.</div>';
+          return;
+        }
+
+        container.innerHTML = categories.map(cat => {
+          const items = grouped[cat];
+          const totalLinks = items.reduce((acc, it) => acc + (it.sources?.length || 0), 0);
+
+          return `
+            <div class="glass-card rounded-2xl p-5 space-y-4 border border-slate-800">
+              <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                  <span class="text-lg">📁</span>
+                  <h3 class="font-bold text-white text-base">${cat}</h3>
+                  <span class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 text-[11px] font-mono">${items.length} temas</span>
+                  <span class="px-2 py-0.5 rounded-full bg-sky-950 text-sky-400 text-[11px] font-mono border border-sky-800">${totalLinks} enlaces directos</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                ${items.map(it => `
+                  <div class="p-3.5 bg-slate-900/90 border ${it.is_news ? 'border-rose-900/60' : 'border-slate-800/80'} rounded-xl space-y-2">
+                    <div class="flex items-center justify-between text-[11px]">
+                      ${it.is_news ? `
+                        <span class="px-2 py-0.5 rounded-full bg-rose-950 text-rose-300 border border-rose-800 text-[10px] font-bold flex items-center gap-1">
+                          <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+                          <span>🔴 ${it.publisher || 'NOTICIA'}</span>
+                        </span>
+                      ` : `
+                        <span class="px-2 py-0.5 rounded-full bg-sky-950 text-sky-400 border border-sky-800 text-[10px] font-bold">${it.platform}</span>
+                      `}
+                      <div class="flex items-center gap-1.5">
+                        <span class="${it.is_news ? 'text-rose-400 font-bold' : 'text-emerald-400 font-semibold'}">${it.growth}</span>
+                        <span class="text-amber-400 font-extrabold">🔥 ${it.heat_score}/100</span>
+                      </div>
+                    </div>
+
+                    <h4 class="font-bold text-xs text-white">${it.title}</h4>
+                    <p class="text-[11px] text-slate-400 line-clamp-2">${it.summary}</p>
+
+                    <div class="space-y-1 pt-1.5 border-t border-slate-800/60">
+                      <span class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Fuentes &amp; Referencias:</span>
+                      ${(it.sources && it.sources.length > 0) ? it.sources.map(s => `
+                        <div class="flex items-center justify-between gap-1 text-[11px]">
+                          <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="truncate text-sky-400 hover:underline">
+                            🔗 ${s.title}
+                          </a>
+                          <span class="text-[9px] px-1 bg-slate-800 text-slate-400 rounded">${s.platform}</span>
+                        </div>
+                      `).join('') : '<span class="text-[10px] text-slate-500 italic">Sin links externos</span>'}
+                    </div>
+
+                    <button onclick="useTrendInCreation('${it.title.replace(/'/g, "\\'")}')" class="w-full mt-2 py-1.5 bg-slate-800 hover:bg-sky-600 text-sky-400 hover:text-white rounded-lg text-xs font-semibold transition">
+                      ⚡ Crear Video sobre esto ➔
+                    </button>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (e) {
+        container.innerHTML = '<div class="text-red-400 text-xs text-center py-4">Error cargando grupos de enlaces.</div>';
       }
     }
 
@@ -1721,7 +2869,8 @@
   </script>
 
   <!-- Doctor Modal -->
-  <div id="doctorModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+  <div id="doctorModal"
+    class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-700 max-w-2xl w-full rounded-3xl p-6 md:p-8 space-y-6 shadow-2xl">
       <div class="flex items-center justify-between pb-4 border-b border-slate-800">
         <div class="flex items-center gap-3">
@@ -1731,7 +2880,8 @@
             <p class="text-xs text-slate-400">Estado de salud de los motores de IA y renderizado en tu máquina.</p>
           </div>
         </div>
-        <button onclick="closeDoctorModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-400 hover:text-white">✕</button>
+        <button onclick="closeDoctorModal()"
+          class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-400 hover:text-white">✕</button>
       </div>
 
       <div class="space-y-3" id="doctorModalContent">
@@ -1742,10 +2892,12 @@
       <div class="flex items-center justify-between pt-4 border-t border-slate-800 text-xs">
         <span class="text-slate-500">Content Factory v1.0.0 (100% Local)</span>
         <div class="flex items-center gap-2">
-          <button onclick="fetchDoctorStatus()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl transition">
+          <button onclick="fetchDoctorStatus()"
+            class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl transition">
             Re-analizar
           </button>
-          <button onclick="closeDoctorModal()" class="px-5 py-2 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl transition">
+          <button onclick="closeDoctorModal()"
+            class="px-5 py-2 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-xl transition">
             Entendido
           </button>
         </div>
@@ -1875,6 +3027,7 @@
     loadTrends();
     fetchDoctorStatus();
     renderTimelineV1();
-    </script>
+  </script>
 </body>
+
 </html>

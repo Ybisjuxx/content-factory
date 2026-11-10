@@ -124,15 +124,15 @@ class LocalTranscriber:
                 for w in segment.words:
                     words_data.append({
                         "word": w.word.strip(),
-                        "start": round(w.start, 3),
-                        "end": round(w.end, 3),
-                        "probability": round(w.probability, 3)
+                        "start": float(round(float(w.start), 3)),
+                        "end": float(round(float(w.end), 3)),
+                        "probability": float(round(float(w.probability), 3))
                     })
 
             seg_dict = {
-                "id": segment.id,
-                "start": round(segment.start, 3),
-                "end": round(segment.end, 3),
+                "id": int(segment.id),
+                "start": float(round(float(segment.start), 3)),
+                "end": float(round(float(segment.end), 3)),
                 "text": segment.text.strip(),
                 "words": words_data,
             }
@@ -141,9 +141,9 @@ class LocalTranscriber:
 
         result = {
             "media_path": str(media_path),
-            "language": info.language,
-            "language_probability": round(info.language_probability, 3),
-            "duration": round(info.duration, 3),
+            "language": str(info.language),
+            "language_probability": float(round(float(info.language_probability), 3)),
+            "duration": float(round(float(info.duration), 3)),
             "full_text": " ".join(full_text_parts),
             "segments": segments_data,
         }

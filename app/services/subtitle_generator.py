@@ -15,6 +15,144 @@ class SubtitleGenerator:
         self.output_dir = output_dir or settings.CACHE_DIR / "subtitles"
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
+    def generate_ass_from_segments(
+        self,
+        transcript_segments: List[Dict[str, Any]],
+        output_filename: str = "editor_subtitles.ass",
+        font_name: Optional[str] = None,
+        font_size: Optional[int] = None,
+        highlight_color: Optional[str] = None,
+        primary_color: Optional[str] = None,
+        margin_v: Optional[int] = None,
+        max_words_per_group: int = 4
+    ) -> str:
+        """Generates kinetic ASS subtitles directly from transcribed segments for the interactive editor."""
+        output_path = self.output_dir / output_filename
+
+        raw_words = []
+        for s in transcript_segments:
+            for w in s.get("words", []):
+                raw_words.append({
+                    "word": w["word"].strip().upper(),
+                    "start": float(w["start"]),
+                    "end": float(w["end"])
+                })
+
+        if not raw_words:
+            # Fallback if no word-level timestamps: split segment text
+            for s in transcript_segments:
+                txt = s.get("text", "").strip()
+                s_start = float(s.get("start", 0.0))
+                s_end = float(s.get("end", s_start + 2.0))
+                words = txt.split()
+                if words:
+                    w_dur = (s_end - s_start) / len(words)
+                    for idx, w in enumerate(words):
+                        raw_words.append({
+                            "word": w.upper(),
+                            "start": round(s_start + idx * w_dur, 3),
+                            "end": round(s_start + (idx + 1) * w_dur, 3)
+                        })
+
+        if not raw_words:
+            self._write_ass_file(output_path, [])
+            return str(output_path.resolve())
+
+        word_groups = self._group_words(raw_words, max_words=max_words_per_group)
+
+        # Map colors if hex provided
+        hl_color = self._parse_color(highlight_color, settings.SUBTITLE_HIGHLIGHT_COLOR)
+        pr_color = self._parse_color(primary_color, settings.SUBTITLE_PRIMARY_COLOR)
+        f_name = font_name or settings.SUBTITLE_FONT_NAME
+        f_size = font_size or settings.SUBTITLE_FONT_SIZE
+        m_v = margin_v or settings.SUBTITLE_BOTTOM_MARGIN
+
+        dialogue_events = self._create_custom_highlight_dialogues(word_groups, hl_color, pr_color)
+        self._write_ass_file_custom(
+            output_path,
+            dialogue_events,
+            font_name=f_name,
+            font_size=f_size,
+            primary_color=pr_color,
+            highlight_color=hl_color,
+            margin_v=m_v
+        )
+        return str(output_path.resolve())
+
+    def _parse_color(self, color_val: Optional[str], default: str) -> str:
+        if not color_val:
+            return default
+        c = color_val.strip()
+        if c.startswith("&H"):
+            return c
+        if c.startswith("#") and len(c) == 7:
+            r = c[1:3]
+            g = c[3:5]
+            b = c[5:7]
+            return f"&H00{b.upper()}{g.upper()}{r.upper()}&"
+        return default
+
+    def _create_custom_highlight_dialogues(
+        self,
+        word_groups: List[List[Dict[str, Any]]],
+        highlight_color: str,
+        primary_color: str
+    ) -> List[Dict[str, Any]]:
+        events = []
+        for group in word_groups:
+            if not group:
+                continue
+            for active_idx, target_word in enumerate(group):
+                start_time = target_word["start"]
+                end_time = target_word["end"]
+                if end_time <= start_time:
+                    end_time = start_time + 0.15
+
+                line_parts = []
+                for idx, w in enumerate(group):
+                    if idx == active_idx:
+                        line_parts.append(f"{{\\c{highlight_color}\\fscx112\\fscy112}}{w['word']}{{\\r}}")
+                    else:
+                        line_parts.append(f"{{\\c{primary_color}}}{w['word']}{{\\r}}")
+
+                formatted_text = " ".join(line_parts)
+                events.append({
+                    "start": self._format_ass_time(start_time),
+                    "end": self._format_ass_time(end_time),
+                    "text": formatted_text
+                })
+        return events
+
+    def _write_ass_file_custom(
+        self,
+        filepath: Path,
+        events: List[Dict[str, Any]],
+        font_name: str,
+        font_size: int,
+        primary_color: str,
+        highlight_color: str,
+        margin_v: int
+    ) -> None:
+        ass_header = f"""[Script Info]
+Title: OpenCut Studio Pro Subtitles
+ScriptType: v4.00+
+WrapStyle: 0
+PlayResX: {settings.TARGET_WIDTH}
+PlayResY: {settings.TARGET_HEIGHT}
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,{font_name},{font_size},{primary_color},{highlight_color},&H00000000&,&H80000000&,-1,0,0,0,100,100,2,0,1,6,3,2,40,40,{margin_v},1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+"""
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(ass_header)
+            for ev in events:
+                f.write(f"Dialogue: 0,{ev['start']},{ev['end']},Default,,0,0,0,,{ev['text']}\n")
+
     def generate_kinetic_ass(
         self,
         transcript_segments: List[Dict[str, Any]],
