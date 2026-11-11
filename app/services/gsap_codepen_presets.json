@@ -1,0 +1,1158 @@
+[
+  {
+    "id": "gsap_animate_along_a_path",
+    "name": "GSAP: Animate along a path (jOjzWqW)",
+    "category": "Efectos Creativos & Partículas (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con MotionPath adaptado a motion graphics para video (CodePen jOjzWqW).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "ANIMATE ALONG A PATH",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "MOTIONPATH",
+      "accent_color": "#F59E0B",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/jOjzWqW"
+    }
+  },
+  {
+    "id": "gsap_animate_auto_height",
+    "name": "GSAP: Animate auto height (QwjNwpo)",
+    "category": "Componentes UI Cinemáticos (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen QwjNwpo).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "ANIMATE AUTO HEIGHT",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#818CF8",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/QwjNwpo"
+    }
+  },
+  {
+    "id": "gsap_animate-between-different-targets",
+    "name": "GSAP: Animate Between Different Targets (XWKLYWe)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen XWKLYWe).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "ANIMATE BETWEEN DIFFERENT TARGETS",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/XWKLYWe"
+    }
+  },
+  {
+    "id": "gsap_animate_between_layout_positions",
+    "name": "GSAP: Animate between layout positions (rNMBXxb)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con Flip adaptado a motion graphics para video (CodePen rNMBXxb).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "ANIMATE BETWEEN LAYOUT POSITIONS",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "FLIP",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/rNMBXxb"
+    }
+  },
+  {
+    "id": "gsap_animate-css-grid-positions",
+    "name": "GSAP: Animate CSS Grid Positions (dyBwbeR)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen dyBwbeR).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "ANIMATE CSS GRID POSITIONS",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/dyBwbeR"
+    }
+  },
+  {
+    "id": "gsap_animate_scroll_position",
+    "name": "GSAP: Animate Scroll Position (LZOMKY)",
+    "category": "Scroll Cinemático & Parallax (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con ScrollTrigger, ScrollTo adaptado a motion graphics para video (CodePen LZOMKY).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "ANIMATE SCROLL POSITION",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SCROLLTRIGGER",
+      "accent_color": "#06B6D4",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/LZOMKY"
+    }
+  },
+  {
+    "id": "gsap_animate_text",
+    "name": "GSAP: Animate Text (xxmaNYj)",
+    "category": "Tipografía Cinética (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con SplitText adaptado a motion graphics para video (CodePen xxmaNYj).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "ANIMATE TEXT",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SPLITTEXT",
+      "accent_color": "#38BDF8",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/xxmaNYj"
+    }
+  },
+  {
+    "id": "gsap_animate_text_replacement",
+    "name": "GSAP: Animate text replacement (bGPBpeY)",
+    "category": "Tipografía Cinética (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con Text adaptado a motion graphics para video (CodePen bGPBpeY).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "ANIMATE TEXT REPLACEMENT",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "TEXT",
+      "accent_color": "#38BDF8",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/bGPBpeY"
+    }
+  },
+  {
+    "id": "gsap_animation_control",
+    "name": "GSAP: Animation Control (OJLgdyg)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen OJLgdyg).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "ANIMATION CONTROL",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/OJLgdyg"
+    }
+  },
+  {
+    "id": "gsap_basic-timeline",
+    "name": "GSAP: Basic Timeline (gOYdyYE)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen gOYdyYE).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "BASIC TIMELINE",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/gOYdyYE"
+    }
+  },
+  {
+    "id": "gsap_canvas_morphs",
+    "name": "GSAP: Canvas Morphs (WYWZab)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con MorphSVG adaptado a motion graphics para video (CodePen WYWZab).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "CANVAS MORPHS",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "MORPHSVG",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/WYWZab"
+    }
+  },
+  {
+    "id": "gsap_canvas_particles",
+    "name": "GSAP: Canvas particles (NWZRRNb)",
+    "category": "Efectos Creativos & Partículas (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen NWZRRNb).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "CANVAS PARTICLES",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F59E0B",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/NWZRRNb"
+    }
+  },
+  {
+    "id": "gsap_complex-timeline",
+    "name": "GSAP: Complex Timeline (PorGpww?editors=1010)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen PorGpww?editors=1010).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "COMPLEX TIMELINE",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/PorGpww?editors=1010"
+    }
+  },
+  {
+    "id": "gsap_converttopath",
+    "name": "GSAP: convertToPath() (gagNeR)",
+    "category": "Tipografía Cinética (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con MorphSVG adaptado a motion graphics para video (CodePen gagNeR).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "CONVERTTOPATH()",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "MORPHSVG",
+      "accent_color": "#38BDF8",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/gagNeR"
+    }
+  },
+  {
+    "id": "gsap_cursor-follower",
+    "name": "GSAP: Cursor Follower (xxpbORN)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen xxpbORN).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "CURSOR FOLLOWER",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/xxpbORN"
+    }
+  },
+  {
+    "id": "gsap_cursor_trail",
+    "name": "GSAP: Cursor Trail (WbbEGmp)",
+    "category": "Micro-Interacciones & Botones (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen WbbEGmp).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "CURSOR TRAIL",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#10B981",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/WbbEGmp"
+    }
+  },
+  {
+    "id": "gsap_cursor_tracking_image_preview",
+    "name": "GSAP: Cursor-Tracking Image Preview (PwqrzeG)",
+    "category": "Micro-Interacciones & Botones (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen PwqrzeG).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "CURSOR-TRACKING IMAGE PREVIEW",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#10B981",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/PwqrzeG"
+    }
+  },
+  {
+    "id": "gsap_curve_swipe",
+    "name": "GSAP: Curve swipe (EaKpEpJ)",
+    "category": "Efectos Creativos & Partículas (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con MorphSVG adaptado a motion graphics para video (CodePen EaKpEpJ).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "CURVE SWIPE",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "MORPHSVG",
+      "accent_color": "#F59E0B",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/EaKpEpJ"
+    }
+  },
+  {
+    "id": "gsap_curvemode",
+    "name": "GSAP: curveMode (zxvRmrY)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con MorphSVG adaptado a motion graphics para video (CodePen zxvRmrY).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "CURVEMODE",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "MORPHSVG",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/zxvRmrY"
+    }
+  },
+  {
+    "id": "gsap_directionally_aware_header",
+    "name": "GSAP: Directionally aware header (qBawMGb)",
+    "category": "Scroll Cinemático & Parallax (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con ScrollTrigger adaptado a motion graphics para video (CodePen qBawMGb).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "DIRECTIONALLY AWARE HEADER",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SCROLLTRIGGER",
+      "accent_color": "#06B6D4",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/qBawMGb"
+    }
+  },
+  {
+    "id": "gsap_draw_a_path",
+    "name": "GSAP: Draw a path (OJeOewJ)",
+    "category": "Efectos Creativos & Partículas (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con DrawSVG adaptado a motion graphics para video (CodePen OJeOewJ).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "DRAW A PATH",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "DRAWSVG",
+      "accent_color": "#F59E0B",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/OJeOewJ"
+    }
+  },
+  {
+    "id": "gsap_dynamic_morphing",
+    "name": "GSAP: Dynamic Morphing (qBedXpg)",
+    "category": "Efectos Creativos & Partículas (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con MorphSVG adaptado a motion graphics para video (CodePen qBedXpg).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "DYNAMIC MORPHING",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "MORPHSVG",
+      "accent_color": "#F59E0B",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/qBedXpg"
+    }
+  },
+  {
+    "id": "gsap_easereverse_ui_interactions",
+    "name": "GSAP: easeReverse - UI interactions (JoRZaLY)",
+    "category": "Micro-Interacciones & Botones (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen JoRZaLY).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "EASEREVERSE - UI INTERACTIONS",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#10B981",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/JoRZaLY"
+    }
+  },
+  {
+    "id": "gsap_edit_a_path_in_the_browser",
+    "name": "GSAP: Edit a path in the browser (MWMVKJp)",
+    "category": "Efectos Creativos & Partículas (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con MotionPath, MotionPathHelper adaptado a motion graphics para video (CodePen MWMVKJp).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "EDIT A PATH IN THE BROWSER",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "MOTIONPATH",
+      "accent_color": "#F59E0B",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/MWMVKJp"
+    }
+  },
+  {
+    "id": "gsap_enter-and-exit",
+    "name": "GSAP: Enter And Exit (qBGRxMy)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen qBGRxMy).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "ENTER AND EXIT",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/qBGRxMy"
+    }
+  },
+  {
+    "id": "gsap_flexbox-filtering",
+    "name": "GSAP: Flexbox Filtering (NWRxarv)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen NWRxarv).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "FLEXBOX FILTERING",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/NWRxarv"
+    }
+  },
+  {
+    "id": "gsap_flip_carousel",
+    "name": "GSAP: FLIP Carousel (eYwbjdz)",
+    "category": "Galerías & Media Bento (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con Flip adaptado a motion graphics para video (CodePen eYwbjdz).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "FLIP CAROUSEL",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "FLIP",
+      "accent_color": "#A855F7",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/eYwbjdz"
+    }
+  },
+  {
+    "id": "gsap_flip_gallery_modal",
+    "name": "GSAP: FLIP gallery modal (XWOeLEb)",
+    "category": "Galerías & Media Bento (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con Flip adaptado a motion graphics para video (CodePen XWOeLEb).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "FLIP GALLERY MODAL",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "FLIP",
+      "accent_color": "#A855F7",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/XWOeLEb"
+    }
+  },
+  {
+    "id": "gsap_footer_bounce",
+    "name": "GSAP: Footer bounce (bGeZvpO)",
+    "category": "Scroll Cinemático & Parallax (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con ScrollTrigger, MorphSVG adaptado a motion graphics para video (CodePen bGeZvpO).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "FOOTER BOUNCE",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SCROLLTRIGGER",
+      "accent_color": "#06B6D4",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/bGeZvpO"
+    }
+  },
+  {
+    "id": "gsap_generating_randomness",
+    "name": "GSAP: Generating Randomness (yLxyxdb)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen yLxyxdb).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "GENERATING RANDOMNESS",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/yLxyxdb"
+    }
+  },
+  {
+    "id": "gsap_horizontal-scrolling-gallery",
+    "name": "GSAP: Horizontal scrolling gallery (dydpJzY)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen dydpJzY).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "HORIZONTAL SCROLLING GALLERY",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/dydpJzY"
+    }
+  },
+  {
+    "id": "gsap_horizontal_text",
+    "name": "GSAP: Horizontal Text (MYyBrZw)",
+    "category": "Tipografía Cinética (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con ScrollTrigger, SplitText adaptado a motion graphics para video (CodePen MYyBrZw).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "HORIZONTAL TEXT",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SCROLLTRIGGER",
+      "accent_color": "#38BDF8",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/MYyBrZw"
+    }
+  },
+  {
+    "id": "gsap_ignore_nested_elements",
+    "name": "GSAP: Ignore nested elements (JojaebV)",
+    "category": "Tipografía Cinética (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con SplitText adaptado a motion graphics para video (CodePen JojaebV).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "IGNORE NESTED ELEMENTS",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SPLITTEXT",
+      "accent_color": "#38BDF8",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/JojaebV"
+    }
+  },
+  {
+    "id": "gsap_image-mask-on-scroll",
+    "name": "GSAP: Image Mask On Scroll (oNjgEjm)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen oNjgEjm).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "IMAGE MASK ON SCROLL",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/oNjgEjm"
+    }
+  },
+  {
+    "id": "gsap_image_sequence",
+    "name": "GSAP: Image sequence (VwgevYW)",
+    "category": "Scroll Cinemático & Parallax (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con ScrollTrigger adaptado a motion graphics para video (CodePen VwgevYW).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "IMAGE SEQUENCE",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SCROLLTRIGGER",
+      "accent_color": "#06B6D4",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/VwgevYW"
+    }
+  },
+  {
+    "id": "gsap_infinite-card-slider",
+    "name": "GSAP: Infinite card slider (RwKwLWK)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen RwKwLWK).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "INFINITE CARD SLIDER",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/RwKwLWK"
+    }
+  },
+  {
+    "id": "gsap_infinite_looped_panels",
+    "name": "GSAP: Infinite looped panels (VwbywPd)",
+    "category": "Scroll Cinemático & Parallax (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con ScrollTrigger adaptado a motion graphics para video (CodePen VwbywPd).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "INFINITE LOOPED PANELS",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SCROLLTRIGGER",
+      "accent_color": "#06B6D4",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/VwbywPd"
+    }
+  },
+  {
+    "id": "gsap_interruptible_single_timeline_enter_exit",
+    "name": "GSAP: Interruptible Single Timeline Enter/Exit (qEaKJZr)",
+    "category": "Componentes UI Cinemáticos (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen qEaKJZr).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "INTERRUPTIBLE SINGLE TIMELINE ENTER/EXIT",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#818CF8",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/qEaKJZr"
+    }
+  },
+  {
+    "id": "gsap_keyframes",
+    "name": "GSAP: Keyframes (mdMYrBM)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen mdMYrBM).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "KEYFRAMES",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/mdMYrBM"
+    }
+  },
+  {
+    "id": "gsap_lateral-pin-indicator",
+    "name": "GSAP: Lateral pin indicator (pomvabo)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen pomvabo).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "LATERAL PIN INDICATOR",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/pomvabo"
+    }
+  },
+  {
+    "id": "gsap_link_to_scroll_progress",
+    "name": "GSAP: Link To Scroll Progress (XJmPLEw)",
+    "category": "Scroll Cinemático & Parallax (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con ScrollTrigger adaptado a motion graphics para video (CodePen XJmPLEw).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "LINK TO SCROLL PROGRESS",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SCROLLTRIGGER",
+      "accent_color": "#06B6D4",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/XJmPLEw"
+    }
+  },
+  {
+    "id": "gsap_macos_dock_effect",
+    "name": "GSAP: MacOS Dock Effect (PwNeKZy)",
+    "category": "Efectos Creativos & Partículas (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen PwNeKZy).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "MACOS DOCK EFFECT",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F59E0B",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/PwNeKZy"
+    }
+  },
+  {
+    "id": "gsap_magnetic_button_overwrite_modes",
+    "name": "GSAP: Magnetic Button - overwrite modes (azmKBBJ)",
+    "category": "Micro-Interacciones & Botones (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con CustomWiggle adaptado a motion graphics para video (CodePen azmKBBJ).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "MAGNETIC BUTTON - OVERWRITE MODES",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "CUSTOMWIGGLE",
+      "accent_color": "#10B981",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/azmKBBJ"
+    }
+  },
+  {
+    "id": "gsap_make_elements_draggable",
+    "name": "GSAP: Make elements draggable (yLGqXzZ)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con Draggable, Inertia adaptado a motion graphics para video (CodePen yLGqXzZ).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "MAKE ELEMENTS DRAGGABLE",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "DRAGGABLE",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/yLGqXzZ"
+    }
+  },
+  {
+    "id": "gsap_morph_between_svg_shapes",
+    "name": "GSAP: Morph between SVG shapes (MWMVKmp)",
+    "category": "Efectos Creativos & Partículas (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con MorphSVG adaptado a motion graphics para video (CodePen MWMVKmp).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "MORPH BETWEEN SVG SHAPES",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "MORPHSVG",
+      "accent_color": "#F59E0B",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/MWMVKmp"
+    }
+  },
+  {
+    "id": "gsap_motionpath_waypoints",
+    "name": "GSAP: MotionPath Waypoints (raerLaK)",
+    "category": "Scroll Cinemático & Parallax (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con ScrollTrigger adaptado a motion graphics para video (CodePen raerLaK).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "MOTIONPATH WAYPOINTS",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SCROLLTRIGGER",
+      "accent_color": "#06B6D4",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/raerLaK"
+    }
+  },
+  {
+    "id": "gsap_observe_events",
+    "name": "GSAP: Observe events (YzEMpja)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con Observer adaptado a motion graphics para video (CodePen YzEMpja).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "OBSERVE EVENTS",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "OBSERVER",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/YzEMpja"
+    }
+  },
+  {
+    "id": "gsap_orchestrated_easereverse",
+    "name": "GSAP: Orchestrated easeReverse (JoRMPLg)",
+    "category": "Componentes UI Cinemáticos (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen JoRMPLg).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "ORCHESTRATED EASEREVERSE",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#818CF8",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/JoRMPLg"
+    }
+  },
+  {
+    "id": "gsap_pinned_panels_with_overscroll",
+    "name": "GSAP: Pinned panels with overscroll (bGRdvMy)",
+    "category": "Scroll Cinemático & Parallax (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con ScrollTrigger adaptado a motion graphics para video (CodePen bGRdvMy).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "PINNED PANELS WITH OVERSCROLL",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SCROLLTRIGGER",
+      "accent_color": "#06B6D4",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/bGRdvMy"
+    }
+  },
+  {
+    "id": "gsap_radial_menu",
+    "name": "GSAP: Radial Menu (gbwvbgQ)",
+    "category": "Micro-Interacciones & Botones (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen gbwvbgQ).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "RADIAL MENU",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#10B981",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/gbwvbgQ"
+    }
+  },
+  {
+    "id": "gsap_responsive_animation",
+    "name": "GSAP: Responsive Animation (wvLPVGz)",
+    "category": "Componentes UI Cinemáticos (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen wvLPVGz).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "RESPONSIVE ANIMATION",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#818CF8",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/wvLPVGz"
+    }
+  },
+  {
+    "id": "gsap_responsive_line_splits_on_scroll",
+    "name": "GSAP: Responsive line splits on scroll (GggpRoB)",
+    "category": "Tipografía Cinética (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con ScrollTrigger, SplitText adaptado a motion graphics para video (CodePen GggpRoB).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "RESPONSIVE LINE SPLITS ON SCROLL",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SCROLLTRIGGER",
+      "accent_color": "#38BDF8",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/GggpRoB"
+    }
+  },
+  {
+    "id": "gsap_revert_after_animation",
+    "name": "GSAP: Revert after animation (poZaJQa)",
+    "category": "Tipografía Cinética (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con SplitText adaptado a motion graphics para video (CodePen poZaJQa).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "REVERT AFTER ANIMATION",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SPLITTEXT",
+      "accent_color": "#38BDF8",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/poZaJQa"
+    }
+  },
+  {
+    "id": "gsap_rolling_text",
+    "name": "GSAP: Rolling text (dPMjJWv)",
+    "category": "Tipografía Cinética (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con SplitText adaptado a motion graphics para video (CodePen dPMjJWv).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "ROLLING TEXT",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SPLITTEXT",
+      "accent_color": "#38BDF8",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/dPMjJWv"
+    }
+  },
+  {
+    "id": "gsap_scroll-waypoints",
+    "name": "GSAP: Scroll waypoints (JjVPyxd)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen JjVPyxd).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "SCROLL WAYPOINTS",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/JjVPyxd"
+    }
+  },
+  {
+    "id": "gsap_shader-on-scroll",
+    "name": "GSAP: Shader on Scroll (EaVbXeM)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen EaVbXeM).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "SHADER ON SCROLL",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/EaVbXeM"
+    }
+  },
+  {
+    "id": "gsap_shape_index",
+    "name": "GSAP: Shape Index (NWZMKXv)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con MorphSVG adaptado a motion graphics para video (CodePen NWZMKXv).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "SHAPE INDEX",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "MORPHSVG",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/NWZMKXv"
+    }
+  },
+  {
+    "id": "gsap_simple-animation",
+    "name": "GSAP: Simple Animation (myeLGNV)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen myeLGNV).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "SIMPLE ANIMATION",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/myeLGNV"
+    }
+  },
+  {
+    "id": "gsap_simple-grid-flip-modal",
+    "name": "GSAP: Simple Grid FLIP Modal (XWOeLEb)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen XWOeLEb).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "SIMPLE GRID FLIP MODAL",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/XWOeLEb"
+    }
+  },
+  {
+    "id": "gsap_smooth_morph",
+    "name": "GSAP: Smooth Morph (EaKLgKZ)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con MorphSVG adaptado a motion graphics para video (CodePen EaKLgKZ).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "SMOOTH MORPH",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "MORPHSVG",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/EaKLgKZ"
+    }
+  },
+  {
+    "id": "gsap_smooth_scrolling",
+    "name": "GSAP: Smooth Scrolling (KKXZOyZ)",
+    "category": "Scroll Cinemático & Parallax (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con ScrollTrigger, ScrollSmoother adaptado a motion graphics para video (CodePen KKXZOyZ).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "SMOOTH SCROLLING",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SCROLLTRIGGER",
+      "accent_color": "#06B6D4",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/KKXZOyZ"
+    }
+  },
+  {
+    "id": "gsap_stagger_items_in_on_scroll",
+    "name": "GSAP: Stagger items in on scroll (NWGPxGZ)",
+    "category": "Scroll Cinemático & Parallax (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con ScrollTrigger adaptado a motion graphics para video (CodePen NWGPxGZ).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "STAGGER ITEMS IN ON SCROLL",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SCROLLTRIGGER",
+      "accent_color": "#06B6D4",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/NWGPxGZ"
+    }
+  },
+  {
+    "id": "gsap_swipe-slider",
+    "name": "GSAP: Swipe Slider (PoWapLP)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen PoWapLP).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "SWIPE SLIDER",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/BrianCross/pen/PoWapLP"
+    }
+  },
+  {
+    "id": "gsap_text_masking",
+    "name": "GSAP: Text Masking (LEYqezo)",
+    "category": "Tipografía Cinética (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con SplitText adaptado a motion graphics para video (CodePen LEYqezo).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "TEXT MASKING",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SPLITTEXT",
+      "accent_color": "#38BDF8",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/LEYqezo"
+    }
+  },
+  {
+    "id": "gsap_text_scrambling",
+    "name": "GSAP: Text scrambling (QWzZwxR)",
+    "category": "Tipografía Cinética (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con ScrambleText adaptado a motion graphics para video (CodePen QWzZwxR).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "TEXT SCRAMBLING",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SCRAMBLETEXT",
+      "accent_color": "#38BDF8",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/QWzZwxR"
+    }
+  },
+  {
+    "id": "gsap_timeline_clear_and_rebuild",
+    "name": "GSAP: Timeline clear and rebuild (raMQBVQ)",
+    "category": "Componentes UI Cinemáticos (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen raMQBVQ).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "TIMELINE CLEAR AND REBUILD",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#818CF8",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/raMQBVQ"
+    }
+  },
+  {
+    "id": "gsap_toggle_direction",
+    "name": "GSAP: Toggle Direction (yyByMar)",
+    "category": "Layout & Morphing (GSAP)",
+    "description": "Efecto de animación oficial GreenSock adaptado a motion graphics para video (CodePen yyByMar).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "TOGGLE DIRECTION",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "GSAP DEMO",
+      "accent_color": "#F43F5E",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/yyByMar"
+    }
+  },
+  {
+    "id": "gsap_trigger_on_scroll",
+    "name": "GSAP: Trigger On Scroll (xxoPrKX)",
+    "category": "Scroll Cinemático & Parallax (GSAP)",
+    "description": "Efecto de animación oficial GreenSock con ScrollTrigger adaptado a motion graphics para video (CodePen xxoPrKX).",
+    "is_custom": false,
+    "default_params": {
+      "headline": "TRIGGER ON SCROLL",
+      "subheadline": "Animación fluida acelerada por hardware GSAP",
+      "badge": "SCROLLTRIGGER",
+      "accent_color": "#06B6D4",
+      "position": "center",
+      "start_time": 1.0,
+      "duration": 4.5,
+      "codepen_url": "https://codepen.io/GreenSock/pen/xxoPrKX"
+    }
+  }
+]

@@ -1,0 +1,798 @@
+[
+  {
+    "title": "Animate along a path",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/jOjzWqW",
+    "categories": [
+      "Fun Stuff"
+    ],
+    "plugins": [
+      "MotionPath"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Animate auto height",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/QwjNwpo",
+    "categories": [
+      "UI"
+    ],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Animate Between Different Targets",
+    "slug": "animate-between-different-targets",
+    "codepen": "https://codepen.io/GreenSock/pen/XWKLYWe",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Animate between layout positions",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/rNMBXxb",
+    "categories": [
+      "UI"
+    ],
+    "plugins": [
+      "Flip"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Animate CSS Grid Positions",
+    "slug": "animate-css-grid-positions",
+    "codepen": "https://codepen.io/GreenSock/pen/dyBwbeR",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Animate Scroll Position",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/LZOMKY",
+    "categories": [
+      "UI",
+      "Scroll Effects"
+    ],
+    "plugins": [
+      "ScrollTrigger",
+      "ScrollTo"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Animate Text",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/xxmaNYj",
+    "categories": [
+      "Text Effects"
+    ],
+    "plugins": [
+      "SplitText"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Animate text replacement",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/bGPBpeY",
+    "categories": [
+      "Text Effects"
+    ],
+    "plugins": [
+      "Text"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Animation Control",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/OJLgdyg",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Basic Timeline",
+    "slug": "basic-timeline",
+    "codepen": "https://codepen.io/GreenSock/pen/gOYdyYE",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Canvas Morphs",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/WYWZab",
+    "categories": [],
+    "plugins": [
+      "MorphSVG"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Canvas particles",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/NWZRRNb",
+    "categories": [
+      "Fun Stuff"
+    ],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Card stack",
+    "slug": "card-stack",
+    "codepen": "https://codepen.io/GreenSock/pen/Yzdzxem",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Complex Timeline",
+    "slug": "complex-timeline",
+    "codepen": "https://codepen.io/GreenSock/pen/PorGpww?editors=1010",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "convertToPath()",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/gagNeR",
+    "categories": [
+      "Text Effects"
+    ],
+    "plugins": [
+      "MorphSVG"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Create physics-based effects",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/VwGdvj",
+    "categories": [
+      "Fun Stuff"
+    ],
+    "plugins": [
+      "Physics2D"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Cursor Follower",
+    "slug": "cursor-follower",
+    "codepen": "https://codepen.io/GreenSock/pen/xxpbORN",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Cursor Trail",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/WbbEGmp",
+    "categories": [
+      "Cursor Animations",
+      "Fun Stuff"
+    ],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Cursor-driven perspective tilt",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/qBzaNQy",
+    "categories": [
+      "Cursor Animations",
+      "Hover Effects",
+      "Fun Stuff"
+    ],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Cursor-Tracking Image Preview",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/PwqrzeG",
+    "categories": [
+      "Cursor Animations",
+      "Fun Stuff"
+    ],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Curve swipe",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/EaKpEpJ",
+    "categories": [
+      "Page Transitions",
+      "Fun Stuff"
+    ],
+    "plugins": [
+      "MorphSVG"
+    ],
+    "description": ""
+  },
+  {
+    "title": "curveMode",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/zxvRmrY",
+    "categories": [],
+    "plugins": [
+      "MorphSVG"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Directional Marquee",
+    "slug": "directional-marquee",
+    "codepen": "https://codepen.io/GreenSock/pen/zYaxEKV",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Directionally aware header",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/qBawMGb",
+    "categories": [
+      "UI",
+      "Scroll Effects"
+    ],
+    "plugins": [
+      "ScrollTrigger"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Draw a path",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/OJeOewJ",
+    "categories": [
+      "Fun Stuff"
+    ],
+    "plugins": [
+      "DrawSVG"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Dynamic Morphing",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/qBedXpg",
+    "categories": [
+      "Page Transitions",
+      "Fun Stuff"
+    ],
+    "plugins": [
+      "MorphSVG"
+    ],
+    "description": ""
+  },
+  {
+    "title": "easeReverse - UI interactions",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/JoRZaLY",
+    "categories": [
+      "Buttons",
+      "UI"
+    ],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Edit a path in the browser",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/MWMVKJp",
+    "categories": [
+      "Fun Stuff"
+    ],
+    "plugins": [
+      "MotionPath",
+      "MotionPathHelper"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Enter And Exit",
+    "slug": "enter-and-exit",
+    "codepen": "https://codepen.io/GreenSock/pen/qBGRxMy",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Flexbox Filtering",
+    "slug": "flexbox-filtering",
+    "codepen": "https://codepen.io/GreenSock/pen/NWRxarv",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "FLIP Carousel",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/eYwbjdz",
+    "categories": [
+      "Sliders and Carousels"
+    ],
+    "plugins": [
+      "Flip"
+    ],
+    "description": ""
+  },
+  {
+    "title": "FLIP gallery modal",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/XWOeLEb",
+    "categories": [
+      "Galleries and Media"
+    ],
+    "plugins": [
+      "Flip"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Footer bounce",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/bGeZvpO",
+    "categories": [
+      "UI",
+      "Scroll Effects",
+      "Fun Stuff"
+    ],
+    "plugins": [
+      "ScrollTrigger",
+      "MorphSVG"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Generating Randomness",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/yLxyxdb",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Horizontal scrolling gallery",
+    "slug": "horizontal-scrolling-gallery",
+    "codepen": "https://codepen.io/GreenSock/pen/dydpJzY",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Horizontal Text",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/MYyBrZw",
+    "categories": [
+      "Text Effects"
+    ],
+    "plugins": [
+      "ScrollTrigger",
+      "SplitText"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Ignore nested elements",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/JojaebV",
+    "categories": [
+      "Text Effects"
+    ],
+    "plugins": [
+      "SplitText"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Image Mask On Scroll",
+    "slug": "image-mask-on-scroll",
+    "codepen": "https://codepen.io/GreenSock/pen/oNjgEjm",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Image sequence",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/VwgevYW",
+    "categories": [
+      "Scroll Effects",
+      "Fun Stuff"
+    ],
+    "plugins": [
+      "ScrollTrigger"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Infinite card slider",
+    "slug": "infinite-card-slider",
+    "codepen": "https://codepen.io/GreenSock/pen/RwKwLWK",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Infinite looped panels",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/VwbywPd",
+    "categories": [
+      "Scroll Effects"
+    ],
+    "plugins": [
+      "ScrollTrigger"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Interruptible Single Timeline Enter/Exit",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/qEaKJZr",
+    "categories": [
+      "Navigation",
+      "UI"
+    ],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Keyframes",
+    "slug": "keyframes",
+    "codepen": "https://codepen.io/GreenSock/pen/mdMYrBM",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Lateral pin indicator",
+    "slug": "lateral-pin-indicator",
+    "codepen": "https://codepen.io/GreenSock/pen/pomvabo",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Link To Scroll Progress",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/XJmPLEw",
+    "categories": [
+      "Scroll Effects"
+    ],
+    "plugins": [
+      "ScrollTrigger"
+    ],
+    "description": ""
+  },
+  {
+    "title": "MacOS Dock Effect",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/PwNeKZy",
+    "categories": [
+      "UI",
+      "Fun Stuff"
+    ],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Magnetic Button - overwrite modes",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/azmKBBJ",
+    "categories": [
+      "Buttons",
+      "UI",
+      "Fun Stuff"
+    ],
+    "plugins": [
+      "CustomWiggle"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Make elements draggable",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/yLGqXzZ",
+    "categories": [],
+    "plugins": [
+      "Draggable",
+      "Inertia"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Morph between SVG shapes",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/MWMVKmp",
+    "categories": [
+      "Fun Stuff"
+    ],
+    "plugins": [
+      "MorphSVG"
+    ],
+    "description": ""
+  },
+  {
+    "title": "MotionPath Waypoints",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/raerLaK",
+    "categories": [
+      "Scroll Effects"
+    ],
+    "plugins": [
+      "ScrollTrigger"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Observe events",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/YzEMpja",
+    "categories": [],
+    "plugins": [
+      "Observer"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Orchestrated easeReverse",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/JoRMPLg",
+    "categories": [
+      "Navigation",
+      "UI"
+    ],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Pinned panels with overscroll",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/bGRdvMy",
+    "categories": [
+      "Scroll Effects"
+    ],
+    "plugins": [
+      "ScrollTrigger"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Proximity scale grid",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/zxKyeEm",
+    "categories": [
+      "Buttons",
+      "Hover Effects",
+      "Fun Stuff"
+    ],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Radial Menu",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/gbwvbgQ",
+    "categories": [
+      "Buttons",
+      "Navigation",
+      "UI"
+    ],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Responsive Animation",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/wvLPVGz",
+    "categories": [
+      "UI"
+    ],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Responsive line splits on scroll",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/GggpRoB",
+    "categories": [
+      "Text Effects"
+    ],
+    "plugins": [
+      "ScrollTrigger",
+      "SplitText"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Revert after animation",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/poZaJQa",
+    "categories": [
+      "Text Effects"
+    ],
+    "plugins": [
+      "SplitText"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Rolling text",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/dPMjJWv",
+    "categories": [
+      "Text Effects",
+      "Fun Stuff"
+    ],
+    "plugins": [
+      "SplitText"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Scroll waypoints",
+    "slug": "scroll-waypoints",
+    "codepen": "https://codepen.io/GreenSock/pen/JjVPyxd",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Scrubbed bento gallery",
+    "slug": "scrubbed-bento-gallery",
+    "codepen": "https://codepen.io/GreenSock/pen/vYMzKZx",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Shader on Scroll",
+    "slug": "shader-on-scroll",
+    "codepen": "https://codepen.io/GreenSock/pen/EaVbXeM",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Shape Index",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/NWZMKXv",
+    "categories": [],
+    "plugins": [
+      "MorphSVG"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Simple Animation",
+    "slug": "simple-animation",
+    "codepen": "https://codepen.io/GreenSock/pen/myeLGNV",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Simple Grid FLIP Modal",
+    "slug": "simple-grid-flip-modal",
+    "codepen": "https://codepen.io/GreenSock/pen/XWOeLEb",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Smooth Morph",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/EaKLgKZ",
+    "categories": [],
+    "plugins": [
+      "MorphSVG"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Smooth Scrolling",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/KKXZOyZ",
+    "categories": [
+      "Scroll Effects"
+    ],
+    "plugins": [
+      "ScrollTrigger",
+      "ScrollSmoother"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Stagger items in on scroll",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/NWGPxGZ",
+    "categories": [
+      "Scroll Effects"
+    ],
+    "plugins": [
+      "ScrollTrigger"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Swipe Slider",
+    "slug": "swipe-slider",
+    "codepen": "https://codepen.io/BrianCross/pen/PoWapLP",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Text Masking",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/LEYqezo",
+    "categories": [
+      "Text Effects"
+    ],
+    "plugins": [
+      "SplitText"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Text scrambling",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/QWzZwxR",
+    "categories": [
+      "Text Effects"
+    ],
+    "plugins": [
+      "ScrambleText"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Timeline clear and rebuild",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/raMQBVQ",
+    "categories": [
+      "Navigation",
+      "UI"
+    ],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Toggle Direction",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/yyByMar",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  },
+  {
+    "title": "Trigger On Scroll",
+    "slug": "",
+    "codepen": "https://codepen.io/GreenSock/pen/xxoPrKX",
+    "categories": [
+      "Scroll Effects"
+    ],
+    "plugins": [
+      "ScrollTrigger"
+    ],
+    "description": ""
+  },
+  {
+    "title": "Velocity Skew",
+    "slug": "velocity-skew",
+    "codepen": "https://codepen.io/GreenSock/pen/eYpGLYL",
+    "categories": [],
+    "plugins": [],
+    "description": ""
+  }
+]

@@ -206,6 +206,135 @@ def _nlp_extract_motion_params(prompt: str, video_dur: float = 30.0) -> tuple[st
             "duration": 0.0
         }
 
+    # HyperFrames Engine Prompts
+    elif any(k in p_lower for k in ["hyperframe", "hyperframes", "swiss", "reticula", "brutalismo"]):
+        preset_id = "hyperframes_swiss_grid"
+        params = {
+            "headline": extracted_text[:30].upper() if extracted_text else "SISTEMA DETERMINISTA",
+            "subheadline": "Composición geométrica 100% reproducible",
+            "badge": "HYPERFRAMES",
+            "accent_color": accent_color or "#EF4444",
+            "start_time": start_time,
+            "duration": duration,
+        }
+
+    elif any(k in p_lower for k in ["chat ia", "chatgpt", "conversacion", "burbuja chat"]):
+        preset_id = "hyperframes_ai_chat_reveal"
+        params = {
+            "headline": extracted_text or "¿Cómo multiplicar mi alcance orgánico?",
+            "subheadline": "Respuesta IA: Optimiza tus primeros 3 segundos",
+            "badge": "AI CHAT",
+            "accent_color": accent_color or "#10B981",
+            "start_time": start_time,
+            "duration": duration,
+        }
+
+    elif any(k in p_lower for k in ["comparativa", "antes vs", "vs", "versus"]):
+        preset_id = "hyperframes_comparison_table"
+        params = {
+            "headline": extracted_text[:35].upper() if extracted_text else "MÉTODO ANTIGUO vs FACTORY IA",
+            "subheadline": "3 Horas de edición ➔ 30 Segundos automatizados",
+            "badge": "COMPARATIVA",
+            "accent_color": accent_color or "#10B981",
+            "start_time": start_time,
+            "duration": duration,
+        }
+
+    # Remotion Video Prompts
+    elif any(k in p_lower for k in ["remotion", "waveform", "espectro", "audio", "sonoro"]):
+        preset_id = "remotion_audio_waveform"
+        params = {
+            "headline": extracted_text[:30].upper() if extracted_text else "ESPECTRO DE AUDIO DINÁMICO",
+            "subheadline": "Sincronización rítmica por palabra",
+            "badge": "REMOTION AUDIO",
+            "accent_color": accent_color or "#6366F1",
+            "start_time": start_time,
+            "duration": duration,
+        }
+
+    elif any(k in p_lower for k in ["mockup", "iphone", "pantalla", "app demo"]):
+        preset_id = "remotion_device_mockup"
+        params = {
+            "headline": extracted_text[:30].upper() if extracted_text else "DEMO DE APLICACIÓN EN VIVO",
+            "subheadline": "Encuadre flotante con Dynamic Island",
+            "badge": "IPHONE MOCKUP",
+            "accent_color": accent_color or "#3B82F6",
+            "start_time": start_time,
+            "duration": duration,
+        }
+
+    elif any(k in p_lower for k in ["notificacion", "push", "alerta ios"]):
+        preset_id = "remotion_push_notification"
+        params = {
+            "headline": extracted_text[:35] if extracted_text else "¡Tu video se hizo viral!",
+            "subheadline": "Superaste las 250,000 reproducciones",
+            "badge": "NOTIFICACIÓN",
+            "accent_color": accent_color or "#10B981",
+            "start_time": start_time,
+            "duration": duration,
+        }
+
+    # Manim (3Blue1Brown) Prompts
+    elif any(k in p_lower for k in ["manim", "formula", "latex", "ecuacion", "matematica"]):
+        preset_id = "manim_math_formula"
+        params = {
+            "headline": extracted_text or "E = mc²",
+            "subheadline": "Derivación analítica paso a paso estilo Manim",
+            "badge": "📐 MANIM",
+            "accent_color": accent_color or "#F59E0B",
+            "start_time": start_time,
+            "duration": duration,
+        }
+
+    # Motion Canvas Prompts
+    elif any(k in p_lower for k in ["motion canvas", "terminal", "codigo", "consola", "typescript"]):
+        preset_id = "code_walkthrough_terminal"
+        params = {
+            "headline": extracted_text or "const video = await factory.render();",
+            "subheadline": "Pipeline programático acelerado por hardware",
+            "badge": "💻 TERMINAL",
+            "accent_color": accent_color or "#06B6D4",
+            "start_time": start_time,
+            "duration": duration,
+        }
+
+    # Motion.dev Prompts
+    elif any(k in p_lower for k in ["motion.dev", "rebote", "spring", "elastico", "bouncy"]):
+        preset_id = "motion_spring_elastic_card"
+        params = {
+            "headline": extracted_text[:30].upper() if extracted_text else "REBOTE FÍSICO REAL",
+            "subheadline": "Física de resortes calibrada para máxima retención",
+            "badge": "MOTION SPRING",
+            "accent_color": accent_color or "#06B6D4",
+            "start_time": start_time,
+            "duration": duration,
+        }
+
+    # GSAP CodePen Prompts
+    elif any(k in p_lower for k in ["flip", "pila", "stack", "cards"]):
+        preset_id = "flip_card_stack"
+        params = {
+            "headline": extracted_text[:30].upper() if extracted_text else "3 SECRETOS PARA CRECER",
+            "subheadline": "1. Hook inicial • 2. Retención • 3. CTA",
+            "badge": "GSAP FLIP",
+            "accent_color": accent_color or "#38BDF8",
+            "start_time": start_time,
+            "duration": duration,
+            "codepen_url": "https://codepen.io/GreenSock/pen/Yzdzxem"
+        }
+
+    elif any(k in p_lower for k in ["confeti", "particulas", "celebracion"]):
+        preset_id = "physics_confetti_burst"
+        params = {
+            "headline": extracted_text[:30].upper() if extracted_text else "¡META ALCANZADA!",
+            "subheadline": "+1,000,000 DE REPRODUCCIONES",
+            "badge": "CELEBRACIÓN",
+            "accent_color": accent_color or "#FACC15",
+            "start_time": start_time,
+            "duration": duration,
+            "codepen_url": "https://codepen.io/GreenSock/pen/VwGdvj"
+        }
+
     else:
         # Dynamic smart fallback: adapt user's text into an impactful hook or badge
         clean_text = extracted_text or prompt.strip()
@@ -241,10 +370,11 @@ def ai_generate_motion_graphic(req: MotionAIGenerateRequest) -> Dict[str, Any]:
     # 1. Attempt to consult local Ollama with fast timeout
     ollama_url = f"{settings.OLLAMA_BASE_URL}/api/generate"
     try:
+        available_sample = [p["id"] for p in mg_service.get_presets()[:20]]
         sys_prompt = f"""
 Actúa como director de Motion Graphics para videos verticales (TikTok, Reels, Shorts).
 Analiza el pedido del usuario en lenguaje natural: '{req.prompt}'
-Elige uno de los 10 presets: lower_third_glass, stat_callout_neon, viral_hook, cta_badge, retention_bar, attention_arrow, social_handle, quote_card, number_counter, warning_alert.
+Elige el mejor preset cinético disponible en el catálogo (ejemplos: {', '.join(available_sample[:12])}).
 Devuelve ÚNICAMENTE un JSON con:
 {{
   "preset_id": "...",
@@ -313,8 +443,36 @@ Devuelve ÚNICAMENTE un JSON con:
 
 @router.get("/presets")
 def list_presets() -> List[Dict[str, Any]]:
-    """Returns all available motion graphics presets inspired by HyperFrames."""
+    """Returns all available motion graphics presets (built-in and custom)."""
     return mg_service.get_presets()
+
+
+class CreatePresetRequest(BaseModel):
+    id: Optional[str] = None
+    name: str
+    category: str = "🌟 Personalizados"
+    description: str = "Preset personalizado guardado en la librería."
+    default_params: Dict[str, Any] = Field(default_factory=dict)
+    codepen_url: Optional[str] = None
+    html_template: Optional[str] = None
+    animation_script: Optional[str] = None
+
+
+@router.post("/presets")
+def create_custom_preset(req: CreatePresetRequest) -> Dict[str, Any]:
+    """Adds a custom or imported CodePen preset into the library."""
+    p_dict = req.model_dump()
+    saved = mg_service.add_custom_preset(p_dict)
+    return {"status": "success", "message": "Preset guardado en la librería.", "preset": saved}
+
+
+@router.delete("/presets/{preset_id}")
+def delete_custom_preset(preset_id: str) -> Dict[str, Any]:
+    """Deletes a custom preset from the library."""
+    success = mg_service.delete_custom_preset(preset_id)
+    if not success:
+        raise HTTPException(status_code=404, detail=f"Preset personalizado '{preset_id}' no encontrado o es de sólo lectura.")
+    return {"status": "success", "message": f"Preset '{preset_id}' eliminado de la librería."}
 
 
 @router.get("/engines")

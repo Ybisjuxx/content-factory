@@ -6,6 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Content Factory - Suite Unificada de Contenido</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/EasePack.min.js"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Impact&display=swap"
     rel="stylesheet">
@@ -547,35 +553,99 @@
               </div>
             </div>
 
-            <h3 class="font-bold text-sm text-white flex items-center gap-1.5 pt-1">
-              <span>🎨</span> Preset de Motion Graphic
-            </h3>
+            <div class="flex items-center justify-between pt-1">
+              <h3 class="font-bold text-sm text-white flex items-center gap-1.5">
+                <span>🎨</span> Preset de Motion Graphic
+              </h3>
+              <button type="button" onclick="openPresetLibraryModal('mg')"
+                class="px-3 py-1 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white rounded-lg text-[11px] font-bold shadow flex items-center gap-1 transition">
+                <span>📚</span> Biblioteca
+              </button>
+            </div>
 
             <!-- Preset Selection -->
             <div>
-              <label class="block text-slate-400 mb-1 font-semibold">Seleccionar Herramienta / Estilo</label>
+              <div class="flex items-center justify-between mb-1">
+                <label class="text-slate-400 font-semibold">Seleccionar Herramienta / Estilo</label>
+                <span id="mgPresetBadgeEngine" class="text-[10px] font-mono text-sky-400 bg-sky-950/80 px-1.5 py-0.5 rounded border border-sky-800">GSAP Flip / CodePen</span>
+              </div>
               <select id="mgPresetSelector"
                 class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white"
                 onchange="onMgPresetChange()">
-                <optgroup label="Texto &amp; Identificación">
-                  <option value="lower_third_glass">Lower Third Cinético (Glass Minimal)</option>
-                  <option value="social_handle">Badge de Redes Sociales (@Handle)</option>
-                  <option value="quote_card">Tarjeta de Cita / Frase en Cristal</option>
+                <optgroup label="🔀 Layout &amp; Morphing (GSAP Flip)">
+                  <option value="flip_card_stack" selected>GSAP Flip: Pila de Tarjetas (CodePen Yzdzxem)</option>
                 </optgroup>
-                <optgroup label="Métricas &amp; Datos">
-                  <option value="stat_callout_neon">Métrica de Impacto (Stat Callout)</option>
-                  <option value="number_counter">Contador Numérico Dinámico (+150K)</option>
+                <optgroup label="✍️ Tipografía Cinética (GSAP SplitText)">
+                  <option value="split_chars_stagger">SplitText: Letra por Letra 3D</option>
+                  <option value="split_words_pop">SplitText: Palabra por Palabra Pop</option>
+                  <option value="split_lines_mask">SplitText: Revelación por Líneas</option>
+                  <option value="scramble_matrix">ScrambleText: Decodificación Matrix</option>
+                  <option value="typewriter_cursor">Máquina de Escribir con Cursor</option>
+                  <option value="kinetic_typography_scale">Tipografía Cinética Zoom</option>
                 </optgroup>
-                <optgroup label="Retención &amp; Cues Visuales">
+                <optgroup label="🎯 Retención &amp; Cues Visuales">
+                  <option value="retention_bar">Barra de Retención Viral (Progress Bar Dinámica)</option>
+                  <option value="retention_timer_countdown">Cuenta Regresiva de Retención (00:03 Cronómetro)</option>
                   <option value="viral_hook">Hook Explosivo (Título 0-3s)</option>
                   <option value="attention_arrow">Flecha de Atención &amp; Alerta Neón</option>
                   <option value="warning_alert">Alerta Crítica (Detén el Scroll)</option>
-                  <option value="retention_bar">Barra de Retención Viral (Progress Bar)</option>
+                  <option value="highlighter_marker_draw">Marcador Fluorescente DrawSVG</option>
                 </optgroup>
-                <optgroup label="Conversión">
+                <optgroup label="📊 Métricas, Datos &amp; Finanzas">
+                  <option value="stat_callout_neon">Métrica de Impacto (Stat Callout)</option>
+                  <option value="number_counter">Contador Numérico Dinámico (+250K)</option>
+                  <option value="percentage_circle_gauge">Medidor Circular (Radial Gauge)</option>
+                  <option value="crypto_stock_badge">Ticker Bursátil / Crypto (+24.8%)</option>
+                  <option value="bar_chart_grow">Gráfico de Barras en Crecimiento</option>
+                </optgroup>
+                <optgroup label="👤 Identificación &amp; Speaker">
+                  <option value="lower_third_glass">Lower Third Cinético (Glass Minimal)</option>
+                  <option value="lower_third_neon_edge">Lower Third Cyber Neón</option>
+                  <option value="lower_third_magazine">Lower Third Editorial / Magazine</option>
+                  <option value="social_handle">Badge de Redes Sociales (@Handle)</option>
+                  <option value="quote_card">Tarjeta de Cita / Frase en Cristal</option>
+                  <option value="news_ticker_breaking">Cintillo de Última Hora (Breaking News)</option>
+                  <option value="creator_profile_pill">Pill de Perfil Verificado (Blue Check)</option>
+                </optgroup>
+                <optgroup label="🚀 Conversión &amp; CTAs">
                   <option value="cta_badge">Llamado a la Acción (Animated CTA)</option>
+                  <option value="cta_link_in_bio">Badge: Enlace en Biografía</option>
+                  <option value="save_share_reminder">Recordatorio: Guarda y Comparte</option>
+                  <option value="discount_code_badge">Cupón de Descuento (-50% OFF)</option>
+                </optgroup>
+                <optgroup label="📐 Animación Científica (Manim / 3Blue1Brown)">
+                  <option value="manim_math_formula">Manim: Fórmula Matemática (LaTeX E=mc²)</option>
+                  <option value="manim_coordinate_plot">Manim: Gráfico de Función Cartesiana</option>
+                  <option value="manim_geometry_vector">Manim: Vectores &amp; Geometría Analítica</option>
+                </optgroup>
+                <optgroup label="💻 Código &amp; Diagramas (Motion Canvas)">
+                  <option value="code_walkthrough_terminal">Motion Canvas: Terminal con Cursor</option>
+                  <option value="flowchart_nodes_diagram">Motion Canvas: Diagrama de Nodos</option>
+                  <option value="tech_stack_pill_orbit">Motion Canvas: Stack Tecnológico</option>
+                </optgroup>
+                <optgroup label="📱 Social UI &amp; Video (Remotion)">
+                  <option value="remotion_audio_waveform">Remotion: Espectro Sonoro (Waveform)</option>
+                  <option value="remotion_device_mockup">Remotion: Mockup de iPhone Flotante</option>
+                  <option value="remotion_push_notification">Remotion: Notificación Push iOS</option>
+                  <option value="remotion_split_screen_duet">Remotion: Pantalla Dividida (Dúo)</option>
+                </optgroup>
+                <optgroup label="⭐ Presets Personalizados (CodePen / Custom)" id="mgCustomOptgroup">
                 </optgroup>
               </select>
+
+              <!-- Interactive Shuffle Button for GSAP Flip (CodePen Yzdzxem) -->
+              <div id="mgFlipActionContainer" class="mt-2">
+                <button type="button" onclick="shuffleFlipCards('mgOverlayCanvas')"
+                  class="w-full py-1.5 px-3 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-1.5 transition">
+                  <span>🔀</span> Probar Shuffle FLIP (CodePen Yzdzxem)
+                </button>
+                <div class="mt-1 flex items-center justify-between text-[10px] text-slate-400">
+                  <span>Basado en GreenSock Flip Plugin</span>
+                  <a href="https://codepen.io/GreenSock/pen/Yzdzxem" target="_blank" class="text-sky-400 hover:underline flex items-center gap-0.5">
+                    <span>↗ CodePen Oficial</span>
+                  </a>
+                </div>
+              </div>
             </div>
 
             <!-- Dynamic Parameter Form -->
@@ -785,6 +855,12 @@
                 <!-- Dynamic active words rendered here in real time as video plays -->
               </div>
 
+              <!-- Live Motion Graphic Overlay on Video Canvas -->
+              <div id="editorMotionGraphicOverlay"
+                class="absolute inset-0 pointer-events-none z-30 transition-all duration-300 flex flex-col justify-end">
+                <!-- Dynamic animated SVG/HTML rendered here -->
+              </div>
+
               <!-- Canvas empty state -->
               <div id="editorEmptyState"
                 class="absolute inset-0 flex flex-col items-center justify-center text-slate-500 text-xs space-y-2 pointer-events-none p-4 text-center">
@@ -819,7 +895,7 @@
           <div class="lg:col-span-5 bg-slate-900/70 border border-slate-800 rounded-3xl p-5 space-y-4 text-xs">
 
             <!-- Inspector Tabs -->
-            <div class="flex items-center gap-1 border-b border-slate-800 pb-2">
+            <div class="flex items-center gap-1 border-b border-slate-800 pb-2 overflow-x-auto">
               <button onclick="switchInspectorTab('transform')" id="insp-tab-transform"
                 class="px-3 py-1.5 rounded-lg font-bold text-xs bg-sky-600 text-white">Transformación</button>
               <button onclick="switchInspectorTab('filters')" id="insp-tab-filters"
@@ -829,6 +905,10 @@
                 class="px-3 py-1.5 rounded-lg font-bold text-xs text-slate-400 hover:text-white">Velocidad</button>
               <button onclick="switchInspectorTab('subtitles')" id="insp-tab-subtitles"
                 class="px-3 py-1.5 rounded-lg font-bold text-xs text-slate-400 hover:text-white">Subtítulos</button>
+              <button onclick="switchInspectorTab('motion')" id="insp-tab-motion"
+                class="px-3 py-1.5 rounded-lg font-bold text-xs text-slate-400 hover:text-white flex items-center gap-1">
+                <span>✨</span> Motion &amp; Presets
+              </button>
             </div>
 
             <!-- Tab 1: Transform -->
@@ -1084,6 +1164,79 @@
                 </div>
               </div>
 
+            </div>
+
+            <!-- Tab 5: Motion Graphics & Presets Inspector -->
+            <div id="insp-content-motion" class="space-y-4 hidden">
+              <!-- Enable Switch -->
+              <div class="p-3 bg-gradient-to-br from-indigo-950/80 to-slate-900 border border-indigo-700/60 rounded-2xl flex items-center justify-between">
+                <div>
+                  <span class="font-bold text-white flex items-center gap-1.5 text-xs">
+                    <span class="text-indigo-400">✨</span> Activar Motion Overlay en OpenCut
+                  </span>
+                  <p class="text-[11px] text-slate-400">Incrusta el preset animado sobre el video en vivo y en la exportación FFmpeg.</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="editorEnableMotionOverlay" class="sr-only peer" onchange="toggleEditorMotionOverlay(this.checked)">
+                  <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-sky-600"></div>
+                </label>
+              </div>
+
+              <!-- Preset Selector & Library Button -->
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <label class="text-slate-400 font-semibold text-xs">Preset Cinético</label>
+                  <button type="button" onclick="openPresetLibraryModal('editor')"
+                    class="px-2.5 py-1 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white rounded-lg text-[10px] font-bold shadow flex items-center gap-1 transition">
+                    <span>📚</span> Biblioteca de Presets
+                  </button>
+                </div>
+                <select id="editorMgPreset"
+                  class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white"
+                  onchange="onEditorMgPresetChange()">
+                  <!-- Populated dynamically via JS -->
+                </select>
+
+                <!-- Interactive Shuffle Button for GSAP Flip (CodePen Yzdzxem) in Editor -->
+                <div id="editorFlipActionContainer" class="hidden pt-1">
+                  <button type="button" onclick="shuffleFlipCards('editorMotionGraphicOverlay')"
+                    class="w-full py-1.5 px-3 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-1.5 transition">
+                    <span>🔀</span> Probar Shuffle FLIP (CodePen Yzdzxem)
+                  </button>
+                </div>
+              </div>
+
+              <!-- Dynamic Parameters -->
+              <div id="editorMgDynamicFields" class="space-y-3 pt-2 border-t border-slate-800">
+                <!-- Injected dynamically based on preset -->
+              </div>
+
+              <!-- Timing Controls -->
+              <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800">
+                <div>
+                  <label class="block text-slate-400 mb-1 text-[11px]">Inicio (seg)</label>
+                  <input type="number" id="editorMgStartTime" step="0.1" value="0.5" min="0"
+                    class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-xs font-mono"
+                    onchange="updateEditorMotionLivePreview()">
+                </div>
+                <div>
+                  <label class="block text-slate-400 mb-1 text-[11px]">Duración (seg)</label>
+                  <input type="number" id="editorMgDuration" step="0.1" value="4.0" min="0.5"
+                    class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-xs font-mono"
+                    onchange="updateEditorMotionLivePreview()">
+                </div>
+              </div>
+
+              <!-- Color Palette Picker -->
+              <div>
+                <label class="block text-slate-400 mb-1 text-[11px]">Color de Acento Neón</label>
+                <div class="flex items-center gap-2">
+                  <input type="color" id="editorMgAccentColor" value="#38BDF8"
+                    class="w-7 h-7 rounded border-0 cursor-pointer bg-transparent"
+                    onchange="updateEditorMotionLivePreview()">
+                  <span id="editorMgAccentLabel" class="text-slate-300 font-mono text-xs">#38BDF8</span>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -1568,129 +1721,363 @@
       }
     }
 
-    function onMgPresetChange() {
-      const preset = document.getElementById('mgPresetSelector').value;
-      const fields = document.getElementById('mgDynamicFields');
+    // =========================================================================
+    // UNIFIED MOTION GRAPHICS & PRESET LIBRARY ENGINE (GSAP, FLIP, REMOTION, MANIM)
+    // =========================================================================
+    window.allMotionPresets = [];
+    window.activeLibTargetMode = 'mg';
+    window.currentLibCategoryFilter = 'ALL';
 
-      if (preset === 'lower_third_glass') {
-        fields.innerHTML = `
-          <div>
-            <label class="block text-slate-400 mb-1">Nombre del Speaker / Título</label>
-            <input type="text" id="mgParamTitle" value="ALEX RIVERA" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Subtítulo / Especialidad</label>
-            <input type="text" id="mgParamSubtitle" value="Especialista en IA &amp; Automatización" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Insignia / Badge</label>
-            <input type="text" id="mgParamBadge" value="CREADOR" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+    function getPresetEngineBadge(p) {
+      if (!p) return "GSAP / Motion";
+      if (p.id.startsWith('hyperframes_') || (p.category && p.category.includes('HyperFrames'))) return "HyperFrames Engine";
+      if (p.id.startsWith('motion_') || (p.category && p.category.includes('Motion.dev'))) return "Motion.dev";
+      if (p.id.startsWith('remotion_') || (p.category && p.category.includes('Remotion'))) return "Remotion Video";
+      if (p.id.startsWith('manim_') || (p.category && p.category.includes('Manim'))) return "Manim (3Blue1Brown)";
+      if (p.id.startsWith('code_') || p.id.startsWith('flowchart_') || p.id.startsWith('tech_stack_') || p.id.startsWith('motion_canvas_') || (p.category && p.category.includes('Motion Canvas'))) return "Motion Canvas";
+      if (p.default_params?.codepen_url) {
+        const badge = p.default_params.badge || "GSAP";
+        return `GSAP ${badge} • CodePen`;
+      }
+      if (p.id.startsWith('split_') || p.id === 'kinetic_typography_scale') return "GSAP SplitText";
+      if (p.id === 'scramble_matrix' || p.id === 'typewriter_cursor') return "GSAP TextPlugin";
+      return p.category || "Motion Graphics";
+    }
+
+    function renderCategoryFilterPills(presets) {
+      const container = document.getElementById('libCategoryPills');
+      if (!container || !presets) return;
+
+      const total = presets.length;
+      const hyperframesTotal = presets.filter(p => p.id.startsWith('hyperframes_') || (p.category && p.category.includes('HyperFrames'))).length;
+      const remotionTotal = presets.filter(p => p.id.startsWith('remotion_') || (p.category && p.category.includes('Remotion'))).length;
+      const motionDevTotal = presets.filter(p => p.id.startsWith('motion_') || (p.category && p.category.includes('Motion.dev'))).length;
+      const motionCanvasTotal = presets.filter(p => p.id.startsWith('code_') || p.id.startsWith('flowchart_') || p.id.startsWith('tech_stack_') || p.id.startsWith('motion_canvas_') || (p.category && p.category.includes('Motion Canvas'))).length;
+      const manimTotal = presets.filter(p => p.id.startsWith('manim_') || (p.category && p.category.includes('Manim'))).length;
+      const codepenTotal = presets.filter(p => !!p.default_params?.codepen_url).length;
+      const customTotal = presets.filter(p => !!p.is_custom).length;
+
+      const counts = {};
+      presets.forEach(p => {
+        const cat = p.category || 'General';
+        counts[cat] = (counts[cat] || 0) + 1;
+      });
+
+      const iconMap = {
+        'Cinemática Determinista (HyperFrames)': '✨',
+        'Física & Gestos (Motion.dev)': '⚡',
+        'Social & Video UI (Remotion)': '📱',
+        'Código & Diagramas (Motion Canvas)': '💻',
+        'Animación Científica (Manim)': '📐',
+        'Layout & Morphing (GSAP Flip)': '🔀',
+        'Layout & Morphing (GSAP)': '🔀',
+        'Tipografía Cinética': '✍️',
+        'Tipografía Cinética (GSAP)': '✍️',
+        'Scroll Cinemático & Parallax (GSAP)': '📜',
+        'Efectos Creativos & Partículas (GSAP)': '🎆',
+        'Componentes UI Cinemáticos (GSAP)': '💻',
+        'Micro-Interacciones & Botones (GSAP)': '🖱️',
+        'Galerías & Media Bento (GSAP)': '🖼️',
+        'Retención & Cues': '🎯',
+        'Retención Inicial': '⚡',
+        'Datos & Viralidad': '📊',
+        'Identificación & Speaker': '👤',
+        'Conversión & CTAs': '🚀'
+      };
+
+      let html = `
+        <button onclick="setLibCategoryFilter('ALL')" class="lib-cat-pill px-3 py-1 rounded-lg bg-sky-600 text-white font-bold transition cursor-pointer">
+          Todos (${total})
+        </button>
+        <button onclick="setLibCategoryFilter('ENGINE_HYPERFRAMES')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-rose-400 hover:text-white transition cursor-pointer">
+          ✨ HyperFrames (${hyperframesTotal})
+        </button>
+        <button onclick="setLibCategoryFilter('ENGINE_REMOTION')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-indigo-400 hover:text-white transition cursor-pointer">
+          📱 Remotion (${remotionTotal})
+        </button>
+        <button onclick="setLibCategoryFilter('ENGINE_MOTION_DEV')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-cyan-400 hover:text-white transition cursor-pointer">
+          ⚡ Motion.dev (${motionDevTotal})
+        </button>
+        <button onclick="setLibCategoryFilter('ENGINE_MOTION_CANVAS')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-emerald-400 hover:text-white transition cursor-pointer">
+          💻 Motion Canvas (${motionCanvasTotal})
+        </button>
+        <button onclick="setLibCategoryFilter('ENGINE_MANIM')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-amber-400 hover:text-white transition cursor-pointer">
+          📐 Manim (${manimTotal})
+        </button>
+        <button onclick="setLibCategoryFilter('CODEPEN')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-sky-400 hover:text-white transition cursor-pointer">
+          🔗 CodePen (${codepenTotal})
+        </button>
+      `;
+
+      for (const [catName, count] of Object.entries(counts)) {
+        const icon = iconMap[catName] || '🎨';
+        html += `
+          <button onclick="setLibCategoryFilter('${catName}')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition cursor-pointer">
+            ${icon} ${catName} (${count})
+          </button>
+        `;
+      }
+
+      if (customTotal > 0) {
+        html += `
+          <button onclick="setLibCategoryFilter('CUSTOM')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-amber-400 hover:text-white transition cursor-pointer">
+            ⭐ Mis Presets (${customTotal})
+          </button>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    async function loadAllMotionPresetsIntoUI() {
+      try {
+        const res = await fetch('/api/v1/motion-graphics/presets');
+        if (!res.ok) return;
+        const presets = await res.json();
+        window.allMotionPresets = presets;
+
+        // Group presets by category
+        const groups = {};
+        presets.forEach(p => {
+          const cat = p.category || "General";
+          if (!groups[cat]) groups[cat] = [];
+          groups[cat].push(p);
+        });
+
+        const buildOptionsHtml = (selectedId) => {
+          let html = '';
+          for (const [catName, list] of Object.entries(groups)) {
+            html += `<optgroup label="${catName}">`;
+            list.forEach(item => {
+              const sel = item.id === selectedId ? 'selected' : '';
+              html += `<option value="${item.id}" ${sel}>${item.name}</option>`;
+            });
+            html += `</optgroup>`;
+          }
+          return html;
+        };
+
+        // Populate Mode 2 Motion Graphics select
+        const mgSelect = document.getElementById('mgPresetSelector');
+        if (mgSelect) {
+          const curVal = mgSelect.value || 'flip_card_stack';
+          mgSelect.innerHTML = buildOptionsHtml(curVal);
+          mgSelect.value = curVal;
+        }
+
+        // Populate Mode 3 OpenCut select
+        const editorSelect = document.getElementById('editorMgPreset');
+        if (editorSelect) {
+          const curVal = editorSelect.value || 'lower_third_glass';
+          editorSelect.innerHTML = buildOptionsHtml(curVal);
+          editorSelect.value = curVal;
+        }
+
+        // Update library badge count
+        const countBadge = document.getElementById('libPresetCountBadge');
+        if (countBadge) countBadge.innerText = `${presets.length} Presets`;
+        const countAll = document.getElementById('libCountAll');
+        if (countAll) countAll.innerText = `${presets.length}`;
+
+        // Render dynamic category filter pills with exact counts
+        renderCategoryFilterPills(presets);
+
+        onMgPresetChange();
+        onEditorMgPresetChange();
+      } catch (err) {
+        console.error("Error loading motion presets catalog:", err);
+      }
+    }
+
+    function renderDynamicPresetInputs(p, prefix, onInputFn) {
+      if (!p) return '';
+      const params = p.default_params || {};
+      let html = '';
+
+      // Check if CodePen URL is associated
+      if (params.codepen_url || p.id === 'flip_card_stack') {
+        const url = params.codepen_url || 'https://codepen.io/GreenSock/pen/Yzdzxem';
+        const penId = url.split('/').pop();
+        const badge = params.badge || 'GSAP';
+        html += `
+          <div class="p-2.5 rounded-xl bg-sky-950/60 border border-sky-800/80 flex items-center justify-between text-[11px]">
+            <div class="flex items-center gap-1.5 text-sky-300 font-bold">
+              <span>🔀</span> GSAP ${badge} (CodePen ${penId})
+            </div>
+            <a href="${url}" target="_blank" class="text-sky-400 hover:underline flex items-center gap-1 font-mono text-[10px]">
+              <span>Abrir Demo Oficial</span> ↗
+            </a>
           </div>
         `;
-      } else if (preset === 'stat_callout_neon') {
-        fields.innerHTML = `
+      }
+
+      // Title / Headline
+      if ('headline' in params || 'title' in params) {
+        const val = params.headline || params.title || '';
+        const label = 'headline' in params ? 'Titular Principal / Hook' : 'Nombre del Speaker / Título';
+        html += `
           <div>
-            <label class="block text-slate-400 mb-1">Métrica Gigante (Hero Stat)</label>
-            <input type="text" id="mgParamMetric" value="+350%" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-mono text-base font-bold text-emerald-400" oninput="renderMgPreviewLive()">
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Explicación / Contexto</label>
-            <input type="text" id="mgParamExplanation" value="Velocidad de producción alcanzada" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Insignia Superior</label>
-            <input type="text" id="mgParamBadge" value="CASO DE ÉXITO" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+            <label class="block text-slate-400 mb-1 text-[11px] font-semibold">${label}</label>
+            <input type="text" id="${prefix}Headline" value="${val}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-bold" oninput="${onInputFn}()">
           </div>
         `;
-      } else if (preset === 'viral_hook') {
-        fields.innerHTML = `
+      }
+
+      // Subheadline / Subtitle
+      if ('subheadline' in params || 'subtitle' in params) {
+        const val = params.subheadline || params.subtitle || '';
+        const label = 'subheadline' in params ? 'Subtítulo Descriptivo' : 'Especialidad / Cargo';
+        html += `
           <div>
-            <label class="block text-slate-400 mb-1">Titular de Impacto (0-3s)</label>
-            <input type="text" id="mgParamHeadline" value="NO COMETAS ESTE ERROR" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-bold" oninput="renderMgPreviewLive()">
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Subtítulo Descriptivo</label>
-            <input type="text" id="mgParamSubheadline" value="Mira esto antes de subir tu próximo video" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Alerta Badge</label>
-            <input type="text" id="mgParamBadge" value="ATENCIÓN" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+            <label class="block text-slate-400 mb-1 text-[11px]">${label}</label>
+            <input type="text" id="${prefix}Subheadline" value="${val}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="${onInputFn}()">
           </div>
         `;
-      } else if (preset === 'cta_badge') {
-        fields.innerHTML = `
+      }
+
+      // Badge / Tag
+      if ('badge' in params) {
+        html += `
           <div>
-            <label class="block text-slate-400 mb-1">Texto del Llamado a la Acción</label>
-            <input type="text" id="mgParamCtaText" value="★ Sígueme para más trucos de IA" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-bold" oninput="renderMgPreviewLive()">
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Llamado Secundario</label>
-            <input type="text" id="mgParamSubtext" value="Comenta abajo tu opinión" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
-          </div>
-        `;
-      } else if (preset === 'attention_arrow') {
-        fields.innerHTML = `
-          <div>
-            <label class="block text-slate-400 mb-1">Texto de Advertencia / Flecha</label>
-            <input type="text" id="mgParamArrowLabel" value="¡OJO CON ESTO!" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-bold" oninput="renderMgPreviewLive()">
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Detalle o Explicación</label>
-            <input type="text" id="mgParamArrowSublabel" value="Detalle clave que la mayoría ignora" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+            <label class="block text-slate-400 mb-1 text-[11px]">Insignia / Badge Superior</label>
+            <input type="text" id="${prefix}Badge" value="${params.badge}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-mono text-xs" oninput="${onInputFn}()">
           </div>
         `;
-      } else if (preset === 'social_handle') {
-        fields.innerHTML = `
+      }
+
+      // Metric / Hero Stat
+      if ('metric' in params) {
+        html += `
           <div>
-            <label class="block text-slate-400 mb-1">Tu Usuario / Arroba (@Handle)</label>
-            <input type="text" id="mgParamHandle" value="@alexrivera_ai" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-mono" oninput="renderMgPreviewLive()">
+            <label class="block text-slate-400 mb-1 text-[11px]">Métrica Heroica (+350%)</label>
+            <input type="text" id="${prefix}Metric" value="${params.metric}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-emerald-400 font-mono font-bold text-base" oninput="${onInputFn}()">
           </div>
           <div>
-            <label class="block text-slate-400 mb-1">Plataforma</label>
-            <input type="text" id="mgParamPlatform" value="TikTok / Instagram" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
-          </div>
-        `;
-      } else if (preset === 'quote_card') {
-        fields.innerHTML = `
-          <div>
-            <label class="block text-slate-400 mb-1">Cita o Frase Destacada</label>
-            <input type="text" id="mgParamQuote" value="La clave no es la suerte, es la retención del primer segundo." class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Autor / Etiqueta</label>
-            <input type="text" id="mgParamAuthor" value="REGLA DE ORO" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+            <label class="block text-slate-400 mb-1 text-[11px]">Explicación / Contexto</label>
+            <input type="text" id="${prefix}Explanation" value="${params.explanation || ''}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="${onInputFn}()">
           </div>
         `;
-      } else if (preset === 'number_counter') {
-        fields.innerHTML = `
+      }
+
+      // Number Counter
+      if ('number_val' in params) {
+        html += `
           <div>
-            <label class="block text-slate-400 mb-1">Cifra / Número de Impacto</label>
-            <input type="text" id="mgParamNumberVal" value="+150,000" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-mono font-bold text-base text-cyan-400" oninput="renderMgPreviewLive()">
+            <label class="block text-slate-400 mb-1 text-[11px]">Cifra Numérica (+250K)</label>
+            <input type="text" id="${prefix}NumberVal" value="${params.number_val}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-cyan-400 font-mono font-bold text-base" oninput="${onInputFn}()">
           </div>
           <div>
-            <label class="block text-slate-400 mb-1">Etiqueta de la Métrica</label>
-            <input type="text" id="mgParamNumberLabel" value="Nuevas Reproducciones Orgánicas" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
-          </div>
-        `;
-      } else if (preset === 'warning_alert') {
-        fields.innerHTML = `
-          <div>
-            <label class="block text-slate-400 mb-1">Título de Alerta</label>
-            <input type="text" id="mgParamWarningTitle" value="¡DETÉNTE AQUÍ!" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-bold text-amber-400" oninput="renderMgPreviewLive()">
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Mensaje de Advertencia</label>
-            <input type="text" id="mgParamWarningDesc" value="Si haces esto tu cuenta puede ser penalizada" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="renderMgPreviewLive()">
+            <label class="block text-slate-400 mb-1 text-[11px]">Etiqueta de la Cifra</label>
+            <input type="text" id="${prefix}NumberLabel" value="${params.label || ''}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="${onInputFn}()">
           </div>
         `;
-      } else {
-        fields.innerHTML = `
+      }
+
+      // Quote & Author
+      if ('quote' in params) {
+        html += `
           <div>
-            <label class="block text-slate-400 mb-1">Altura de la Barra (px)</label>
-            <input type="number" id="mgParamHeight" value="14" min="4" max="32" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-mono" oninput="renderMgPreviewLive()">
+            <label class="block text-slate-400 mb-1 text-[11px]">Frase o Cita Destacada</label>
+            <input type="text" id="${prefix}Quote" value="${params.quote}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="${onInputFn}()">
           </div>
-          <p class="text-[11px] text-slate-400">La barra de retención avanza automáticamente de 0% a 100% durante todo el video en TikTok y Reels.</p>
+          <div>
+            <label class="block text-slate-400 mb-1 text-[11px]">Autor / Fuente</label>
+            <input type="text" id="${prefix}Author" value="${params.author || 'REGLA DE ORO'}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="${onInputFn}()">
+          </div>
         `;
+      }
+
+      // Handle & Platform
+      if ('handle' in params) {
+        html += `
+          <div>
+            <label class="block text-slate-400 mb-1 text-[11px]">Usuario / Arroba (@Handle)</label>
+            <input type="text" id="${prefix}Handle" value="${params.handle}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-mono" oninput="${onInputFn}()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1 text-[11px]">Plataforma</label>
+            <input type="text" id="${prefix}Platform" value="${params.platform || 'TikTok / Instagram'}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="${onInputFn}()">
+          </div>
+        `;
+      }
+
+      // Warning Alert
+      if ('warning_title' in params) {
+        html += `
+          <div>
+            <label class="block text-slate-400 mb-1 text-[11px]">Título de Advertencia</label>
+            <input type="text" id="${prefix}WarningTitle" value="${params.warning_title}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-amber-400 font-bold" oninput="${onInputFn}()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1 text-[11px]">Mensaje de Alerta</label>
+            <input type="text" id="${prefix}WarningDesc" value="${params.warning_desc || ''}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="${onInputFn}()">
+          </div>
+        `;
+      }
+
+      // Attention Arrow
+      if ('direction' in params || ('label' in params && !('number_val' in params))) {
+        html += `
+          <div>
+            <label class="block text-slate-400 mb-1 text-[11px]">Texto del Detalle Clave</label>
+            <input type="text" id="${prefix}ArrowLabel" value="${params.label || '¡OJO CON ESTO!'}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-bold" oninput="${onInputFn}()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1 text-[11px]">Explicación Secundaria</label>
+            <input type="text" id="${prefix}ArrowSublabel" value="${params.sublabel || ''}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="${onInputFn}()">
+          </div>
+        `;
+      }
+
+      // CTA Badge
+      if ('cta_text' in params) {
+        html += `
+          <div>
+            <label class="block text-slate-400 mb-1 text-[11px]">Texto Llamado a la Acción</label>
+            <input type="text" id="${prefix}CtaText" value="${params.cta_text}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-bold" oninput="${onInputFn}()">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1 text-[11px]">Texto Secundario</label>
+            <input type="text" id="${prefix}Subtext" value="${params.subtext || ''}" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white" oninput="${onInputFn}()">
+          </div>
+        `;
+      }
+
+      // Retention Bar Height
+      if (p.id === 'retention_bar' || 'height_px' in params) {
+        html += `
+          <div>
+            <label class="block text-slate-400 mb-1 text-[11px]">Altura de la Barra (px)</label>
+            <input type="number" id="${prefix}Height" value="${params.height_px || 14}" min="4" max="32" class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-white font-mono" oninput="${onInputFn}()">
+          </div>
+          <p class="text-[11px] text-slate-400">La barra de retención avanza y cuenta dinámicamente de 0% a 100% sincronizada con el tiempo exacto del video.</p>
+        `;
+      }
+
+      return html;
+    }
+
+    function onMgPresetChange() {
+      const presetId = document.getElementById('mgPresetSelector')?.value || 'flip_card_stack';
+      const fields = document.getElementById('mgDynamicFields');
+      const p = window.allMotionPresets.find(x => x.id === presetId) || { id: presetId, default_params: {} };
+
+      // Update badge engine
+      const badge = document.getElementById('mgPresetBadgeEngine');
+      if (badge) badge.innerText = getPresetEngineBadge(p);
+
+      // Toggle Flip Action Container
+      const flipContainer = document.getElementById('mgFlipActionContainer');
+      if (flipContainer) {
+        if (presetId === 'flip_card_stack' || p.default_params?.codepen_url) {
+          flipContainer.classList.remove('hidden');
+        } else {
+          flipContainer.classList.add('hidden');
+        }
+      }
+
+      if (fields) {
+        fields.innerHTML = renderDynamicPresetInputs(p, 'mgParam', 'renderMgPreviewLive');
       }
 
       renderMgPreviewLive();
@@ -1698,60 +2085,67 @@
 
     function setMgAccentColor(hex) {
       currentMgAccent = hex;
-      document.getElementById('mgAccentColorCustom').value = hex;
+      const input = document.getElementById('mgAccentColorCustom');
+      if (input) input.value = hex;
       renderMgPreviewLive();
     }
 
     function collectMgParams() {
-      const preset = document.getElementById('mgPresetSelector').value;
-      const params = {
-        accent_color: currentMgAccent,
-        bar_color: currentMgAccent,
-        start_time: parseFloat(document.getElementById('mgStartTime').value) || 1.0,
-        duration: parseFloat(document.getElementById('mgDuration').value) || 5.0
-      };
+      const presetId = document.getElementById('mgPresetSelector')?.value || 'flip_card_stack';
+      const p = window.allMotionPresets.find(x => x.id === presetId) || { default_params: {} };
+      const params = Object.assign({}, p.default_params || {});
 
-      if (preset === 'lower_third_glass') {
-        params.title = document.getElementById('mgParamTitle')?.value || "ALEX RIVERA";
-        params.subtitle = document.getElementById('mgParamSubtitle')?.value || "Especialista en IA";
-        params.badge = document.getElementById('mgParamBadge')?.value || "CREADOR";
-      } else if (preset === 'stat_callout_neon') {
-        params.metric = document.getElementById('mgParamMetric')?.value || "+350%";
-        params.explanation = document.getElementById('mgParamExplanation')?.value || "Velocidad de producción";
-        params.badge = document.getElementById('mgParamBadge')?.value || "IMPACTO";
-      } else if (preset === 'viral_hook') {
-        params.headline = document.getElementById('mgParamHeadline')?.value || "NO COMETAS ESTE ERROR";
-        params.subheadline = document.getElementById('mgParamSubheadline')?.value || "Mira esto ahora";
-        params.badge = document.getElementById('mgParamBadge')?.value || "ATENCIÓN";
-      } else if (preset === 'cta_badge') {
-        params.cta_text = document.getElementById('mgParamCtaText')?.value || "★ Sígueme para más";
-        params.subtext = document.getElementById('mgParamSubtext')?.value || "Guarda este video";
-      } else if (preset === 'attention_arrow') {
-        params.label = document.getElementById('mgParamArrowLabel')?.value || "¡OJO CON ESTO!";
-        params.sublabel = document.getElementById('mgParamArrowSublabel')?.value || "Detalle que la mayoría ignora";
-      } else if (preset === 'social_handle') {
-        params.handle = document.getElementById('mgParamHandle')?.value || "@alexrivera_ai";
-        params.platform = document.getElementById('mgParamPlatform')?.value || "TikTok / Instagram";
-      } else if (preset === 'quote_card') {
-        params.quote = document.getElementById('mgParamQuote')?.value || "La clave no es la suerte, es la retención.";
-        params.author = document.getElementById('mgParamAuthor')?.value || "REGLA DE ORO";
-      } else if (preset === 'number_counter') {
-        params.number_val = document.getElementById('mgParamNumberVal')?.value || "+150,000";
-        params.label = document.getElementById('mgParamNumberLabel')?.value || "Nuevas Reproducciones";
-      } else if (preset === 'warning_alert') {
-        params.warning_title = document.getElementById('mgParamWarningTitle')?.value || "¡DETÉNTE AQUÍ!";
-        params.warning_desc = document.getElementById('mgParamWarningDesc')?.value || "Error que destruye tu retención";
-      } else {
-        params.height_px = parseInt(document.getElementById('mgParamHeight')?.value || "14");
-      }
+      params.accent_color = currentMgAccent;
+      params.bar_color = currentMgAccent;
+      params.start_time = parseFloat(document.getElementById('mgStartTime')?.value) || 0.5;
+      params.duration = parseFloat(document.getElementById('mgDuration')?.value) || 4.0;
+
+      // Extract values from dynamic fields if present
+      const h = document.getElementById('mgParamHeadline')?.value;
+      if (h !== undefined) { params.headline = h; params.title = h; }
+      const s = document.getElementById('mgParamSubheadline')?.value;
+      if (s !== undefined) { params.subheadline = s; params.subtitle = s; }
+      const b = document.getElementById('mgParamBadge')?.value;
+      if (b !== undefined) params.badge = b;
+      const m = document.getElementById('mgParamMetric')?.value;
+      if (m !== undefined) params.metric = m;
+      const ex = document.getElementById('mgParamExplanation')?.value;
+      if (ex !== undefined) params.explanation = ex;
+      const nv = document.getElementById('mgParamNumberVal')?.value;
+      if (nv !== undefined) params.number_val = nv;
+      const nl = document.getElementById('mgParamNumberLabel')?.value;
+      if (nl !== undefined) params.label = nl;
+      const q = document.getElementById('mgParamQuote')?.value;
+      if (q !== undefined) params.quote = q;
+      const a = document.getElementById('mgParamAuthor')?.value;
+      if (a !== undefined) params.author = a;
+      const hd = document.getElementById('mgParamHandle')?.value;
+      if (hd !== undefined) params.handle = hd;
+      const pf = document.getElementById('mgParamPlatform')?.value;
+      if (pf !== undefined) params.platform = pf;
+      const wt = document.getElementById('mgParamWarningTitle')?.value;
+      if (wt !== undefined) params.warning_title = wt;
+      const wd = document.getElementById('mgParamWarningDesc')?.value;
+      if (wd !== undefined) params.warning_desc = wd;
+      const al = document.getElementById('mgParamArrowLabel')?.value;
+      if (al !== undefined) params.label = al;
+      const as = document.getElementById('mgParamArrowSublabel')?.value;
+      if (as !== undefined) params.sublabel = as;
+      const ct = document.getElementById('mgParamCtaText')?.value;
+      if (ct !== undefined) params.cta_text = ct;
+      const st = document.getElementById('mgParamSubtext')?.value;
+      if (st !== undefined) params.subtext = st;
+      const ht = document.getElementById('mgParamHeight')?.value;
+      if (ht !== undefined) params.height_px = parseInt(ht);
 
       return params;
     }
 
     async function renderMgPreviewLive() {
-      const preset = document.getElementById('mgPresetSelector').value;
+      const preset = document.getElementById('mgPresetSelector')?.value || 'flip_card_stack';
       const params = collectMgParams();
       const canvas = document.getElementById('mgOverlayCanvas');
+      if (!canvas) return;
 
       try {
         const res = await fetch('/api/v1/motion-graphics/preview', {
@@ -1762,7 +2156,6 @@
         const data = await res.json();
         if (data.svg) {
           canvas.innerHTML = data.svg;
-          // Apply responsive 100% SVG style
           const svgEl = canvas.querySelector('svg');
           if (svgEl) {
             svgEl.style.width = '100%';
@@ -1772,40 +2165,559 @@
             svgEl.style.left = '0';
           }
           canvas.style.opacity = '1';
+
+          // Sync current position immediately
+          const vid = document.getElementById('mgPreviewVideo');
+          if (vid) syncMotionGraphicScrubber(vid);
         }
       } catch (e) {
         console.error("Error updating live MG preview:", e);
       }
     }
 
+    // Dynamic Element Animation Engine for Video Playback
+    function updateDynamicPresetElements(container, cur, dur, start, length, presetId) {
+      if (!container) return;
+      const end = start + length;
+      const effDur = (length <= 0 || length >= dur) ? dur : length;
+      const progressRatio = effDur > 0 ? Math.min(1.0, Math.max(0.0, (cur - start) / effDur)) : 0;
+      const fullVideoProgress = dur > 0 ? Math.min(1.0, Math.max(0.0, cur / dur)) : progressRatio;
+
+      // 1. Dynamic Retention Progress Bar - counts dynamically with video time
+      const barFill = container.querySelector('#mgRetentionBarFill') || container.querySelector('.retention-bar-fill');
+      if (barFill) {
+        const barRatio = presetId === 'retention_bar' ? fullVideoProgress : progressRatio;
+        if (barFill.tagName && barFill.tagName.toLowerCase() === 'rect') {
+          const parentSvg = barFill.ownerSVGElement;
+          const vbWidth = parentSvg ? (parentSvg.viewBox.baseVal.width || 1080) : 1080;
+          barFill.setAttribute('width', Math.max(4, vbWidth * barRatio));
+        } else {
+          barFill.style.width = `${Math.min(100, Math.max(0, barRatio * 100))}%`;
+        }
+      }
+
+      // 2. Countdown Timer
+      const timerEl = container.querySelector('#mgTimerCountdownVal') || container.querySelector('.timer-countdown-val');
+      if (timerEl) {
+        const remaining = Math.max(0, Math.ceil(end - cur));
+        timerEl.textContent = `00:0${remaining}`.slice(-5);
+      }
+
+      // 3. Number Counter
+      const counterEl = container.querySelector('#mgDynamicCounterVal') || container.querySelector('.dynamic-counter-val');
+      if (counterEl) {
+        const targetStr = counterEl.getAttribute('data-target') || '250000';
+        const num = parseInt(targetStr.replace(/[^0-9]/g, '')) || 250000;
+        const curCount = Math.round(num * progressRatio);
+        counterEl.textContent = `+${curCount.toLocaleString()}`;
+      }
+
+      // 4. Circle Gauge
+      const gaugeArc = container.querySelector('#mgGaugeCircleArc');
+      if (gaugeArc) {
+        const maxOffset = 565; // circumference of r=90
+        const targetPct = parseFloat(gaugeArc.getAttribute('data-target-pct') || '88') / 100;
+        const currentOffset = maxOffset - (maxOffset * targetPct * progressRatio);
+        gaugeArc.style.strokeDashoffset = currentOffset;
+      }
+
+      // 5. CodePen Proximity Scale Grid dynamic pulsing
+      const focalCell = container.querySelector('.proximity-focal');
+      if (focalCell) {
+        const pulse = 1.0 + Math.sin(cur * 5) * 0.04;
+        focalCell.setAttribute('transform', `scale(${pulse})`);
+      }
+
+      // 6. CodePen Velocity Skew dynamic inertial lean
+      const skewCard = container.querySelector('#velocity_skew_card');
+      if (skewCard) {
+        const dynSkew = -7 + Math.sin(cur * 4.5) * 4;
+        skewCard.setAttribute('transform', `translate(100, 780) skewX(${dynSkew}) skewY(2)`);
+      }
+
+      // 7. CodePen Directional Marquee dual looping tapes
+      const tapeTop = container.querySelector('#marquee_tape_top text');
+      const tapeBottom = container.querySelector('#marquee_tape_bottom text');
+      if (tapeTop) tapeTop.setAttribute('x', 620 - ((cur * 90) % 360));
+      if (tapeBottom) tapeBottom.setAttribute('x', 620 + ((cur * 90) % 360));
+
+      // 8. CodePen Confetti Physics particles falling
+      const confetti = container.querySelectorAll('#confetti_particles > *');
+      if (confetti.length > 0) {
+        confetti.forEach((p, idx) => {
+          const yOff = ((cur * (50 + idx * 12)) % 300);
+          p.setAttribute('transform', `translate(0, ${yOff})`);
+        });
+      }
+
+      // 9. CodePen 3D Perspective Tilt rotation
+      const tiltCard = container.querySelector('#cursor_tilt_3d_card');
+      if (tiltCard) {
+        const rot = -4 + Math.sin(cur * 2.8) * 3;
+        tiltCard.setAttribute('transform', `translate(110, 730) rotate(${rot}) scale(0.98)`);
+      }
+
+      // 10. CodePen Catalog & Custom Glass Cards subtle kinetic floating
+      const customCard = container.querySelector('[id^="custom_card_"]');
+      if (customCard) {
+        const floatY = Math.sin(cur * 3) * 5;
+        const currentTransform = customCard.getAttribute('transform') || '';
+        const match = currentTransform.match(/translate\(\s*([\d.-]+)\s*,\s*([\d.-]+)\s*\)/);
+        if (match) {
+          const baseX = parseFloat(match[1]);
+          const baseY = parseFloat(match[2]);
+          customCard.setAttribute('transform', `translate(${baseX}, ${baseY + floatY})`);
+        }
+      }
+    }
+
     function syncMotionGraphicScrubber(vid) {
       const cur = vid.currentTime || 0;
       const dur = vid.duration || 0;
-      const start = parseFloat(document.getElementById('mgStartTime')?.value || 1.0);
-      const length = parseFloat(document.getElementById('mgDuration')?.value || 5.0);
+      const start = parseFloat(document.getElementById('mgStartTime')?.value || 0.5);
+      const length = parseFloat(document.getElementById('mgDuration')?.value || 4.0);
       const end = start + length;
+      const preset = document.getElementById('mgPresetSelector')?.value || '';
 
-      // Format time
+      // Format and display timecode
       const curStr = Math.floor(cur / 60) + ':' + ('0' + Math.floor(cur % 60)).slice(-2);
       const durStr = Math.floor(dur / 60) + ':' + ('0' + Math.floor(dur % 60)).slice(-2);
-      document.getElementById('mgTimecodeDisplay').innerText = `${curStr} / ${durStr}`;
+      const tc = document.getElementById('mgTimecodeDisplay');
+      if (tc) tc.innerText = `${curStr} / ${durStr}`;
 
       // Show/hide overlay according to playback range
       const canvas = document.getElementById('mgOverlayCanvas');
-      if (document.getElementById('mgPresetSelector').value === 'retention_bar') {
+      if (!canvas) return;
+
+      if (preset === 'retention_bar') {
+        // Retention bar is continuous across video
         canvas.style.opacity = '1';
       } else {
         if (vid.paused) {
-          // In design/paused mode, always display the graphic at full opacity over the frame
           canvas.style.opacity = '1';
         } else {
-          // During video playback, accurately appear and disappear within timing window
           if (cur >= start && cur <= end) {
             canvas.style.opacity = '1';
           } else {
             canvas.style.opacity = '0';
           }
         }
+      }
+
+      // Run dynamic dynamic element animation (updating bar, countdown, etc.)
+      updateDynamicPresetElements(canvas, cur, dur, start, length, preset);
+    }
+
+    // =========================================================================
+    // OPENCUT STUDIO PRO MOTION INTEGRATION (MODE 3)
+    // =========================================================================
+    function toggleEditorMotionOverlay(enabled) {
+      const overlay = document.getElementById('editorMotionGraphicOverlay');
+      if (!overlay) return;
+      if (enabled) {
+        overlay.classList.remove('hidden');
+        updateEditorMotionLivePreview();
+      } else {
+        overlay.classList.add('hidden');
+        overlay.innerHTML = '';
+      }
+    }
+
+    function onEditorMgPresetChange() {
+      const presetId = document.getElementById('editorMgPreset')?.value || 'lower_third_glass';
+      const fields = document.getElementById('editorMgDynamicFields');
+      const p = window.allMotionPresets.find(x => x.id === presetId) || { id: presetId, default_params: {} };
+
+      const flipContainer = document.getElementById('editorFlipActionContainer');
+      if (flipContainer) {
+        if (presetId === 'flip_card_stack' || p.default_params?.codepen_url) {
+          flipContainer.classList.remove('hidden');
+        } else {
+          flipContainer.classList.add('hidden');
+        }
+      }
+
+      if (fields) {
+        fields.innerHTML = renderDynamicPresetInputs(p, 'editorMgParam', 'updateEditorMotionLivePreview');
+      }
+
+      updateEditorMotionLivePreview();
+    }
+
+    function collectEditorMotionParams() {
+      const presetId = document.getElementById('editorMgPreset')?.value || 'lower_third_glass';
+      const p = window.allMotionPresets.find(x => x.id === presetId) || { default_params: {} };
+      const accent = document.getElementById('editorMgAccentColor')?.value || '#38BDF8';
+      const params = Object.assign({}, p.default_params || {});
+
+      params.preset_id = presetId;
+      params.accent_color = accent;
+      params.bar_color = accent;
+      params.start_time = parseFloat(document.getElementById('editorMgStartTime')?.value) || 0.5;
+      params.duration = parseFloat(document.getElementById('editorMgDuration')?.value) || 4.0;
+
+      const h = document.getElementById('editorMgParamHeadline')?.value;
+      if (h !== undefined) { params.headline = h; params.title = h; }
+      const s = document.getElementById('editorMgParamSubheadline')?.value;
+      if (s !== undefined) { params.subheadline = s; params.subtitle = s; }
+      const b = document.getElementById('editorMgParamBadge')?.value;
+      if (b !== undefined) params.badge = b;
+      const m = document.getElementById('editorMgParamMetric')?.value;
+      if (m !== undefined) params.metric = m;
+      const ex = document.getElementById('editorMgParamExplanation')?.value;
+      if (ex !== undefined) params.explanation = ex;
+      const nv = document.getElementById('editorMgParamNumberVal')?.value;
+      if (nv !== undefined) params.number_val = nv;
+      const nl = document.getElementById('editorMgParamNumberLabel')?.value;
+      if (nl !== undefined) params.label = nl;
+      const q = document.getElementById('editorMgParamQuote')?.value;
+      if (q !== undefined) params.quote = q;
+      const a = document.getElementById('editorMgParamAuthor')?.value;
+      if (a !== undefined) params.author = a;
+      const hd = document.getElementById('editorMgParamHandle')?.value;
+      if (hd !== undefined) params.handle = hd;
+      const pf = document.getElementById('editorMgParamPlatform')?.value;
+      if (pf !== undefined) params.platform = pf;
+      const wt = document.getElementById('editorMgParamWarningTitle')?.value;
+      if (wt !== undefined) params.warning_title = wt;
+      const wd = document.getElementById('editorMgParamWarningDesc')?.value;
+      if (wd !== undefined) params.warning_desc = wd;
+      const al = document.getElementById('editorMgParamArrowLabel')?.value;
+      if (al !== undefined) params.label = al;
+      const as = document.getElementById('editorMgParamArrowSublabel')?.value;
+      if (as !== undefined) params.sublabel = as;
+      const ct = document.getElementById('editorMgParamCtaText')?.value;
+      if (ct !== undefined) params.cta_text = ct;
+      const st = document.getElementById('editorMgParamSubtext')?.value;
+      if (st !== undefined) params.subtext = st;
+      const ht = document.getElementById('editorMgParamHeight')?.value;
+      if (ht !== undefined) params.height_px = parseInt(ht);
+
+      return params;
+    }
+
+    async function updateEditorMotionLivePreview() {
+      const enabled = document.getElementById('editorEnableMotionOverlay')?.checked;
+      const overlay = document.getElementById('editorMotionGraphicOverlay');
+      if (!overlay || !enabled) return;
+
+      const params = collectEditorMotionParams();
+      try {
+        const res = await fetch('/api/v1/motion-graphics/preview', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ preset_id: params.preset_id, params })
+        });
+        const data = await res.json();
+        if (data.svg) {
+          overlay.innerHTML = data.svg;
+          const svgEl = overlay.querySelector('svg');
+          if (svgEl) {
+            svgEl.style.width = '100%';
+            svgEl.style.height = '100%';
+            svgEl.style.position = 'absolute';
+            svgEl.style.top = '0';
+            svgEl.style.left = '0';
+          }
+          overlay.style.opacity = '1';
+
+          const vid = document.getElementById('editorPreviewVideo');
+          if (vid) syncEditorMotionOverlay(vid.currentTime, vid.duration);
+        }
+      } catch (err) {
+        console.error("Error updating OpenCut motion overlay preview:", err);
+      }
+    }
+
+    function syncEditorMotionOverlay(cur, dur) {
+      const enabled = document.getElementById('editorEnableMotionOverlay')?.checked;
+      const overlay = document.getElementById('editorMotionGraphicOverlay');
+      if (!overlay || !enabled) {
+        if (overlay) overlay.style.opacity = '0';
+        return;
+      }
+
+      const preset = document.getElementById('editorMgPreset')?.value || '';
+      const start = parseFloat(document.getElementById('editorMgStartTime')?.value || 0.5);
+      const length = parseFloat(document.getElementById('editorMgDuration')?.value || 4.0);
+      const end = start + length;
+
+      if (preset === 'retention_bar') {
+        overlay.style.opacity = '1';
+      } else {
+        const vid = document.getElementById('editorPreviewVideo');
+        if (vid && vid.paused) {
+          overlay.style.opacity = '1';
+        } else {
+          if (cur >= start && cur <= end) {
+            overlay.style.opacity = '1';
+          } else {
+            overlay.style.opacity = '0';
+          }
+        }
+      }
+
+      updateDynamicPresetElements(overlay, cur, dur, start, length, preset);
+    }
+
+    // =========================================================================
+    // GSAP FLIP CARD SHUFFLE ANIMATION (CODEPEN Yzdzxem INSPIRED)
+    // =========================================================================
+    function shuffleFlipCards(containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      // If GreenSock Flip plugin is available
+      if (window.Flip && window.gsap) {
+        const cards = container.querySelectorAll('.flip-card-item');
+        if (cards && cards.length >= 2) {
+          const state = Flip.getState(cards);
+          cards[0].parentNode.appendChild(cards[0]);
+          Flip.from(state, {
+            duration: 0.65,
+            ease: "power2.inOut",
+            scale: true
+          });
+          return;
+        }
+      }
+
+      // SVG Card Stack Shuffle Fallback with GSAP or CSS transform
+      const svgEl = container.querySelector('svg');
+      if (svgEl) {
+        const gCards = svgEl.querySelectorAll('g[id^="card_"]');
+        if (gCards.length >= 2) {
+          const first = gCards[0];
+          first.parentNode.appendChild(first);
+          if (window.gsap) {
+            gsap.from(first, { duration: 0.6, y: -20, opacity: 0.5, ease: "power2.out" });
+          }
+        } else {
+          // Pulse the stack
+          if (window.gsap) {
+            gsap.fromTo(svgEl, { scale: 0.96 }, { scale: 1.0, duration: 0.5, ease: "elastic.out(1, 0.4)" });
+          }
+        }
+      }
+    }
+
+    // =========================================================================
+    // PRESET LIBRARY MODAL (EXTENSIBLE CATALOG & CODEPEN IMPORTER)
+    // =========================================================================
+    async function openPresetLibraryModal(targetMode) {
+      window.activeLibTargetMode = targetMode || 'mg';
+      document.getElementById('presetLibraryModal')?.classList.remove('hidden');
+      if (!window.allMotionPresets || window.allMotionPresets.length === 0) {
+        await loadAllMotionPresetsIntoUI();
+      }
+      renderPresetLibraryCards(window.allMotionPresets);
+    }
+
+    function closePresetLibraryModal() {
+      document.getElementById('presetLibraryModal')?.classList.add('hidden');
+    }
+
+    function toggleAddPresetDrawer() {
+      const drawer = document.getElementById('addPresetDrawer');
+      if (drawer) drawer.classList.toggle('hidden');
+    }
+
+    function setLibCategoryFilter(cat) {
+      window.currentLibCategoryFilter = cat;
+      const pills = document.querySelectorAll('.lib-cat-pill');
+      pills.forEach(p => {
+        p.className = 'lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition cursor-pointer';
+      });
+      const activeBtn = event && event.target ? event.target.closest('.lib-cat-pill') : null;
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-slate-800', 'text-slate-400');
+        activeBtn.classList.add('bg-sky-600', 'text-white', 'font-bold');
+      }
+
+      filterPresetLibrary(document.getElementById('libSearchInput')?.value || '');
+    }
+
+    function filterPresetLibrary(query) {
+      query = (query || '').toLowerCase().trim();
+      const cat = window.currentLibCategoryFilter || 'ALL';
+
+      const filtered = (window.allMotionPresets || []).filter(p => {
+        let matchesCat = false;
+        if (cat === 'ALL') matchesCat = true;
+        else if (cat === 'CUSTOM') matchesCat = !!p.is_custom;
+        else if (cat === 'CODEPEN') matchesCat = !!p.default_params?.codepen_url;
+        else if (cat === 'ENGINE_HYPERFRAMES') matchesCat = p.id.startsWith('hyperframes_') || (p.category && p.category.includes('HyperFrames'));
+        else if (cat === 'ENGINE_REMOTION') matchesCat = p.id.startsWith('remotion_') || (p.category && p.category.includes('Remotion'));
+        else if (cat === 'ENGINE_MOTION_DEV') matchesCat = p.id.startsWith('motion_') || (p.category && p.category.includes('Motion.dev'));
+        else if (cat === 'ENGINE_MOTION_CANVAS') matchesCat = p.id.startsWith('code_') || p.id.startsWith('flowchart_') || p.id.startsWith('tech_stack_') || p.id.startsWith('motion_canvas_') || (p.category && p.category.includes('Motion Canvas'));
+        else if (cat === 'ENGINE_MANIM') matchesCat = p.id.startsWith('manim_') || (p.category && p.category.includes('Manim'));
+        else matchesCat = (p.category === cat);
+
+        const matchesQuery = !query ||
+          p.name.toLowerCase().includes(query) ||
+          p.description.toLowerCase().includes(query) ||
+          (p.category && p.category.toLowerCase().includes(query)) ||
+          p.id.toLowerCase().includes(query);
+        return matchesCat && matchesQuery;
+      });
+
+      renderPresetLibraryCards(filtered);
+    }
+
+    function renderPresetLibraryCards(presets) {
+      const container = document.getElementById('libPresetsGrid');
+      if (!container) return;
+
+      if (!presets || presets.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-16 text-center text-slate-500 text-xs space-y-2">
+            <span class="text-3xl block">🔍</span>
+            <p>No se encontraron presets que coincidan con el filtro.</p>
+            <button onclick="setLibCategoryFilter('ALL')" class="text-sky-400 hover:underline">Ver todos los presets</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = presets.map(p => {
+        const engine = getPresetEngineBadge(p);
+        const isFlip = p.id === 'flip_card_stack' || p.default_params?.codepen_url;
+        const codepenUrl = p.default_params?.codepen_url;
+        const color = p.default_params?.accent_color || p.default_params?.bar_color || '#38BDF8';
+
+        return `
+          <div class="p-4 bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-sky-600/70 rounded-2xl transition shadow-lg flex flex-col justify-between space-y-3 group">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase border" style="color: ${color}; border-color: ${color}66; background: ${color}15;">
+                  ${engine}
+                </span>
+                <span class="text-[10px] text-slate-500 font-mono">${p.category || 'General'}</span>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-white text-sm group-hover:text-sky-400 transition">${p.name}</h4>
+                <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">${p.description}</p>
+              </div>
+
+              ${codepenUrl ? `
+                <a href="${codepenUrl}" target="_blank" class="inline-flex items-center gap-1 text-[11px] text-sky-400 hover:underline font-mono">
+                  <span>🔗 Demo Oficial CodePen</span> ↗
+                </a>
+              ` : ''}
+            </div>
+
+            <div class="pt-2 border-t border-slate-800 flex items-center justify-between gap-1.5 text-xs">
+              <button type="button" onclick="selectPresetFromLibrary('${p.id}', 'mg')"
+                class="flex-1 py-1.5 px-2 bg-slate-800 hover:bg-sky-600 text-slate-200 hover:text-white rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1">
+                <span>✨</span> En Motion
+              </button>
+              <button type="button" onclick="selectPresetFromLibrary('${p.id}', 'editor')"
+                class="flex-1 py-1.5 px-2 bg-slate-800 hover:bg-indigo-600 text-slate-200 hover:text-white rounded-xl text-[11px] font-bold transition flex items-center justify-center gap-1">
+                <span>✂️</span> En OpenCut
+              </button>
+              ${p.is_custom ? `
+                <button type="button" onclick="deleteCustomPresetFromLibrary('${p.id}')"
+                  class="p-1.5 bg-slate-800 hover:bg-red-600 text-slate-400 hover:text-white rounded-xl transition" title="Eliminar preset">
+                  🗑
+                </button>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectPresetFromLibrary(presetId, targetMode) {
+      closePresetLibraryModal();
+      if (targetMode === 'mg') {
+        switchTab('creation');
+        switchCreationMode('motion_graphics');
+        const select = document.getElementById('mgPresetSelector');
+        if (select) {
+          select.value = presetId;
+          onMgPresetChange();
+        }
+      } else {
+        switchTab('creation');
+        switchCreationMode('opencut');
+        switchInspectorTab('motion');
+        const check = document.getElementById('editorEnableMotionOverlay');
+        if (check) check.checked = true;
+        const select = document.getElementById('editorMgPreset');
+        if (select) {
+          select.value = presetId;
+          onEditorMgPresetChange();
+        }
+        toggleEditorMotionOverlay(true);
+      }
+    }
+
+    async function saveNewCustomPresetFromForm() {
+      const name = document.getElementById('newPresetName')?.value?.trim();
+      const id = document.getElementById('newPresetId')?.value?.trim() || name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+      const cat = document.getElementById('newPresetCategory')?.value || 'Layout & Morphing (GSAP Flip)';
+      const codepenUrl = document.getElementById('newPresetCodepenUrl')?.value?.trim();
+      const accent = document.getElementById('newPresetAccentColor')?.value || '#38BDF8';
+      const desc = document.getElementById('newPresetDesc')?.value?.trim() || 'Preset dinámico personalizado.';
+      const headline = document.getElementById('newPresetHeadline')?.value || 'TITULAR DE IMPACTO';
+      const subheadline = document.getElementById('newPresetSubheadline')?.value || 'Subtítulo dinámico con GSAP';
+      const badge = document.getElementById('newPresetBadge')?.value || 'CODEPEN';
+
+      if (!name || !id) {
+        return alert("Por favor escribe un nombre e identificador único.");
+      }
+
+      const payload = {
+        id: id,
+        name: name,
+        category: cat,
+        description: desc,
+        default_params: {
+          headline: headline,
+          subheadline: subheadline,
+          badge: badge,
+          accent_color: accent,
+          bar_color: accent,
+          start_time: 1.0,
+          duration: 4.5,
+          codepen_url: codepenUrl || undefined
+        }
+      };
+
+      try {
+        const res = await fetch('/api/v1/motion-graphics/presets', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (res.ok && data.status === 'success') {
+          toggleAddPresetDrawer();
+          await loadAllMotionPresetsIntoUI();
+          alert(`¡Preset "${name}" guardado exitosamente en tu biblioteca local!`);
+        } else {
+          alert("Error guardando preset: " + (data.detail || JSON.stringify(data)));
+        }
+      } catch (err) {
+        alert("Fallo de conexión al guardar preset: " + err);
+      }
+    }
+
+    async function deleteCustomPresetFromLibrary(presetId) {
+      if (!confirm(`¿Estás seguro de que deseas eliminar este preset personalizado?`)) return;
+
+      try {
+        const res = await fetch(`/api/v1/motion-graphics/presets/${presetId}`, {
+          method: 'DELETE'
+        });
+        if (res.ok) {
+          await loadAllMotionPresetsIntoUI();
+        } else {
+          alert("No se pudo eliminar el preset.");
+        }
+      } catch (e) {
+        alert("Error de conexión: " + e);
       }
     }
 
@@ -1892,7 +2804,7 @@
     }
 
     function switchInspectorTab(tabId) {
-      const tabs = ['transform', 'filters', 'retime', 'subtitles'];
+      const tabs = ['transform', 'filters', 'retime', 'subtitles', 'motion'];
       tabs.forEach(t => {
         const content = document.getElementById(`insp-content-${t}`);
         const btn = document.getElementById(`insp-tab-${t}`);
@@ -2085,6 +2997,9 @@
           subOverlay.innerHTML = '';
         }
       }
+
+      // Sync Motion Graphic Overlay on OpenCut Canvas
+      syncEditorMotionOverlay(cur, dur);
     }
 
     function applySubtitleStylePreset(preset) {
@@ -2383,6 +3298,10 @@
         },
         transcript_segments: editorTranscriptSegments
       };
+
+      if (document.getElementById('editorEnableMotionOverlay')?.checked) {
+        reqBody.motion_overlay = collectEditorMotionParams();
+      }
 
       try {
         const res = await fetch('/api/v1/editor/export', {
@@ -2868,6 +3787,158 @@
     }
   </script>
 
+  <!-- Preset Library Modal -->
+  <div id="presetLibraryModal"
+    class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div
+      class="bg-slate-900 border border-slate-700 max-w-5xl w-full max-h-[92vh] rounded-3xl p-6 md:p-8 flex flex-col shadow-2xl">
+
+      <!-- Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div class="flex items-center gap-3">
+          <span class="text-3xl">📚</span>
+          <div>
+            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+              Biblioteca de Presets Cinéticos &amp; Motion
+              <span class="px-2.5 py-0.5 rounded-full bg-sky-950 text-sky-400 text-xs font-mono border border-sky-800"
+                id="libPresetCountBadge">31 Presets</span>
+            </h3>
+            <p class="text-xs text-slate-400">Catálogo extensible con GSAP (Flip, SplitText, Scramble), Remotion, Manim, Motion Canvas y CodePen.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="toggleAddPresetDrawer()"
+            class="px-3.5 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow flex items-center gap-1.5 transition">
+            <span>＋</span> Importar Preset / CodePen
+          </button>
+          <button onclick="closePresetLibraryModal()"
+            class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-400 hover:text-white text-sm">✕</button>
+        </div>
+      </div>
+
+      <!-- Add Preset Drawer (Collapsible) -->
+      <div id="addPresetDrawer" class="hidden my-4 p-4 bg-slate-950 border border-emerald-500/40 rounded-2xl space-y-3">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+          <div class="flex items-center gap-2">
+            <span class="text-emerald-400">⚡</span>
+            <span class="font-bold text-white text-xs">Crear o Importar Preset Personalizado (ej. CodePen)</span>
+          </div>
+          <button onclick="toggleAddPresetDrawer()" class="text-slate-500 hover:text-white text-xs">Ocultar</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+          <div>
+            <label class="block text-slate-400 mb-1">Nombre del Preset</label>
+            <input type="text" id="newPresetName" placeholder="Ej. Flip Card Stack 3D"
+              class="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-white">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">ID Único (slug)</label>
+            <input type="text" id="newPresetId" placeholder="Ej. my_flip_card"
+              class="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Categoría</label>
+            <select id="newPresetCategory"
+              class="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-white">
+              <option value="Layout &amp; Morphing (GSAP Flip)">Layout &amp; Morphing (GSAP Flip)</option>
+              <option value="Tipografía Cinética">Tipografía Cinética</option>
+              <option value="Retención &amp; Cues">Retención &amp; Cues</option>
+              <option value="Datos &amp; Viralidad">Datos &amp; Viralidad</option>
+              <option value="Identificación &amp; Speaker">Identificación &amp; Speaker</option>
+              <option value="Conversión &amp; CTAs">Conversión &amp; CTAs</option>
+              <option value="Animación Científica (Manim)">Animación Científica (Manim)</option>
+              <option value="Código &amp; Diagramas (Motion Canvas)">Código &amp; Diagramas (Motion Canvas)</option>
+              <option value="Social &amp; Video UI (Remotion)">Social &amp; Video UI (Remotion)</option>
+            </select>
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-slate-400 mb-1">URL de Referencia / CodePen (Opcional)</label>
+            <input type="url" id="newPresetCodepenUrl" placeholder="https://codepen.io/GreenSock/pen/Yzdzxem"
+              class="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-sky-400 font-mono">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Color de Acento Neón</label>
+            <div class="flex items-center gap-2">
+              <input type="color" id="newPresetAccentColor" value="#38BDF8"
+                class="w-7 h-7 rounded border-0 cursor-pointer bg-transparent">
+              <input type="text" id="newPresetAccentText" value="#38BDF8"
+                class="w-full px-2 py-1 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono text-xs"
+                oninput="document.getElementById('newPresetAccentColor').value = this.value">
+            </div>
+          </div>
+          <div class="md:col-span-3">
+            <label class="block text-slate-400 mb-1">Descripción del Efecto</label>
+            <input type="text" id="newPresetDesc" placeholder="Describe brevemente el comportamiento de la animación..."
+              class="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-white">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Titular por Defecto</label>
+            <input type="text" id="newPresetHeadline" value="TITULAR DE IMPACTO"
+              class="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-white">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Subtítulo por Defecto</label>
+            <input type="text" id="newPresetSubheadline" value="Subtítulo descriptivo con ritmo cinético"
+              class="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-white">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Badge / Insignia</label>
+            <input type="text" id="newPresetBadge" value="CODEPEN"
+              class="w-full px-3 py-1.5 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono">
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <button onclick="toggleAddPresetDrawer()" class="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs">Cancelar</button>
+          <button onclick="saveNewCustomPresetFromForm()" class="px-5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs flex items-center gap-1.5">
+            <span>💾</span> Guardar en Biblioteca Local
+          </button>
+        </div>
+      </div>
+
+      <!-- Search & Category Filtering Bar -->
+      <div class="py-3 space-y-2.5 border-b border-slate-800">
+        <div class="relative">
+          <input type="text" id="libSearchInput" placeholder="Buscar presets por nombre, motor (Flip, SplitText, Remotion, Manim) o palabra clave..."
+            oninput="filterPresetLibrary(this.value)"
+            class="w-full pl-9 pr-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500">
+          <span class="absolute left-3 top-2.5 text-slate-500 text-xs">🔍</span>
+        </div>
+
+        <div class="flex flex-wrap gap-1.5 text-[11px]" id="libCategoryPills">
+          <button onclick="setLibCategoryFilter('ALL')" class="lib-cat-pill px-3 py-1 rounded-lg bg-sky-600 text-white font-bold transition">Todos (<span id="libCountAll">31</span>)</button>
+          <button onclick="setLibCategoryFilter('Layout & Morphing (GSAP Flip)')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition">🔀 GSAP Flip (CodePen)</button>
+          <button onclick="setLibCategoryFilter('Tipografía Cinética')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition">✍️ SplitText &amp; Scramble</button>
+          <button onclick="setLibCategoryFilter('Retención & Cues')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition">🎯 Retención &amp; Cues</button>
+          <button onclick="setLibCategoryFilter('Datos & Viralidad')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition">📊 Datos &amp; Métricas</button>
+          <button onclick="setLibCategoryFilter('Identificación & Speaker')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition">👤 Lower Thirds</button>
+          <button onclick="setLibCategoryFilter('Conversión & CTAs')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition">🚀 CTAs</button>
+          <button onclick="setLibCategoryFilter('Animación Científica (Manim)')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition">📐 Manim (3Blue1Brown)</button>
+          <button onclick="setLibCategoryFilter('Código & Diagramas (Motion Canvas)')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition">💻 Motion Canvas</button>
+          <button onclick="setLibCategoryFilter('Social & Video UI (Remotion)')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition">📱 Remotion React</button>
+          <button onclick="setLibCategoryFilter('CUSTOM')" class="lib-cat-pill px-3 py-1 rounded-lg bg-slate-800 text-amber-400 hover:text-white transition">⭐ Mis Presets</button>
+        </div>
+      </div>
+
+      <!-- Presets Grid Container -->
+      <div id="libPresetsGrid" class="flex-1 overflow-y-auto pr-1 py-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[360px]">
+        <div class="col-span-full py-12 text-center text-slate-500 text-xs">Cargando catálogo de presets...</div>
+      </div>
+
+      <!-- Footer -->
+      <div class="flex items-center justify-between pt-4 border-t border-slate-800 text-xs text-slate-400">
+        <span class="flex items-center gap-1.5">
+          <span class="text-sky-400">●</span> Compatible con TikTok, Reels, YouTube Shorts y WhatsApp 9:16
+        </span>
+        <button onclick="closePresetLibraryModal()" class="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition">
+          Cerrar
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Doctor Modal -->
   <div id="doctorModal"
     class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
@@ -3027,6 +4098,7 @@
     loadTrends();
     fetchDoctorStatus();
     renderTimelineV1();
+    loadAllMotionPresetsIntoUI();
   </script>
 </body>
 

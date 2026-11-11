@@ -10,12 +10,14 @@ from pydantic import BaseModel, Field
 from app.config import settings
 from app.services.transcriber import LocalTranscriber
 from app.services.subtitle_generator import SubtitleGenerator
+from app.services.motion_graphics import MotionGraphicsService
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/editor", tags=["OpenCut Studio Pro Editor API"])
 
 transcriber = LocalTranscriber()
 subtitle_gen = SubtitleGenerator()
+motion_service = MotionGraphicsService()
 
 
 class TranscribeRequest(BaseModel):
@@ -31,6 +33,31 @@ class SubtitleExportStyle(BaseModel):
     margin_v: int = 420
 
 
+class MotionOverlayExportConfig(BaseModel):
+    preset_id: str = "lower_third_glass"
+    title: Optional[str] = "ALEX RIVERA"
+    subtitle: Optional[str] = "Especialista en IA"
+    badge: Optional[str] = "CREADOR"
+    accent_color: str = "#38BDF8"
+    metric: Optional[str] = "+350%"
+    explanation: Optional[str] = "Crecimiento de Retención"
+    headline: Optional[str] = "NO COMETAS ESTE ERROR"
+    subheadline: Optional[str] = "Mira esto antes de subir tu próximo video"
+    cta_text: Optional[str] = "★ Sígueme para más trucos"
+    subtext: Optional[str] = "Guarda este video"
+    handle: Optional[str] = "@alex_ai"
+    platform: Optional[str] = "TikTok / Reels"
+    quote: Optional[str] = "La clave no es la suerte sino la retención"
+    author: Optional[str] = "Alex Rivera"
+    number_val: Optional[str] = "+250K"
+    label: Optional[str] = "Reproducciones Orgánicas"
+    sublabel: Optional[str] = "Enlace en mi perfil"
+    warning_title: Optional[str] = "¡DETENTE AQUÍ!"
+    warning_desc: Optional[str] = "Error que destruye tu retención"
+    start_time: float = 1.0
+    duration: float = 5.0
+
+
 class ExportEditorRequest(BaseModel):
     video_path: str
     aspect_ratio: str = "9:16"
@@ -41,6 +68,7 @@ class ExportEditorRequest(BaseModel):
     include_subtitles: bool = True
     subtitle_style: Optional[SubtitleExportStyle] = None
     transcript_segments: Optional[List[Dict[str, Any]]] = None
+    motion_overlay: Optional[MotionOverlayExportConfig] = None
 
 
 def resolve_media_path(path_str: str) -> Path:
@@ -205,6 +233,8 @@ def export_editor_video(req: ExportEditorRequest) -> Dict[str, Any]:
         elif req.speed > 2.0:
             af_string = f"atempo=2.0,atempo={round(req.speed / 2.0, 3)}"
 
+    base_render_target = settings.OUTPUTS_DIR / f"base_{out_name}" if req.motion_overlay else out_path
+
     cmd = [
         ffmpeg_bin,
         "-y",
@@ -217,7 +247,7 @@ def export_editor_video(req: ExportEditorRequest) -> Dict[str, Any]:
         "-c:a", "aac",
         "-b:a", "192k",
         "-movflags", "+faststart",
-        str(out_path)
+        str(base_render_target)
     ]
 
     logger.info(f"Exporting OpenCut Studio clip: {' '.join(cmd)}")
@@ -226,6 +256,28 @@ def export_editor_video(req: ExportEditorRequest) -> Dict[str, Any]:
     if proc.returncode != 0:
         logger.error(f"FFmpeg export error: {proc.stderr}")
         raise HTTPException(status_code=500, detail=f"Error renderizando video con FFmpeg: {proc.stderr[:400]}")
+
+    # If motion overlay is requested, composite the motion graphic onto the rendered video
+    if req.motion_overlay:
+        try:
+            logger.info(f"Compositing Motion Graphics overlay ({req.motion_overlay.preset_id}) onto OpenCut export...")
+            motion_service.composite_motion_graphic(
+                video_path=str(base_render_target),
+                preset_id=req.motion_overlay.preset_id,
+                params=req.motion_overlay.model_dump(),
+                output_path=str(out_path)
+            )
+        except Exception as e:
+            logger.error(f"Error compositing motion overlay in OpenCut: {e}")
+            # Fallback to base render target if compositing fails
+            if base_render_target.exists():
+                shutil.copy2(base_render_target, out_path)
+        finally:
+            if base_render_target.exists() and base_render_target != out_path:
+                try:
+                    base_render_target.unlink(missing_ok=True)
+                except Exception:
+                    pass
 
     return {
         "status": "success",

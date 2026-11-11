@@ -1,0 +1,23 @@
+{
+  "name": "content-factory",
+  "version": "1.2.0",
+  "description": "100% Local Autonomous Video Factory with Motion Graphics, Remotion & OpenCut Studio",
+  "main": "run_server.py",
+  "scripts": {
+    "start": "python run_server.py"
+  },
+  "keywords": [
+    "video-factory",
+    "remotion",
+    "motion-graphics",
+    "gsap"
+  ],
+  "author": "Ybis",
+  "license": "MIT",
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.15.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
+}

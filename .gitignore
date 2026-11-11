@@ -40,6 +40,10 @@ storage/*.log
 # Cloned standalone modules
 modules/
 
+# Node / Frontend dependencies
+node_modules/
+.npm/
+
 # Whisper model weight downloads (avoid committing heavy weights to git)
 storage/cache/whisper_models/
 whisper_models/
