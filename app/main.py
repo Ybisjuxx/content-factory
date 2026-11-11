@@ -3,6 +3,22 @@ import logging
 from contextlib import asynccontextmanager
 from pathlib import Path
 
+# Fix for Windows asyncio [WinError 10054] ConnectionResetError on browser media cancels
+if sys.platform == "win32":
+    try:
+        from asyncio.proactor_events import _ProactorBasePipeTransport
+        _orig_call_connection_lost = _ProactorBasePipeTransport._call_connection_lost
+
+        def _silenced_call_connection_lost(self, exc):
+            try:
+                _orig_call_connection_lost(self, exc)
+            except (ConnectionResetError, OSError):
+                pass
+
+        _ProactorBasePipeTransport._call_connection_lost = _silenced_call_connection_lost
+    except Exception:
+        pass
+
 # Ensure project root is in sys.path regardless of execution environment
 _root_dir = str(Path(__file__).resolve().parent.parent)
 if _root_dir not in sys.path:
