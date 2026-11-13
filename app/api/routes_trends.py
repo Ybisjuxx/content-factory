@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import re
+import zlib
 import xml.etree.ElementTree as ET
 from typing import List, Dict, Any, Optional
 from fastapi import APIRouter, Query, HTTPException
@@ -391,23 +392,6 @@ CATALOG_TRENDS: List[Dict[str, Any]] = [
 
     # ---------------- CULTURA POP & CINE ----------------
     {
-        "id": "news-cultura-1",
-        "title": "Condenan a actor y comediante Russell Brand por delitos sexuales tras proceso judicial en Londres",
-        "platform": "Google News / Prensa",
-        "niche": "Cultura Pop & Cine",
-        "heat_score": 98,
-        "growth": "🔴 Noticia de Última Hora",
-        "tags": ["Entretenimiento", "Justicia", "CulturaPop", "Londres", "Noticia"],
-        "summary": "El tribunal londinense emite sentencia tras testimonios que impactan a la industria del entretenimiento y el entorno de creadores digitales.",
-        "sources": [
-            {"title": "BBC News Mundo: Condenan a actor y comediante Russell Brand", "url": "https://www.bbc.com/mundo", "platform": "BBC"},
-            {"title": "The Guardian: Russell Brand trial and verdict updates", "url": "https://www.theguardian.com/", "platform": "The Guardian"}
-        ],
-        "is_news": True,
-        "publisher": "BBC News Mundo",
-        "published_at": "Hoy"
-    },
-    {
         "id": "news-cultura-2",
         "title": "El renacer de las salas IMAX y proyecciones en 70mm desafía las métricas del streaming hogareño",
         "platform": "Google News / Prensa",
@@ -439,6 +423,17 @@ CATALOG_TRENDS: List[Dict[str, Any]] = [
         "is_news": False
     }
 ]
+
+def _mark_as_sample(item: Dict[str, Any]) -> Dict[str, Any]:
+    """The built-in catalogue is static sample data: never present it as today's news."""
+    item = dict(item)
+    if item.get("is_news"):
+        item["published_at"] = "Ejemplo (sin verificar)"
+        item["growth"] = "📚 Catálogo de ejemplo"
+    return item
+
+
+CATALOG_TRENDS = [_mark_as_sample(t) for t in CATALOG_TRENDS]
 
 # In-memory storage for active trends (merged with live news on refresh)
 ACTIVE_TRENDS: List[Dict[str, Any]] = list(CATALOG_TRENDS)
@@ -477,7 +472,7 @@ def fetch_live_category_news() -> List[Dict[str, Any]]:
                         else:
                             title_part, pub_part = raw_title, "Prensa Internacional"
 
-                        slug_id = f"live-news-{cat_name[:3].lower()}-{i}-{abs(hash(title_part)) % 10000}"
+                        slug_id = f"live-news-{cat_name[:3].lower()}-{i}-{zlib.crc32(title_part.encode()) % 10000}"
                         fetched_news.append({
                             "id": slug_id,
                             "title": title_part,
@@ -582,6 +577,14 @@ def refresh_live_trends() -> Dict[str, Any]:
     """Actualiza en vivo las principales noticias del momento por categoría y las tendencias de Google/Reddit."""
     global ACTIVE_TRENDS
     new_items: List[Dict[str, Any]] = []
+    if not settings.TRENDS_LIVE_FETCH_ENABLED:
+        return {
+            "status": "disabled",
+            "message": "La consulta a fuentes externas está desactivada (TRENDS_LIVE_FETCH_ENABLED=false).",
+            "total_items": len(ACTIVE_TRENDS),
+            "news_count": sum(1 for t in ACTIVE_TRENDS if t.get("is_news")),
+            "live_added": 0,
+        }
 
     # 1. Scrape live news across all 7 categories
     live_news = fetch_live_category_news()

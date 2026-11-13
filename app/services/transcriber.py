@@ -1,5 +1,6 @@
-import os
 import subprocess
+import threading
+import uuid
 import logging
 from pathlib import Path
 from typing import List, Dict, Any, Optional
@@ -40,8 +41,13 @@ class LocalTranscriber:
         self.device = device or settings.WHISPER_DEVICE
         self.compute_type = compute_type or settings.WHISPER_COMPUTE_TYPE
         self._model = None
+        self._model_lock = threading.Lock()
 
     def _get_model(self):
+        with self._model_lock:
+            return self._load_model()
+
+    def _load_model(self):
         if self._model is None:
             from faster_whisper import WhisperModel
             logger.info(
@@ -62,7 +68,8 @@ class LocalTranscriber:
             raise FileNotFoundError(f"Input video file not found: {video_path}")
 
         if not output_audio_path:
-            output_audio_path = str(settings.CACHE_DIR / f"{video_p.stem}_extracted.wav")
+            # Unique name: two jobs on files with the same stem used to overwrite each other.
+            output_audio_path = str(settings.CACHE_DIR / f"{video_p.stem}_{uuid.uuid4().hex[:8]}_extracted.wav")
 
         ffmpeg_bin = settings.resolve_ffmpeg_path()
         cmd = [
@@ -95,10 +102,21 @@ class LocalTranscriber:
             raise FileNotFoundError(f"Media file not found: {media_path}")
 
         # If it's a video file, extract audio first for maximum speed & stability
-        if path.suffix.lower() in [".mp4", ".mov", ".mkv", ".webm", ".avi"]:
-            audio_path = self.extract_audio(str(path))
-        else:
-            audio_path = str(path)
+        extracted = path.suffix.lower() in [".mp4", ".mov", ".mkv", ".webm", ".avi"]
+        audio_path = self.extract_audio(str(path)) if extracted else str(path)
+        try:
+            return self._transcribe_audio(audio_path, media_path, language, word_timestamps)
+        finally:
+            if extracted:
+                Path(audio_path).unlink(missing_ok=True)
+
+    def _transcribe_audio(
+        self,
+        audio_path: str,
+        media_path: str,
+        language: Optional[str],
+        word_timestamps: bool,
+    ) -> Dict[str, Any]:
 
         model = self._get_model()
 
@@ -151,3 +169,21 @@ class LocalTranscriber:
             f"Transcription complete: {len(segments_data)} segments, detected language: {info.language}"
         )
         return result
+
+
+_transcriber_lock = threading.Lock()
+_transcriber: Optional[LocalTranscriber] = None
+
+
+def get_transcriber() -> LocalTranscriber:
+    """Process-wide transcriber so the Whisper model is loaded once and shared."""
+    global _transcriber
+    with _transcriber_lock:
+        if _transcriber is None:
+            _transcriber = LocalTranscriber()
+        return _transcriber
+
+
+def whisper_available() -> bool:
+    import importlib.util
+    return importlib.util.find_spec("faster_whisper") is not None

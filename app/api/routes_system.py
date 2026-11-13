@@ -6,6 +6,7 @@ from app.config import settings
 from app.services.semantic_director import SemanticDirector
 from app.services.ffmpeg_renderer import FFmpegRenderer
 from app.services.comfyui_client import ComfyUIClient
+from app.services.transcriber import whisper_available
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/system", tags=["System & Doctor Diagnostics"])
@@ -32,12 +33,14 @@ def system_doctor_status() -> Dict[str, Any]:
     comfyui = ComfyUIClient()
     comfy_status = comfyui.check_health()
 
+    whisper_ok = whisper_available()
+
     # 4. Storage & Disk
     total, used, free = shutil.disk_usage(settings.STORAGE_DIR)
     free_gb = round(free / (1024 ** 3), 2)
 
     return {
-        "status": "ready",
+        "status": "ready" if whisper_ok and ffmpeg_status.get("available") else "degraded",
         "app_name": settings.APP_NAME,
         "environment": settings.APP_ENV,
         "ollama": ollama_status,
@@ -46,13 +49,13 @@ def system_doctor_status() -> Dict[str, Any]:
             "device": settings.WHISPER_DEVICE,
             "compute_type": settings.WHISPER_COMPUTE_TYPE,
             "vad_filter": settings.WHISPER_VAD_FILTER,
-            "available": True,
-            "status": "Listo (CTranslate2 Local)"
+            # Previously hard-coded to True: the UI said "Listo" while every job failed.
+            "available": whisper_ok,
+            "status": "Listo (CTranslate2 Local)" if whisper_ok else "No instalado: pip install faster-whisper"
         },
         "ffmpeg": ffmpeg_status,
         "comfyui": comfy_status,
         "storage": {
-            "root": str(settings.STORAGE_DIR),
             "free_space_gb": free_gb,
             "broll_count": len(list(settings.BROLL_DIR.glob("*.*"))),
             "audio_count": len(list(settings.AUDIO_DIR.glob("*.*"))),

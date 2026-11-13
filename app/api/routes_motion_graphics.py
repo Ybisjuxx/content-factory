@@ -7,6 +7,8 @@ from fastapi import APIRouter, File, UploadFile, HTTPException, Query
 from pydantic import BaseModel, Field
 from app.config import settings
 from app.services.motion_graphics import MotionGraphicsService
+from app.security import resolve_media_path, resolve_output_path
+from app.api.uploads import save_upload, VIDEO_EXTENSIONS
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/motion-graphics", tags=["Motion Graphics & Video Upload"])
@@ -15,15 +17,15 @@ mg_service = MotionGraphicsService()
 
 
 class PreviewRequest(BaseModel):
-    preset_id: str
+    preset_id: str = Field(..., max_length=80)
     params: Dict[str, Any] = Field(default_factory=dict)
-    width: int = 1080
-    height: int = 1920
+    width: int = Field(1080, ge=16, le=3840)
+    height: int = Field(1920, ge=16, le=3840)
 
 
 class ApplyMotionGraphicsRequest(BaseModel):
     video_path: str
-    preset_id: str
+    preset_id: str = Field(..., pattern=r"^[A-Za-z0-9_\-]{1,80}$")
     params: Dict[str, Any] = Field(default_factory=dict)
     output_path: Optional[str] = None
 
@@ -310,17 +312,16 @@ def _nlp_extract_motion_params(prompt: str, video_dur: float = 30.0) -> tuple[st
             "duration": duration,
         }
 
-    # GSAP CodePen Prompts
+    # Dynamic Card Stack Prompts
     elif any(k in p_lower for k in ["flip", "pila", "stack", "cards"]):
         preset_id = "flip_card_stack"
         params = {
             "headline": extracted_text[:30].upper() if extracted_text else "3 SECRETOS PARA CRECER",
             "subheadline": "1. Hook inicial • 2. Retención • 3. CTA",
-            "badge": "GSAP FLIP",
+            "badge": "CARD STACK",
             "accent_color": accent_color or "#38BDF8",
             "start_time": start_time,
-            "duration": duration,
-            "codepen_url": "https://codepen.io/GreenSock/pen/Yzdzxem"
+            "duration": duration
         }
 
     elif any(k in p_lower for k in ["confeti", "particulas", "celebracion"]):
@@ -331,8 +332,7 @@ def _nlp_extract_motion_params(prompt: str, video_dur: float = 30.0) -> tuple[st
             "badge": "CELEBRACIÓN",
             "accent_color": accent_color or "#FACC15",
             "start_time": start_time,
-            "duration": duration,
-            "codepen_url": "https://codepen.io/GreenSock/pen/VwGdvj"
+            "duration": duration
         }
 
     else:
@@ -536,6 +536,9 @@ def list_motion_graphics_engines() -> List[Dict[str, Any]]:
     for eng in engines:
         p = Path(eng["path"])
         eng["is_cloned"] = p.exists() and p.is_dir()
+        if not eng["is_cloned"]:
+            eng["status"] = "No instalado (opcional)"
+        eng.pop("path")  # don't leak absolute filesystem layout to the browser
 
     return engines
 
@@ -543,24 +546,7 @@ def list_motion_graphics_engines() -> List[Dict[str, Any]]:
 @router.post("/upload")
 async def upload_recorded_video(file: UploadFile = File(...)) -> Dict[str, Any]:
     """Upload a user-recorded video to the local factory storage."""
-    allowed_exts = {".mp4", ".mov", ".mkv", ".webm", ".avi"}
-    ext = Path(file.filename).suffix.lower()
-    if ext not in allowed_exts:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Formato no compatible ({ext}). Por favor sube archivos {', '.join(allowed_exts)}"
-        )
-
-    settings.UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
-    safe_filename = f"{uuid.uuid4().hex[:8]}_{Path(file.filename).name.replace(' ', '_')}"
-    target_path = settings.UPLOADS_DIR / safe_filename
-
-    try:
-        with open(target_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
-    except Exception as e:
-        logger.error(f"Error saving uploaded video: {e}")
-        raise HTTPException(status_code=500, detail=f"Error guardando el video: {e}")
+    target_path = await save_upload(file, VIDEO_EXTENSIONS)
 
     # Probe video
     try:
@@ -615,15 +601,15 @@ def preview_motion_graphic(req: PreviewRequest) -> Dict[str, Any]:
 @router.post("/apply")
 def apply_motion_graphic(req: ApplyMotionGraphicsRequest) -> Dict[str, Any]:
     """Applies a selected motion graphic overlay onto the user video using local FFmpeg."""
-    if not Path(req.video_path).exists():
-        raise HTTPException(status_code=404, detail=f"No se encontró el video: {req.video_path}")
+    video = resolve_media_path(req.video_path)
+    output = resolve_output_path(req.output_path)
 
     try:
         out_path = mg_service.composite_motion_graphic(
-            video_path=req.video_path,
+            video_path=str(video),
             preset_id=req.preset_id,
             params=req.params,
-            output_path=req.output_path
+            output_path=str(output) if output else None
         )
         out_file = Path(out_path)
         return {
@@ -636,5 +622,5 @@ def apply_motion_graphic(req: ApplyMotionGraphicsRequest) -> Dict[str, Any]:
         }
     except Exception as e:
         logger.error(f"Error applying motion graphic: {e}")
-        raise HTTPException(status_code=500, detail=f"Error en renderizado de motion graphics: {e}")
+        raise HTTPException(status_code=500, detail="Error en renderizado de motion graphics. Revisa storage/server.log.")
 

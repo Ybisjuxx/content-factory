@@ -82,44 +82,31 @@ class FFmpegRenderer:
             self._run_ffmpeg(cmd, "Trimming single segment")
             return str(out_p)
 
-        # Multiple segments: build complex filter graph
-        # Video: trim each, pad to 9:16 vertical, concat
-        # Audio: acrossfade between consecutive takes with 20ms transition
+        # Multiple segments: trim each take and concat video+audio together.
+        # Each audio take gets a short fade-in/out (default 20ms total edge) instead of
+        # acrossfade: acrossfade overlaps the takes, shortening audio by d per cut while
+        # video keeps full length -> cumulative lip-sync drift (≈140ms after 8 takes).
         filter_parts = []
-        video_inputs = []
-        audio_stream_names = []
-
-        fade_dur = settings.AUDIO_CROSSFADE_SECONDS  # 0.02s (20ms)
+        concat_inputs = []
+        edge = max(0.0, settings.AUDIO_CROSSFADE_SECONDS / 2)
 
         for i, seg in enumerate(kept_segments):
-            dur = seg.end - seg.start
-            # Video trim & vertical conform
-            v_trim = (
+            dur = max(0.0, seg.end - seg.start)
+            fade = min(edge, dur / 4)
+            filter_parts.append(
                 f"[0:v]trim=start={seg.start}:end={seg.end},setpts=PTS-STARTPTS,"
                 f"scale={settings.TARGET_WIDTH}:{settings.TARGET_HEIGHT}:force_original_aspect_ratio=decrease,"
                 f"pad={settings.TARGET_WIDTH}:{settings.TARGET_HEIGHT}:(ow-iw)/2:(oh-ih)/2,setsar=1[v{i}]"
             )
-            # Audio trim
-            a_trim = f"[0:a]atrim=start={seg.start}:end={seg.end},asetpts=PTS-STARTPTS[a{i}]"
-            
-            filter_parts.append(v_trim)
-            filter_parts.append(a_trim)
-            video_inputs.append(f"[v{i}]")
-            audio_stream_names.append(f"[a{i}]")
+            a_chain = f"[0:a]atrim=start={seg.start}:end={seg.end},asetpts=PTS-STARTPTS"
+            if fade > 0:
+                a_chain += f",afade=t=in:st=0:d={fade:.3f},afade=t=out:st={max(0.0, dur - fade):.3f}:d={fade:.3f}"
+            filter_parts.append(f"{a_chain}[a{i}]")
+            concat_inputs.append(f"[v{i}][a{i}]")
 
-        # Concat video streams
-        v_concat = f"{''.join(video_inputs)}concat=n={len(kept_segments)}:v=1:a=0[v_out]"
-        filter_parts.append(v_concat)
-
-        # Crossfade audio streams sequentially
-        curr_audio = audio_stream_names[0]
-        for i in range(1, len(audio_stream_names)):
-            next_audio = audio_stream_names[i]
-            fade_out_name = f"[afade_{i}]" if i < len(audio_stream_names) - 1 else "[a_out]"
-            filter_parts.append(
-                f"{curr_audio}{next_audio}acrossfade=d={fade_dur}:c1=tri:c2=tri{fade_out_name}"
-            )
-            curr_audio = fade_out_name
+        filter_parts.append(
+            f"{''.join(concat_inputs)}concat=n={len(kept_segments)}:v=1:a=1[v_out][a_out]"
+        )
 
         filter_graph = ";".join(filter_parts)
 
@@ -136,7 +123,7 @@ class FFmpegRenderer:
             "-b:a", "192k",
             str(out_p)
         ]
-        self._run_ffmpeg(cmd, "Jumpcuts assembly with 20ms audio crossfade")
+        self._run_ffmpeg(cmd, "Jumpcuts assembly with click-free audio edges")
         return str(out_p)
 
     def apply_visual_overlays(

@@ -44,9 +44,11 @@ def generate_automated_short(req: AutoShortRequest, background_tasks: Background
         f"Pruébalo hoy mismo y cuéntame en los comentarios qué te pareció."
     )
 
+    # Only a template script is produced: no video is rendered. Say so instead of
+    # claiming "Video en proceso de síntesis" (nothing was ever queued).
     return AutoShortResponse(
-        status="success",
-        message=f"Guion generado para '{req.subject}'. Video en proceso de síntesis.",
+        status="script_only",
+        message=f"Guion de plantilla generado para '{req.subject}'. La síntesis de video aún no está implementada.",
         estimated_duration="35s",
         script=script
     )

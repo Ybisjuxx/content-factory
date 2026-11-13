@@ -9,6 +9,7 @@ from sqlmodel import Session, select
 from app.database import get_session
 from app.models.job import Job, JobStatus, JobCreateRequest, JobResponse
 from app.pipeline.orchestrator import VideoPipelineOrchestrator
+from app.security import resolve_media_path, resolve_output_path, validate_webhook_url
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/jobs", tags=["Jobs & n8n Interoperability"])
@@ -24,29 +25,28 @@ def create_job(
 
     Compatible with local n8n HTTP Request / Webhook triggers.
     """
-    input_p = Path(req.input_video_path)
-    if not input_p.exists():
-        raise HTTPException(
-            status_code=400,
-            detail=f"Input video file not found on local filesystem: {req.input_video_path}"
-        )
+    input_p = resolve_media_path(req.input_video_path)
+    output_p = resolve_output_path(req.output_video_path)
+    webhook = validate_webhook_url(req.n8n_webhook_url)
+    music = str(resolve_media_path(req.music_track_path)) if req.music_track_path else None
 
     options = {
         "enable_broll": req.enable_broll,
         "enable_svg_cards": req.enable_svg_cards,
         "enable_subtitles": req.enable_subtitles,
+        "subtitle_sync_mode": req.subtitle_sync_mode or "word_by_word",
         "enable_music_ducking": req.enable_music_ducking,
-        "music_track_path": req.music_track_path,
+        "music_track_path": music,
         "ollama_model": req.ollama_model,
-        "n8n_webhook_url": req.n8n_webhook_url,
+        "n8n_webhook_url": webhook,
     }
 
     job = Job(
-        input_path=str(input_p.resolve()),
-        output_path=str(Path(req.output_video_path).resolve()) if req.output_video_path else None,
+        input_path=str(input_p),
+        output_path=str(output_p) if output_p else None,
         status=JobStatus.QUEUED,
         current_step="Queued for processing",
-        n8n_webhook_url=req.n8n_webhook_url,
+        n8n_webhook_url=webhook,
         options_json=json.dumps(options)
     )
     session.add(job)
@@ -113,6 +113,10 @@ def cancel_job(job_id: str, session: Session = Depends(get_session)):
     if not job:
         raise HTTPException(status_code=404, detail="Job not found")
 
+    if job.status in (JobStatus.COMPLETED, JobStatus.FAILED, JobStatus.CANCELLED):
+        raise HTTPException(status_code=409, detail=f"El job ya terminó ({job.status.value}).")
+
+    # The orchestrator polls this status between stages and stops cooperatively.
     job.status = JobStatus.CANCELLED
     job.current_step = "Cancelled by user"
     session.add(job)

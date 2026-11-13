@@ -4,23 +4,28 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "content-factory"
-version = "1.0.0"
+version = "1.3.0"
 description = "Content Factory: 100% Local & Self-Hosted Autonomous Video Production (Ollama + Faster-Whisper + FFmpeg)"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.110.0",
     "uvicorn[standard]>=0.28.0",
+    "python-multipart>=0.0.9",
     "sqlmodel>=0.0.16",
     "pydantic>=2.6.0",
     "pydantic-settings>=2.2.0",
     "faster-whisper>=1.0.0",
     "ctranslate2>=4.0.0",
     "imageio-ffmpeg>=0.4.9",
+    "Pillow>=10.0.0",
     "typer>=0.9.0",
     "rich>=13.7.0",
     "httpx>=0.27.0",
 ]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0.0"]
 
 [project.scripts]
 video-factory = "app.cli:app"

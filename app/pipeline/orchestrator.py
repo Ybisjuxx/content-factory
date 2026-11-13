@@ -1,4 +1,5 @@
-import os
+import shutil
+import threading
 import time
 import json
 import logging
@@ -11,7 +12,7 @@ from sqlmodel import Session
 from app.config import settings
 from app.database import engine
 from app.models.job import Job, JobStatus, DirectorPlan, EditSegment, VisualCue
-from app.services.transcriber import LocalTranscriber
+from app.services.transcriber import get_transcriber
 from app.services.semantic_director import SemanticDirector
 from app.services.broll_manager import LocalBrollManager
 from app.services.svg_generator import ProceduralSvgGenerator
@@ -20,12 +21,19 @@ from app.services.ffmpeg_renderer import FFmpegRenderer
 
 logger = logging.getLogger(__name__)
 
+# FFmpeg + Whisper saturate CPU/GPU; running N jobs in parallel only makes all of them slow.
+_render_slots = threading.BoundedSemaphore(max(1, settings.MAX_CONCURRENT_JOBS))
+
+
+class JobCancelled(Exception):
+    """Raised between stages when the user cancelled the job."""
+
 
 class VideoPipelineOrchestrator:
     """100% Local Autonomous Video Production Pipeline Orchestrator."""
 
     def __init__(self):
-        self.transcriber = LocalTranscriber()
+        self.transcriber = get_transcriber()  # model loaded once per process
         self.director = SemanticDirector()
         self.broll_manager = LocalBrollManager()
         self.svg_generator = ProceduralSvgGenerator()
@@ -39,7 +47,17 @@ class VideoPipelineOrchestrator:
         output_video_path: Optional[str] = None,
         options: Optional[Dict[str, Any]] = None,
     ) -> Job:
-        """Executes full autonomous video creation workflow."""
+        """Executes full autonomous video creation workflow (serialised by ``_render_slots``)."""
+        with _render_slots:
+            return self._run_pipeline(job_id, input_video_path, output_video_path, options)
+
+    def _run_pipeline(
+        self,
+        job_id: str,
+        input_video_path: str,
+        output_video_path: Optional[str] = None,
+        options: Optional[Dict[str, Any]] = None,
+    ) -> Job:
         options = options or {}
         start_time = time.time()
         in_path = Path(input_video_path).resolve()
@@ -68,6 +86,10 @@ class VideoPipelineOrchestrator:
                 session.add(job)
                 session.commit()
                 session.refresh(job)
+
+            if job.status == JobStatus.CANCELLED:
+                logger.info(f"[{job.id}] Cancelled before start; skipping.")
+                return job
 
             try:
                 # ----------------------------------------------------
@@ -168,11 +190,13 @@ class VideoPipelineOrchestrator:
                 # 4.4 Kinetic ASS Subtitles with Word Highlighting
                 enable_subs = options.get("enable_subtitles", True)
                 if enable_subs:
-                    self._update_job(session, job, JobStatus.RENDERING, 92.0, "Generating & burning kinetic subtitles")
+                    sync_mode = options.get("subtitle_sync_mode", "word_by_word")
+                    self._update_job(session, job, JobStatus.RENDERING, 92.0, f"Generating & burning kinetic subtitles ({sync_mode})")
                     ass_path = self.subtitle_generator.generate_kinetic_ass(
                         transcript_segments=transcript_data.get("segments", []),
                         edl=plan.edit_decision_list,
-                        output_filename=f"{job.id}_subtitles.ass"
+                        output_filename=f"{job.id}_subtitles.ass",
+                        sync_mode=sync_mode
                     )
                     final_render = self.renderer.burn_subtitles(
                         video_path=current_stage_video,
@@ -180,7 +204,6 @@ class VideoPipelineOrchestrator:
                         output_path=str(out_path)
                     )
                 else:
-                    import shutil
                     shutil.copyfile(current_stage_video, str(out_path))
 
                 # ----------------------------------------------------
@@ -199,6 +222,9 @@ class VideoPipelineOrchestrator:
 
                 return job
 
+            except JobCancelled:
+                logger.info(f"[{job.id}] Pipeline stopped: cancelled by user.")
+                return job
             except Exception as e:
                 logger.exception(f"[{job.id}] Pipeline failed: {e}")
                 job.status = JobStatus.FAILED
@@ -212,6 +238,9 @@ class VideoPipelineOrchestrator:
     def _update_job(
         self, session: Session, job: Job, status: JobStatus, progress: float, step: str
     ) -> None:
+        session.refresh(job)  # pick up a cancel issued from the API in another session
+        if job.status == JobStatus.CANCELLED:
+            raise JobCancelled(job.id)
         job.status = status
         job.progress = progress
         job.current_step = step

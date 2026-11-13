@@ -6,6 +6,7 @@ from app.config import settings
 from app.database import create_db_and_tables
 from app.pipeline.orchestrator import VideoPipelineOrchestrator
 from app.models.job import JobStatus
+from conftest import requires_whisper
 
 
 @pytest.fixture(scope="module")
@@ -42,6 +43,7 @@ def sample_raw_video(tmp_path_factory):
     return str(raw_video), str(bg_music)
 
 
+@requires_whisper
 def test_full_pipeline_execution(sample_raw_video, tmp_path):
     raw_video_path, bg_music_path = sample_raw_video
     final_output_path = tmp_path / "final_autonomous_short.mp4"

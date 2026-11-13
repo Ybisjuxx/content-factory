@@ -24,9 +24,12 @@ class SubtitleGenerator:
         highlight_color: Optional[str] = None,
         primary_color: Optional[str] = None,
         margin_v: Optional[int] = None,
-        max_words_per_group: int = 4
+        max_words_per_group: int = 4,
+        sync_mode: str = "word_by_word"
     ) -> str:
-        """Generates kinetic ASS subtitles directly from transcribed segments for the interactive editor."""
+        """Generates kinetic ASS subtitles directly from transcribed segments for the interactive editor.
+        Supports sync_mode: 'word_by_word' (1 word at a time), 'cumulative' (progressive word-by-word reveal), or 'karaoke' (phrase with active word highlight).
+        """
         output_path = self.output_dir / output_filename
 
         raw_words = []
@@ -67,7 +70,7 @@ class SubtitleGenerator:
         f_size = font_size or settings.SUBTITLE_FONT_SIZE
         m_v = margin_v or settings.SUBTITLE_BOTTOM_MARGIN
 
-        dialogue_events = self._create_custom_highlight_dialogues(word_groups, hl_color, pr_color)
+        dialogue_events = self._create_custom_highlight_dialogues(word_groups, hl_color, pr_color, sync_mode=sync_mode)
         self._write_ass_file_custom(
             output_path,
             dialogue_events,
@@ -96,31 +99,71 @@ class SubtitleGenerator:
         self,
         word_groups: List[List[Dict[str, Any]]],
         highlight_color: str,
-        primary_color: str
+        primary_color: str,
+        sync_mode: str = "word_by_word"
     ) -> List[Dict[str, Any]]:
         events = []
         for group in word_groups:
             if not group:
                 continue
-            for active_idx, target_word in enumerate(group):
-                start_time = target_word["start"]
-                end_time = target_word["end"]
-                if end_time <= start_time:
-                    end_time = start_time + 0.15
 
-                line_parts = []
-                for idx, w in enumerate(group):
-                    if idx == active_idx:
-                        line_parts.append(f"{{\\c{highlight_color}\\fscx112\\fscy112}}{w['word']}{{\\r}}")
-                    else:
-                        line_parts.append(f"{{\\c{primary_color}}}{w['word']}{{\\r}}")
+            if sync_mode == "word_by_word":
+                # Single word at a time: high impact TikTok/Reels pop
+                for target_word in group:
+                    start_time = target_word["start"]
+                    end_time = target_word["end"]
+                    if end_time <= start_time:
+                        end_time = start_time + 0.15
 
-                formatted_text = " ".join(line_parts)
-                events.append({
-                    "start": self._format_ass_time(start_time),
-                    "end": self._format_ass_time(end_time),
-                    "text": formatted_text
-                })
+                    text = f"{{\\c{highlight_color}\\fscx115\\fscy115}}{target_word['word']}{{\\r}}"
+                    events.append({
+                        "start": self._format_ass_time(start_time),
+                        "end": self._format_ass_time(end_time),
+                        "text": text
+                    })
+            elif sync_mode == "cumulative":
+                # Progressive reveal word-by-word: words appear one after another
+                for active_idx, target_word in enumerate(group):
+                    start_time = target_word["start"]
+                    end_time = target_word["end"]
+                    if end_time <= start_time:
+                        end_time = start_time + 0.15
+
+                    line_parts = []
+                    for idx in range(active_idx + 1):
+                        w = group[idx]
+                        if idx == active_idx:
+                            line_parts.append(f"{{\\c{highlight_color}\\fscx112\\fscy112}}{w['word']}{{\\r}}")
+                        else:
+                            line_parts.append(f"{{\\c{primary_color}}}{w['word']}{{\\r}}")
+
+                    formatted_text = " ".join(line_parts)
+                    events.append({
+                        "start": self._format_ass_time(start_time),
+                        "end": self._format_ass_time(end_time),
+                        "text": formatted_text
+                    })
+            else:
+                # Karaoke group: all words in phrase visible with active word highlighted
+                for active_idx, target_word in enumerate(group):
+                    start_time = target_word["start"]
+                    end_time = target_word["end"]
+                    if end_time <= start_time:
+                        end_time = start_time + 0.15
+
+                    line_parts = []
+                    for idx, w in enumerate(group):
+                        if idx == active_idx:
+                            line_parts.append(f"{{\\c{highlight_color}\\fscx110\\fscy110}}{w['word']}{{\\r}}")
+                        else:
+                            line_parts.append(f"{{\\c{primary_color}}}{w['word']}{{\\r}}")
+
+                    formatted_text = " ".join(line_parts)
+                    events.append({
+                        "start": self._format_ass_time(start_time),
+                        "end": self._format_ass_time(end_time),
+                        "text": formatted_text
+                    })
         return events
 
     def _write_ass_file_custom(
@@ -158,9 +201,12 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         transcript_segments: List[Dict[str, Any]],
         edl: List[EditSegment],
         output_filename: str = "subtitles.ass",
-        max_words_per_group: int = 4
+        max_words_per_group: int = 4,
+        sync_mode: str = "word_by_word"
     ) -> str:
-        """Converts Whisper word-level timestamps, maps them to the pruned video timeline, and generates a kinetic ASS subtitle file."""
+        """Converts Whisper word-level timestamps, maps them to the pruned video timeline, and generates a kinetic ASS subtitle file.
+        Supports sync_mode: 'word_by_word', 'cumulative', or 'karaoke'.
+        """
         output_path = self.output_dir / output_filename
 
         # Step 1: Map words to concatenated timeline
@@ -174,12 +220,12 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         # Step 2: Group words into punchy short phrases (2-4 words per screen)
         word_groups = self._group_words(mapped_words, max_words=max_words_per_group)
 
-        # Step 3: Generate dialogue events with per-word karaoke highlighting
-        dialogue_events = self._create_highlight_dialogues(word_groups)
+        # Step 3: Generate dialogue events with per-word highlighting
+        dialogue_events = self._create_highlight_dialogues(word_groups, sync_mode=sync_mode)
 
         # Step 4: Write ASS file
         self._write_ass_file(output_path, dialogue_events)
-        logger.info(f"Generated kinetic ASS subtitles with {len(dialogue_events)} events at: {output_path}")
+        logger.info(f"Generated kinetic ASS subtitles ({sync_mode}) with {len(dialogue_events)} events at: {output_path}")
         return str(output_path.resolve())
 
     def _map_words_to_timeline(
@@ -260,40 +306,18 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         return groups
 
     def _create_highlight_dialogues(
-        self, word_groups: List[List[Dict[str, Any]]]
+        self,
+        word_groups: List[List[Dict[str, Any]]],
+        sync_mode: str = "word_by_word",
+        highlight_color: Optional[str] = None,
+        primary_color: Optional[str] = None
     ) -> List[Dict[str, Any]]:
-        """For each word in a group, generates an active highlight state where that word is highlighted in neon color."""
-        events = []
-
-        for group in word_groups:
-            if not group:
-                continue
-
-            for active_idx, target_word in enumerate(group):
-                start_time = target_word["start"]
-                end_time = target_word["end"]
-
-                # Ensure minimum visible duration for each word (e.g. 150ms)
-                if end_time <= start_time:
-                    end_time = start_time + 0.15
-
-                # Build styled line: highlight target word in yellow/cyan, others white
-                line_parts = []
-                for idx, w in enumerate(group):
-                    if idx == active_idx:
-                        # Highlight active word with scale bump and vibrant yellow color
-                        line_parts.append(f"{{\\c{settings.SUBTITLE_HIGHLIGHT_COLOR}\\fscx110\\fscy110}}{w['word']}{{\\r}}")
-                    else:
-                        line_parts.append(f"{{\\c{settings.SUBTITLE_PRIMARY_COLOR}}}{w['word']}{{\\r}}")
-
-                formatted_text = " ".join(line_parts)
-                events.append({
-                    "start": self._format_ass_time(start_time),
-                    "end": self._format_ass_time(end_time),
-                    "text": formatted_text
-                })
-
-        return events
+        """Delegates to custom highlight dialogues using default app settings."""
+        hl_color = highlight_color or settings.SUBTITLE_HIGHLIGHT_COLOR
+        pr_color = primary_color or settings.SUBTITLE_PRIMARY_COLOR
+        return self._create_custom_highlight_dialogues(
+            word_groups, hl_color, pr_color, sync_mode=sync_mode
+        )
 
     def _format_ass_time(self, seconds: float) -> str:
         """Formats seconds into ASS timestamp: H:MM:SS.cs"""

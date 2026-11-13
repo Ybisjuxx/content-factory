@@ -51,5 +51,5 @@ def test_generator_short_script():
     )
     assert res.status_code == 200
     data = res.json()
-    assert data["status"] == "success"
+    assert data["status"] == "script_only"  # no video synthesis yet; API must not claim otherwise
     assert "script" in data

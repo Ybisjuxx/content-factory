@@ -1,21 +1,23 @@
 import logging
-import os
 import shutil
+import subprocess
 import uuid
 from pathlib import Path
-from typing import Dict, Any, List, Optional
-from fastapi import APIRouter, File, UploadFile, HTTPException
+from typing import Dict, Any, List, Literal, Optional
+from fastapi import APIRouter, File, UploadFile, HTTPException, Form
 from pydantic import BaseModel, Field
 
 from app.config import settings
-from app.services.transcriber import LocalTranscriber
+from app.services.transcriber import get_transcriber
+from app.security import resolve_media_path, safe_filename, sanitize_hex_color
+from app.api.uploads import save_upload, VIDEO_EXTENSIONS
 from app.services.subtitle_generator import SubtitleGenerator
 from app.services.motion_graphics import MotionGraphicsService
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/editor", tags=["OpenCut Studio Pro Editor API"])
 
-transcriber = LocalTranscriber()
+transcriber = get_transcriber()
 subtitle_gen = SubtitleGenerator()
 motion_service = MotionGraphicsService()
 
@@ -23,6 +25,7 @@ motion_service = MotionGraphicsService()
 class TranscribeRequest(BaseModel):
     video_path: str = Field(..., description="Local path or filename of video to transcribe")
     language: Optional[str] = Field(None, description="Language code e.g. 'es', 'en' or None for auto")
+    sync_mode: Optional[str] = Field("word_by_word", description="Sync mode: 'word_by_word', 'cumulative', 'karaoke'")
 
 
 class SubtitleExportStyle(BaseModel):
@@ -31,6 +34,8 @@ class SubtitleExportStyle(BaseModel):
     highlight_color: str = "#ffff00"
     primary_color: str = "#ffffff"
     margin_v: int = 420
+    sync_mode: str = "word_by_word"
+    max_words_per_group: int = 4
 
 
 class MotionOverlayExportConfig(BaseModel):
@@ -60,30 +65,15 @@ class MotionOverlayExportConfig(BaseModel):
 
 class ExportEditorRequest(BaseModel):
     video_path: str
-    aspect_ratio: str = "9:16"
-    speed: float = 1.0
-    brightness: float = 1.0
-    contrast: float = 1.0
-    saturation: float = 1.0
+    aspect_ratio: Literal["9:16", "16:9", "1:1", "original"] = "9:16"
+    speed: float = Field(1.0, ge=0.25, le=4.0)
+    brightness: float = Field(1.0, ge=0.0, le=2.0)
+    contrast: float = Field(1.0, ge=0.0, le=3.0)
+    saturation: float = Field(1.0, ge=0.0, le=3.0)
     include_subtitles: bool = True
     subtitle_style: Optional[SubtitleExportStyle] = None
     transcript_segments: Optional[List[Dict[str, Any]]] = None
     motion_overlay: Optional[MotionOverlayExportConfig] = None
-
-
-def resolve_media_path(path_str: str) -> Path:
-    p = Path(path_str)
-    if p.exists() and p.is_file():
-        return p
-    # Check in uploads
-    in_uploads = settings.UPLOADS_DIR / p.name
-    if in_uploads.exists():
-        return in_uploads
-    # Check in outputs
-    in_outputs = settings.OUTPUTS_DIR / p.name
-    if in_outputs.exists():
-        return in_outputs
-    raise HTTPException(status_code=404, detail=f"No se encontró el archivo de video: {path_str}")
 
 
 @router.post("/transcribe")
@@ -100,10 +90,11 @@ def transcribe_video(req: TranscribeRequest) -> Dict[str, Any]:
         raise HTTPException(status_code=500, detail=f"Error en transcripción local: {str(e)}")
 
     # Generate ASS file for the video
-    ass_filename = f"editor_sub_{target_path.stem}.ass"
+    ass_filename = f"editor_sub_{safe_filename(target_path.stem)}.ass"
     ass_path = subtitle_gen.generate_ass_from_segments(
         transcript_segments=result["segments"],
-        output_filename=ass_filename
+        output_filename=ass_filename,
+        sync_mode=req.sync_mode or "word_by_word"
     )
 
     return {
@@ -122,27 +113,11 @@ def transcribe_video(req: TranscribeRequest) -> Dict[str, Any]:
 @router.post("/transcribe-upload")
 async def upload_and_transcribe(
     file: UploadFile = File(...),
-    language: Optional[str] = None
+    language: Optional[str] = Form(None),
+    sync_mode: Optional[str] = Form("word_by_word")
 ) -> Dict[str, Any]:
     """Upload video directly from OpenCut Studio Pro and transcribe immediately."""
-    allowed_exts = {".mp4", ".mov", ".mkv", ".webm", ".avi"}
-    ext = Path(file.filename).suffix.lower()
-    if ext not in allowed_exts:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Formato no compatible ({ext}). Por favor sube archivos {', '.join(allowed_exts)}"
-        )
-
-    settings.UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
-    safe_filename = f"{uuid.uuid4().hex[:8]}_{Path(file.filename).name.replace(' ', '_')}"
-    target_path = settings.UPLOADS_DIR / safe_filename
-
-    try:
-        with open(target_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
-    except Exception as e:
-        logger.error(f"Error saving uploaded clip: {e}")
-        raise HTTPException(status_code=500, detail=f"Error guardando el video: {e}")
+    target_path = await save_upload(file, VIDEO_EXTENSIONS)
 
     lang = language if language and language.lower() != "auto" else None
     try:
@@ -151,10 +126,11 @@ async def upload_and_transcribe(
         logger.error(f"Whisper transcription error: {e}")
         raise HTTPException(status_code=500, detail=f"Error transcribiendo video: {str(e)}")
 
-    ass_filename = f"editor_sub_{target_path.stem}.ass"
+    ass_filename = f"editor_sub_{safe_filename(target_path.stem)}.ass"
     ass_path = subtitle_gen.generate_ass_from_segments(
         transcript_segments=result["segments"],
-        output_filename=ass_filename
+        output_filename=ass_filename,
+        sync_mode=sync_mode or "word_by_word"
     )
 
     return {
@@ -202,7 +178,7 @@ def export_editor_video(req: ExportEditorRequest) -> Dict[str, Any]:
 
     # Retime speed
     # setpts=(1/speed)*PTS
-    if req.speed != 1.0 and req.speed > 0.1:
+    if req.speed != 1.0:
         pts_mult = round(1.0 / req.speed, 4)
         vf_filters.append(f"setpts={pts_mult}*PTS")
 
@@ -215,9 +191,11 @@ def export_editor_video(req: ExportEditorRequest) -> Dict[str, Any]:
             output_filename=ass_filename,
             font_name=style.font_name,
             font_size=style.font_size,
-            highlight_color=style.highlight_color,
-            primary_color=style.primary_color,
-            margin_v=style.margin_v
+            highlight_color=sanitize_hex_color(style.highlight_color, "#ffff00"),
+            primary_color=sanitize_hex_color(style.primary_color, "#ffffff"),
+            margin_v=style.margin_v,
+            max_words_per_group=style.max_words_per_group,
+            sync_mode=style.sync_mode
         )
         # On Windows FFmpeg, escape colon and backslashes in ass filter path
         escaped_ass = str(Path(ass_path).resolve()).replace("\\", "/").replace(":", "\\:")
@@ -226,12 +204,7 @@ def export_editor_video(req: ExportEditorRequest) -> Dict[str, Any]:
     vf_string = ",".join(vf_filters) if vf_filters else "null"
 
     # Audio filter for speed
-    af_string = "anull"
-    if req.speed != 1.0 and req.speed > 0.1:
-        if req.speed >= 0.5 and req.speed <= 2.0:
-            af_string = f"atempo={req.speed}"
-        elif req.speed > 2.0:
-            af_string = f"atempo=2.0,atempo={round(req.speed / 2.0, 3)}"
+    af_string = _atempo_chain(req.speed) if req.speed != 1.0 else "anull"
 
     base_render_target = settings.OUTPUTS_DIR / f"base_{out_name}" if req.motion_overlay else out_path
 
@@ -251,7 +224,6 @@ def export_editor_video(req: ExportEditorRequest) -> Dict[str, Any]:
     ]
 
     logger.info(f"Exporting OpenCut Studio clip: {' '.join(cmd)}")
-    import subprocess
     proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     if proc.returncode != 0:
         logger.error(f"FFmpeg export error: {proc.stderr}")
@@ -285,3 +257,17 @@ def export_editor_video(req: ExportEditorRequest) -> Dict[str, Any]:
         "filename": out_name,
         "download_url": f"/storage/outputs/{out_name}"
     }
+
+
+def _atempo_chain(speed: float) -> str:
+    """FFmpeg's atempo accepts 0.5–2.0 per instance; chain filters to cover 0.25–4.0."""
+    parts = []
+    remaining = speed
+    while remaining > 2.0:
+        parts.append("atempo=2.0")
+        remaining /= 2.0
+    while remaining < 0.5:
+        parts.append("atempo=0.5")
+        remaining /= 0.5
+    parts.append(f"atempo={round(remaining, 4)}")
+    return ",".join(parts)

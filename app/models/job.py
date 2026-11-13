@@ -75,6 +75,7 @@ class JobCreateRequest(BaseModel):
     enable_broll: bool = True
     enable_svg_cards: bool = True
     enable_subtitles: bool = True
+    subtitle_sync_mode: Optional[str] = "word_by_word"
     enable_music_ducking: bool = True
     music_track_path: Optional[str] = None
     ollama_model: Optional[str] = None

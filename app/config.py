@@ -1,7 +1,7 @@
 import os
 import shutil
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -33,16 +33,31 @@ class Settings(BaseSettings):
     PORT: int = 8000
     HOST: str = "127.0.0.1"
 
-    # Paths
+    # Paths: only STORAGE_DIR is configurable; every sub-directory is derived from it
+    # (see properties below) so a single env var relocates all state (useful for tests).
     BASE_DIR: Path = Path(__file__).resolve().parent.parent
     STORAGE_DIR: Path = Path(__file__).resolve().parent.parent / "storage"
-    BROLL_DIR: Path = Path(__file__).resolve().parent.parent / "storage" / "broll_library"
-    AUDIO_DIR: Path = Path(__file__).resolve().parent.parent / "storage" / "audio_library"
-    CACHE_DIR: Path = Path(__file__).resolve().parent.parent / "storage" / "cache"
-    OUTPUTS_DIR: Path = Path(__file__).resolve().parent.parent / "storage" / "outputs"
-    UPLOADS_DIR: Path = Path(__file__).resolve().parent.parent / "storage" / "uploads"
-    DATABASE_PATH: Path = Path(__file__).resolve().parent.parent / "storage" / "content_factory.db"
     DATABASE_URL: Optional[str] = None
+
+    # Security (local-first, but the browser is an attack surface: CORS, DNS rebinding, SSRF)
+    CORS_ORIGINS: List[str] = [
+        "http://127.0.0.1:8000",
+        "http://localhost:8000",
+        "http://127.0.0.1:5678",
+        "http://localhost:5678",
+    ]
+    ALLOWED_HOSTS: List[str] = ["127.0.0.1", "localhost", "[::1]"]
+    # Extra directories (besides storage/) from which input videos may be read
+    # and to which explicit output paths may be written. Empty = storage only.
+    ALLOWED_MEDIA_DIRS: List[Path] = []
+    # Hosts that outbound webhooks (n8n) may target. Prevents SSRF from API callers.
+    WEBHOOK_ALLOWED_HOSTS: List[str] = ["localhost", "127.0.0.1", "::1"]
+    MAX_UPLOAD_MB: int = 2048
+    MAX_CONCURRENT_JOBS: int = 1
+
+    # External integrations
+    YOUTUBE_CLIENT_SECRET_PATH: Optional[Path] = None
+    TRENDS_LIVE_FETCH_ENABLED: bool = True
 
     # Ollama Semantic Director
     OLLAMA_BASE_URL: str = "http://127.0.0.1:11434"
@@ -83,6 +98,35 @@ class Settings(BaseSettings):
 
     # n8n Webhook Integration
     N8N_DEFAULT_WEBHOOK_URL: Optional[str] = None
+
+    @property
+    def BROLL_DIR(self) -> Path:
+        return self.STORAGE_DIR / "broll_library"
+
+    @property
+    def AUDIO_DIR(self) -> Path:
+        return self.STORAGE_DIR / "audio_library"
+
+    @property
+    def CACHE_DIR(self) -> Path:
+        return self.STORAGE_DIR / "cache"
+
+    @property
+    def OUTPUTS_DIR(self) -> Path:
+        return self.STORAGE_DIR / "outputs"
+
+    @property
+    def UPLOADS_DIR(self) -> Path:
+        return self.STORAGE_DIR / "uploads"
+
+    @property
+    def DATABASE_PATH(self) -> Path:
+        return self.STORAGE_DIR / "content_factory.db"
+
+    def media_roots(self) -> List[Path]:
+        """Directories the API may read media from / write renders to."""
+        roots = [self.UPLOADS_DIR, self.OUTPUTS_DIR, self.BROLL_DIR, self.AUDIO_DIR, self.CACHE_DIR]
+        return [p.resolve() for p in roots + list(self.ALLOWED_MEDIA_DIRS)]
 
     def ensure_directories(self) -> None:
         """Create storage directories if they do not exist."""
